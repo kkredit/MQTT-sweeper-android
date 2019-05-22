@@ -6,7 +6,7 @@
     <string name="incorrect_email">Email is invalid</string>
     <string name="no_account">Don\'t have an account?</string>
     <string name="register">REGISTER</string>
-    <string name="welcome_to">Welcome to MQTT Sweeper</string>
+    <string name="welcome_to">MQTT Sweeper</string>
     <string name="logo_description">MQTT Sweeper Logo</string>
     <string name="title_activity_sign_up">Create Account</string>
     <string name="password_verify">Verify password</string>
