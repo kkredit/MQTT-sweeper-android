@@ -2,11 +2,11 @@
     <string name="app_name">MQTT Sweeper</string>
     <string name="email_required">Enter email</string>
     <string name="password_required">Enter password</string>
-    <string name="signin">Sign In</string>
+    <string name="signin">LOGIN</string>
     <string name="incorrect_email">Email is invalid</string>
     <string name="no_account">Don\'t have an account?</string>
     <string name="register">REGISTER</string>
-    <string name="welcome_to">MQTT Sweeper</string>
+    <string name="welcome_to">MQTT SWEEPER</string>
     <string name="logo_description">MQTT Sweeper Logo</string>
     <string name="title_activity_sign_up">Create Account</string>
     <string name="password_verify">Verify password</string>
