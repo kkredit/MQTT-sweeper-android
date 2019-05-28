@@ -12,4 +12,5 @@
     <string name="password_verify">Verify password</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="logout">Logout</string>
+    <string name="shodan-api-key">ASDF</string>
 </resources>
