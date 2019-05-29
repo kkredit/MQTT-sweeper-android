@@ -3,13 +3,15 @@ package edu.gvsu.cis.mqtt_sweeper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import edu.gvsu.cis.mqtt_sweeper.InternetExposureChecker.IEC_Handler;
+import static edu.gvsu.cis.mqtt_sweeper.ApiKeys.SHODAN_API_KEY;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,8 +26,26 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                InternetExposureChecker iec = new InternetExposureChecker(
+                        SHODAN_API_KEY,
+                        new IEC_Handler() {
+                            @Override
+                            public void iecOnComplete() {
+                                System.out.println("IEC Complete!");
+                            }
+
+                            @Override
+                            public void iecOnError(Throwable e) {
+                                System.out.println("IEC error!");
+                                e.printStackTrace();
+                            }
+
+                            @Override
+                            public void iecReceiveAnswer(boolean connected) {
+                                System.out.println("IEC answer is " + (connected ? "TRUE" : "FALSE"));
+                            }
+                        });
+                iec.getExposed();
             }
         });
 

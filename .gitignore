@@ -11,3 +11,4 @@
 /build
 /captures
 .externalNativeBuild
+app/src/main/java/edu/gvsu/cis/mqtt_sweeper/ApiKeys.java
