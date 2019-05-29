@@ -49,7 +49,6 @@ public class InternetExposureChecker {
     }
 
     public boolean getExposed() {
-//        String ip;
         try {
             new GetIpTask().execute(this);
         }
@@ -57,35 +56,6 @@ public class InternetExposureChecker {
             e.printStackTrace();
             return false;
         }
-
-//        m_apiHandle.hostByIp(false,true, ip)
-//            .subscribe(new DisposableObserver<Host>() {
-//                @Override
-//                public void onComplete() {
-//                    m_handler.iecOnComplete();
-//                }
-//
-//                @Override
-//                public void onError(Throwable e) {
-//                    m_handler.iecOnError(e);
-//                }
-//
-//                @Override
-//                public void onNext(Host hostReport) {
-//                    boolean hasUnencrypted = false;
-//                    boolean hasEncrypted = false;
-//
-//                    for (int port : hostReport.getPorts()) {
-//                        hasUnencrypted |= (PORT_NO_TLS == port);
-//                        hasEncrypted |= (PORT_TLS == port);
-//                    }
-//
-//                    System.out.println("IEC answer:");
-//                    System.out.println("\thasUnencrypted: " + (hasUnencrypted ? "TRUE" : "FALSE"));
-//                    System.out.println("\thasEncrypted: " + (hasEncrypted ? "TRUE" : "FALSE"));
-//                    m_handler.iecReceiveAnswer(hasUnencrypted || hasEncrypted);
-//                }
-//            });
         return true;
     }
 
