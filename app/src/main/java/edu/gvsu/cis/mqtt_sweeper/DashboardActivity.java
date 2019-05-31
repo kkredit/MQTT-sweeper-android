@@ -11,14 +11,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import edu.gvsu.cis.mqtt_sweeper.InternetExposureChecker.IEC_Handler;
+import edu.gvsu.cis.mqtt_sweeper.dummy.DummyContent;
+
 import static edu.gvsu.cis.mqtt_sweeper.ApiKeys.SHODAN_API_KEY;
 
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity
+        implements BrokerFragment.OnListFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_dashboard);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -52,8 +55,8 @@ public class DashboardActivity extends AppCompatActivity {
         Intent payload = getIntent();
         if (payload.hasExtra("email")) {
             String email = payload.getStringExtra("email");
-            TextView user = (TextView)findViewById(R.id.user);
-            user.setText(email);
+//            TextView user = (TextView)findViewById(R.id.user);
+//            user.setText(email);
         }
     }
 
@@ -72,5 +75,10 @@ public class DashboardActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+        System.out.println("Interact!");
     }
 }
