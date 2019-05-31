@@ -10,6 +10,6 @@
     <string name="logo_description">MQTT Sweeper Logo</string>
     <string name="title_activity_sign_up">Create Account</string>
     <string name="password_verify">Verify password</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Broker Dashboard</string>
     <string name="logout">Logout</string>
 </resources>
