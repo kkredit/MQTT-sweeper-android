@@ -13,7 +13,7 @@ import android.widget.TextView;
 import edu.gvsu.cis.mqtt_sweeper.InternetExposureChecker.IEC_Handler;
 import static edu.gvsu.cis.mqtt_sweeper.ApiKeys.SHODAN_API_KEY;
 
-public class MainActivity extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_logout) {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
             return true;

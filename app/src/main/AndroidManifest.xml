@@ -30,7 +30,7 @@
                 android:value="edu.gvsu.cis.mqtt_sweeper.LoginActivity" />
         </activity>
         <activity
-            android:name="edu.gvsu.cis.mqtt_sweeper.MainActivity"
+            android:name="edu.gvsu.cis.mqtt_sweeper.DashboardActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

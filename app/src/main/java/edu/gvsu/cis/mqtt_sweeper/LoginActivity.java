@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             Snackbar.make(email, "Login verified",
                     Snackbar.LENGTH_LONG).show();
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
             intent.putExtra("email",emailStr);
             startActivity (intent);
             finish();

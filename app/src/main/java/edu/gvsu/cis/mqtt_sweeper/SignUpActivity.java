@@ -57,7 +57,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                 Snackbar.make(email, "Login verified",
                         Snackbar.LENGTH_LONG).show();
-                Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                Intent intent = new Intent(SignUpActivity.this, DashboardActivity.class);
                 intent.putExtra("email",emailStr);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity (intent);
