@@ -9,16 +9,16 @@
 
     <TextView
         android:id="@+id/welcome_text"
-        android:layout_width="237dp"
+        android:layout_width="0dp"
         android:layout_height="38dp"
         android:layout_marginTop="56dp"
+        android:gravity="center"
         android:text="@string/welcome_to"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/logo"
         android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.655"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
