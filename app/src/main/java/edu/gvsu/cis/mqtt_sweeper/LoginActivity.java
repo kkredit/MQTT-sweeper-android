@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
             String passStr = passwd.getText().toString().toLowerCase();
-            if (!passStr.contains("mqtt_sweeper")) {
+            if (!passStr.contains("asdf")) {
                 signin.startAnimation (shake);
                 return;
             }
