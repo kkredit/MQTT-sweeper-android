@@ -29,18 +29,20 @@ public class BrokerContent {
 
     private static BrokerItem createDummyItem(int position) {
         return new BrokerItem(String.valueOf(position), "Broker " + position,
-                "tcp://broker.mqttdashboard.com:1883");
+                "tcp://broker.mqttdashboard.com:1883", "None");
     }
 
     public static class BrokerItem {
         public final String id;
         public final String name;
         public final String url;
+        public final String scanSummary;
 
-        public BrokerItem(String id, String name, String url) {
+        public BrokerItem(String id, String name, String url, String scanSummary) {
             this.id = id;
             this.name = name;
             this.url = url;
+            this.scanSummary = scanSummary;
         }
 
         @Override
