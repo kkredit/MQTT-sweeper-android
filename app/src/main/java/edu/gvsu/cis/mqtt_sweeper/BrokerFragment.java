@@ -3,6 +3,7 @@ package edu.gvsu.cis.mqtt_sweeper;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,10 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import edu.gvsu.cis.mqtt_sweeper.dummy.DummyContent;
-import edu.gvsu.cis.mqtt_sweeper.dummy.DummyContent.DummyItem;
-
-import java.util.List;
+import edu.gvsu.cis.mqtt_sweeper.dummy.BrokerContent;
+import edu.gvsu.cis.mqtt_sweeper.dummy.BrokerContent.BrokerItem;
 
 /**
  * A fragment representing a list of Items.
@@ -69,7 +68,10 @@ public class BrokerFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyBrokerRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            DividerItemDecoration did = new DividerItemDecoration(recyclerView.getContext(),
+                    DividerItemDecoration.VERTICAL);
+            recyclerView.addItemDecoration(did);
+            recyclerView.setAdapter(new MyBrokerRecyclerViewAdapter(BrokerContent.ITEMS, mListener));
         }
         return view;
     }
@@ -104,6 +106,6 @@ public class BrokerFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(BrokerItem item);
     }
 }

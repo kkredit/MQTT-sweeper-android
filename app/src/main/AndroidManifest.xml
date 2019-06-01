@@ -3,7 +3,7 @@
     package="edu.gvsu.cis.mqtt_sweeper">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="edu.gvsu.cis.mqtt_sweeper.LoginActivity"
+            android:name=".BrokerActivity"
+            android:label="@string/title_activity_broker"
+            android:parentActivityName=".DashboardActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.gvsu.cis.mqtt_sweeper.DashboardActivity" />
+        </activity>
+        <activity
+            android:name=".LoginActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,18 +30,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="edu.gvsu.cis.mqtt_sweeper.SignUpActivity"
+            android:name=".SignUpActivity"
             android:label="@string/title_activity_sign_up"
-            android:parentActivityName="edu.gvsu.cis.mqtt_sweeper.LoginActivity"
+            android:parentActivityName=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.gvsu.cis.mqtt_sweeper.LoginActivity" />
         </activity>
         <activity
-            android:name="edu.gvsu.cis.mqtt_sweeper.DashboardActivity"
+            android:name=".DashboardActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

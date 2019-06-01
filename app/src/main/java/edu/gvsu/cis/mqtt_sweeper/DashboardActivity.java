@@ -8,10 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import edu.gvsu.cis.mqtt_sweeper.InternetExposureChecker.IEC_Handler;
-import edu.gvsu.cis.mqtt_sweeper.dummy.DummyContent;
+import edu.gvsu.cis.mqtt_sweeper.dummy.BrokerContent;
 
 import static edu.gvsu.cis.mqtt_sweeper.ApiKeys.SHODAN_API_KEY;
 
@@ -78,7 +77,7 @@ public class DashboardActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFragmentInteraction(BrokerContent.BrokerItem item) {
         System.out.println("Interact!");
     }
 }
