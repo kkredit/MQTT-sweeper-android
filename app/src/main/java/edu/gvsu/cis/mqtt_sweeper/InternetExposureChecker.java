@@ -94,7 +94,6 @@ public class InternetExposureChecker {
             System.out.println("Is this IP addr hosting MQTT services? " + (result ? "YES" : "NO"));
         }
 
-        // Credit to https://stackoverflow.com/a/14541376/11407115
         protected Void doInBackground(InternetExposureChecker... iecs) {
             InternetExposureChecker iec = iecs[0];
             IEC_Handler handler = iec.getIecHandler();
