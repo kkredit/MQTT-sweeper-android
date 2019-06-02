@@ -13,12 +13,9 @@ import edu.gvsu.cis.mqtt_sweeper.dummy.BrokerContent;
 
 public class BrokerActivity extends AppCompatActivity {
 
-    private BrokerContent.BrokerItem m_broker = null;
+    private BrokerContent.BrokerItem m_broker;
 
-    TextView m_nameField = (TextView) findViewById(R.id.brokerName);
-    TextView m_idField = (TextView) findViewById(R.id.id_field);
-    TextView m_addrField = (TextView) findViewById(R.id.addr_field);
-    TextView m_scanField = (TextView) findViewById(R.id.scan_field);
+    TextView m_nameField, m_idField, m_addrField, m_scanField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +23,11 @@ public class BrokerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_broker);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        m_nameField = (TextView) findViewById(R.id.brokerName);
+        m_idField = (TextView) findViewById(R.id.id_field);
+        m_addrField = (TextView) findViewById(R.id.addr_field);
+        m_scanField = (TextView) findViewById(R.id.scan_field);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
