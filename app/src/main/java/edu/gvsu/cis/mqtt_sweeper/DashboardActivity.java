@@ -18,8 +18,6 @@ import static edu.gvsu.cis.mqtt_sweeper.ApiKeys.SHODAN_API_KEY;
 public class DashboardActivity extends AppCompatActivity
         implements BrokerFragment.OnListFragmentInteractionListener {
 
-    public static int BROKER_RESULT = 1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +83,6 @@ public class DashboardActivity extends AppCompatActivity
 
         Intent intent = new Intent(DashboardActivity.this, BrokerActivity.class);
         intent.putExtra("BrokerId", item.id);
-        startActivityForResult(intent, BROKER_RESULT);
+        startActivity(intent);
     }
 }
