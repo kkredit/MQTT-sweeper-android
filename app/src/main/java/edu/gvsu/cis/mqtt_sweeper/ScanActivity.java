@@ -11,8 +11,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import edu.gvsu.cis.mqtt_sweeper.dummy.BrokerContent;
+import edu.gvsu.cis.mqtt_sweeper.dummy.ScanResultContent;
 
-public class ScanActivity extends AppCompatActivity {
+public class ScanActivity extends AppCompatActivity
+        implements ScanResultFragment.OnListFragmentInteractionListener {
 
     private BrokerContent.BrokerItem m_broker;
 
@@ -46,5 +48,14 @@ public class ScanActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onListFragmentInteraction(ScanResultContent.ScanResultItem item) {
+        System.out.println("Interact!");
+
+//        Intent intent = new Intent(ScanActivity.this, BrokerActivity.class);
+//        intent.putExtra("BrokerId", item.id);
+//        startActivity(intent);
     }
 }
