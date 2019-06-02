@@ -12,5 +12,5 @@
     <string name="password_verify">Verify password</string>
     <string name="title_activity_main">Broker Dashboard</string>
     <string name="logout">Logout</string>
-    <string name="title_activity_broker">BrokerActivity</string>
+    <string name="title_activity_broker">Broker Details</string>
 </resources>
