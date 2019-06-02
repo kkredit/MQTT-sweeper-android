@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import edu.gvsu.cis.mqtt_sweeper.dummy.BrokerContent;
@@ -18,6 +19,7 @@ public class BrokerActivity extends AppCompatActivity {
     private BrokerContent.BrokerItem m_broker;
 
     TextView m_nameField, m_idField, m_addrField, m_scanField;
+    Button m_scanButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,8 @@ public class BrokerActivity extends AppCompatActivity {
         m_idField = (TextView) findViewById(R.id.id_field);
         m_addrField = (TextView) findViewById(R.id.addr_field);
         m_scanField = (TextView) findViewById(R.id.scan_field);
+
+        m_scanButton = (Button) findViewById(R.id.button_scan);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +51,7 @@ public class BrokerActivity extends AppCompatActivity {
         m_broker = BrokerContent.ITEM_MAP.get(brokerId);
 
         updateFields();
+        setupButtons();
     }
 
     @Override
@@ -71,5 +76,13 @@ public class BrokerActivity extends AppCompatActivity {
         m_idField.setText("ID: " + m_broker.id);
         m_addrField.setText("URL: " + m_broker.url);
         m_scanField.setText("Scan summary: " + m_broker.scanSummary);
+    }
+
+    private void setupButtons() {
+        m_scanButton.setOnClickListener(v -> {
+            Intent intent = new Intent(BrokerActivity.this, ScanActivity.class);
+            intent.putExtra("BrokerId", m_broker.id);
+            startActivity(intent);
+        });
     }
 }

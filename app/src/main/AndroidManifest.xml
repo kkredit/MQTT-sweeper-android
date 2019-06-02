@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ScanActivity"
+            android:label="@string/title_activity_scan"
+            android:parentActivityName=".BrokerActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.gvsu.cis.mqtt_sweeper.BrokerActivity" />
+        </activity>
+        <activity
             android:name=".BrokerActivity"
             android:label="@string/title_activity_broker"
             android:parentActivityName=".DashboardActivity"
