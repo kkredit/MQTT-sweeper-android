@@ -34,23 +34,6 @@ public class ScanActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.action_logout) {
-            Intent intent = new Intent(ScanActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public void onListFragmentInteraction(ScanResultContent.ScanResultItem item) {
         System.out.println("Interact!");
 

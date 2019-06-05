@@ -54,23 +54,6 @@ public class BrokerActivity extends AppCompatActivity {
         setupButtons();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.action_logout) {
-            Intent intent = new Intent(BrokerActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-            return true;
-        }
-        return false;
-    }
-
     private void updateFields() {
         m_nameField.setText(m_broker.name);
         m_idField.setText("ID: " + m_broker.id);
