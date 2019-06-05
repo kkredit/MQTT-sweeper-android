@@ -12,37 +12,30 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import edu.gvsu.cis.mqtt_sweeper.dummy.BrokerContent;
 
 public class BrokerActivity extends AppCompatActivity {
 
     private BrokerContent.BrokerItem m_broker;
 
-    TextView m_nameField, m_idField, m_addrField, m_scanField;
-    Button m_scanButton;
+    private final int SCAN_RESULT = 0;
+
+    @BindView(R.id.brokerName) TextView m_nameField;
+    @BindView(R.id.id_field) TextView m_idField;
+    @BindView(R.id.addr_field) TextView m_addrField;
+    @BindView(R.id.scan_field) TextView m_scanField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_broker);
+        ButterKnife.bind(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        m_nameField = (TextView) findViewById(R.id.brokerName);
-        m_idField = (TextView) findViewById(R.id.id_field);
-        m_addrField = (TextView) findViewById(R.id.addr_field);
-        m_scanField = (TextView) findViewById(R.id.scan_field);
-
-        m_scanButton = (Button) findViewById(R.id.button_scan);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
@@ -51,7 +44,6 @@ public class BrokerActivity extends AppCompatActivity {
         m_broker = BrokerContent.ITEM_MAP.get(brokerId);
 
         updateFields();
-        setupButtons();
     }
 
     private void updateFields() {
@@ -61,11 +53,16 @@ public class BrokerActivity extends AppCompatActivity {
         m_scanField.setText("Scan summary: " + m_broker.scanSummary);
     }
 
-    private void setupButtons() {
-        m_scanButton.setOnClickListener(v -> {
-            Intent intent = new Intent(BrokerActivity.this, ScanActivity.class);
-            intent.putExtra("BrokerId", m_broker.id);
-            startActivity(intent);
-        });
+    @OnClick(R.id.button_scan)
+    void onClickScan() {
+        Intent intent = new Intent(BrokerActivity.this, ScanActivity.class);
+        intent.putExtra("BrokerId", m_broker.id);
+        startActivityForResult(intent, SCAN_RESULT);
+    }
+
+    @OnClick(R.id.fab)
+    void onClickFab(View view) {
+        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
     }
 }
