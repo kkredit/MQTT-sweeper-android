@@ -19,9 +19,11 @@ import edu.gvsu.cis.mqtt_sweeper.dummy.BrokerContent;
 
 public class BrokerActivity extends AppCompatActivity {
 
-    private BrokerContent.BrokerItem m_broker;
+    private BrokerContent.BrokerItem m_broker = null;
 
     private final int SCAN_RESULT = 0;
+
+    @BindView(R.id.toolbar) Toolbar m_toolbar;
 
     @BindView(R.id.brokerName) TextView m_nameField;
     @BindView(R.id.id_field) TextView m_idField;
@@ -33,17 +35,18 @@ public class BrokerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_broker);
         ButterKnife.bind(this);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setSupportActionBar(m_toolbar);
 
+        updateBrokerId();
+        updateFields();
+    }
+
+    private void updateBrokerId() {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         String brokerId = extras.getString("BrokerId");
         m_broker = BrokerContent.ITEM_MAP.get(brokerId);
-
-        updateFields();
     }
 
     private void updateFields() {

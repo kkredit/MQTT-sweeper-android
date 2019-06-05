@@ -10,23 +10,33 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import edu.gvsu.cis.mqtt_sweeper.dummy.BrokerContent;
 import edu.gvsu.cis.mqtt_sweeper.dummy.ScanResultContent;
+
+import static edu.gvsu.cis.mqtt_sweeper.ApiKeys.SHODAN_API_KEY;
 
 public class ScanActivity extends AppCompatActivity
         implements ScanResultFragment.OnListFragmentInteractionListener {
 
     private BrokerContent.BrokerItem m_broker;
 
+    @BindView(R.id.toolbar) Toolbar m_toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setSupportActionBar(m_toolbar);
 
+        updateBrokerId();
+    }
+
+    private void updateBrokerId() {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         String brokerId = extras.getString("BrokerId");
@@ -36,9 +46,29 @@ public class ScanActivity extends AppCompatActivity
     @Override
     public void onListFragmentInteraction(ScanResultContent.ScanResultItem item) {
         System.out.println("Interact!");
+    }
 
-//        Intent intent = new Intent(ScanActivity.this, BrokerActivity.class);
-//        intent.putExtra("BrokerId", item.id);
-//        startActivity(intent);
+    @OnClick(R.id.button)
+    void onClickScan()  {
+        InternetExposureChecker iec = new InternetExposureChecker(
+            SHODAN_API_KEY,
+            new InternetExposureChecker.IEC_Handler() {
+                @Override
+                public void iecOnComplete() {
+                    System.out.println("IEC Complete!");
+                }
+
+                @Override
+                public void iecOnError(Throwable e) {
+                    System.out.println("IEC error!");
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void iecReceiveAnswer(boolean connected) {
+                    System.out.println("IEC answer is " + (connected ? "TRUE" : "FALSE"));
+                }
+            });
+        iec.getExposed();
     }
 }
