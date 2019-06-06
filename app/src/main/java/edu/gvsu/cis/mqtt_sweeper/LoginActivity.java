@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.regex.Pattern;
 
@@ -72,5 +73,16 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
             startActivity (intent);
         });
+    }
+      @Override
+    public void onResume(){
+        super.onResume();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            Intent toMain = new Intent(this, DashboardActivity.class);
+            startActivity(toMain);
+            finish();
+        }
+
     }
 }
