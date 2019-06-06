@@ -29,6 +29,7 @@ public class DashboardActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         setSupportActionBar(m_toolbar);
+        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override

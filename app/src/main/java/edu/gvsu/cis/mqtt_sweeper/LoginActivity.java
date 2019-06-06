@@ -44,11 +44,8 @@ public class LoginActivity extends AppCompatActivity {
                         Snackbar.LENGTH_LONG).show();
                 return;
             }
-            String passStr = passwd.getText().toString().toLowerCase();
-            if (!passStr.contains("asdf")) {
-                signin.startAnimation (shake);
-                return;
-            }
+            String passStr = passwd.getText().toString();
+
             Snackbar.make(email, "Login verified",
                     Snackbar.LENGTH_LONG).show();
             mAuth.signInWithEmailAndPassword(emailStr, passStr)
