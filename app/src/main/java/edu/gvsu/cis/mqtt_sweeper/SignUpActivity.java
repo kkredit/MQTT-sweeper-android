@@ -11,6 +11,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -19,6 +21,8 @@ public class SignUpActivity extends AppCompatActivity {
             "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
             Pattern.CASE_INSENSITIVE);
 
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +30,7 @@ public class SignUpActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mAuth = FirebaseAuth.getInstance();
         Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
         EditText email = (EditText) findViewById(R.id.email);
         EditText passwd = (EditText) findViewById(R.id.password);
@@ -57,15 +62,20 @@ public class SignUpActivity extends AppCompatActivity {
 
                 Snackbar.make(email, "Login verified",
                         Snackbar.LENGTH_LONG).show();
-                Intent intent = new Intent(SignUpActivity.this, DashboardActivity.class);
-                intent.putExtra("email",emailStr);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity (intent);
+                mAuth.createUserWithEmailAndPassword(emailStr, passStr).addOnCompleteListener(SignUpActivity.this, task -> {
+                    if (task.isSuccessful()) {
+                        Intent intent = new Intent(SignUpActivity.this, DashboardActivity.class);
+                        intent.putExtra("email",emailStr);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity (intent);
+                    } else {
+                        String msg = task.getException().getMessage();
+                        Snackbar.make(email, msg, Snackbar.LENGTH_SHORT).show();
+                    }
+                });
 
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
 
 }

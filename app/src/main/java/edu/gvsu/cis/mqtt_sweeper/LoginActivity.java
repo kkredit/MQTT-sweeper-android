@@ -8,6 +8,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
@@ -15,6 +18,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final Pattern EMAIL_REGEX = Pattern.compile(
             "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
             Pattern.CASE_INSENSITIVE);
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
         EditText passwd = (EditText) findViewById(R.id.password2);
         Button signin = (Button) findViewById(R.id.signin);
         Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+        mAuth = FirebaseAuth.getInstance();
 
         signin.setOnClickListener(v -> {
             String emailStr = email.getText().toString();
@@ -45,10 +50,21 @@ public class LoginActivity extends AppCompatActivity {
             }
             Snackbar.make(email, "Login verified",
                     Snackbar.LENGTH_LONG).show();
-            Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
-            intent.putExtra("email",emailStr);
-            startActivity (intent);
-            finish();
+            mAuth.signInWithEmailAndPassword(emailStr, passStr)
+                    .addOnCompleteListener(this, task -> {
+                        if (task.isSuccessful()) {
+                            Intent toMain = new Intent(this, DashboardActivity.class);
+                            toMain.putExtra("email", emailStr);
+                            startActivity(toMain);
+                            finish();
+                        } else {
+                            signin.startAnimation (shake);
+                            String msg = task.getException().getMessage();
+                            Snackbar.make(email,msg,
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
+                        }
+                    });
         });
 
         Button register = (Button) findViewById(R.id.signup);
