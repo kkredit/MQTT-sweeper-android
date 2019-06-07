@@ -5,4 +5,8 @@
     <item android:title="@string/logout"
         android:id="@+id/action_logout"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_accountDetails"
+        android:title="@string/accout_details"
+        app:showAsAction="never" />
 </menu>

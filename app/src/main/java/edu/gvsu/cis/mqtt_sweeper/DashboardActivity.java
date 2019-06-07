@@ -2,7 +2,6 @@ package edu.gvsu.cis.mqtt_sweeper;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -42,11 +41,18 @@ public class DashboardActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_logout) {
             mAuth.signOut();
-            Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
             return true;
         }
+        if(item.getItemId() ==R.id.action_accountDetails ) {
+            Intent intent = new Intent(this, UserDetailsActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+
         return false;
     }
 
