@@ -46,25 +46,7 @@ public class ScanActivity extends AppCompatActivity
 
     @OnClick(R.id.button)
     void onClickScan()  {
-        InternetExposureChecker iec = new InternetExposureChecker(
-            SHODAN_API_KEY,
-            new InternetExposureChecker.IEC_Handler() {
-                @Override
-                public void iecOnComplete() {
-                    System.out.println("IEC Complete!");
-                }
-
-                @Override
-                public void iecOnError(Throwable e) {
-                    System.out.println("IEC error!");
-                    e.printStackTrace();
-                }
-
-                @Override
-                public void iecReceiveAnswer(boolean connected) {
-                    System.out.println("IEC answer is " + (connected ? "TRUE" : "FALSE"));
-                }
-            });
-        iec.getExposed();
+        ScanRunner runner = new ScanRunner(m_broker, SHODAN_API_KEY);
+        runner.runScans();
     }
 }

@@ -1,4 +1,4 @@
-package edu.gvsu.cis.mqtt_sweeper;
+package edu.gvsu.cis.mqtt_sweeper.Scanner;
 
 import android.os.AsyncTask;
 
