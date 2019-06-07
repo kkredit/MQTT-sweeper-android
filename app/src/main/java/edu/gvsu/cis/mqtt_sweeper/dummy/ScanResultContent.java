@@ -13,6 +13,12 @@ import java.util.Map;
  */
 public class ScanResultContent {
 
+    public enum Severity {
+        MINOR,
+        MODERATE,
+        SEVERE,
+    }
+
     public static final List<ScanResultItem> ITEMS = new ArrayList<ScanResultItem>();
     public static final Map<String, ScanResultItem> ITEM_MAP = new HashMap<String, ScanResultItem>();
 
@@ -31,7 +37,8 @@ public class ScanResultContent {
     }
 
     private static ScanResultItem createDummyItem(int position) {
-        return new ScanResultItem(String.valueOf(position), "Item " + position, makeDetails(position));
+        return new ScanResultItem(String.valueOf(position), "Item " + position,
+                                  makeDetails(position), Severity.MINOR);
     }
 
     private static String makeDetails(int position) {
@@ -43,23 +50,22 @@ public class ScanResultContent {
         return builder.toString();
     }
 
-    /**
-     * A dummy item representing a piece of content.
-     */
     public static class ScanResultItem {
         public final String id;
-        public final String content;
+        public final String name;
         public final String details;
+        public final Severity severity;
 
-        public ScanResultItem(String id, String content, String details) {
+        public ScanResultItem(String id, String name, String details, Severity severity) {
             this.id = id;
-            this.content = content;
+            this.name = name;
             this.details = details;
+            this.severity = severity;
         }
 
         @Override
         public String toString() {
-            return content;
+            return name;
         }
     }
 }

@@ -46,11 +46,10 @@ public class LoginActivity extends AppCompatActivity {
             }
             String passStr = passwd.getText().toString();
 
-            Snackbar.make(email, "Login verified",
-                    Snackbar.LENGTH_LONG).show();
             mAuth.signInWithEmailAndPassword(emailStr, passStr)
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
+                            Snackbar.make(email, "Login verified", Snackbar.LENGTH_LONG).show();
                             Intent toMain = new Intent(this, DashboardActivity.class);
                             toMain.putExtra("email", emailStr);
                             startActivity(toMain);

@@ -14,4 +14,7 @@
     <string name="logout">Logout</string>
     <string name="title_activity_broker">Broker Details</string>
     <string name="title_activity_scan">Security Scan</string>
+    <string name="sample_vuln_name">Vulnerability Name</string>
+    <string name="sample_vuln_desc">Sample vulnerability description.</string>
+    <string name="vuln_image_descr">Vuln severity logo</string>
 </resources>

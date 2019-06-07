@@ -65,8 +65,8 @@ public class MyBrokerRecyclerViewAdapter extends RecyclerView.Adapter<MyBrokerRe
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mIdView = (TextView) view.findViewById(R.id.name);
+            mContentView = (TextView) view.findViewById(R.id.description);
         }
 
         @Override
