@@ -1,6 +1,5 @@
 package edu.gvsu.cis.mqtt_sweeper;
 
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import edu.gvsu.cis.mqtt_sweeper.ScanResultFragment.OnListFragmentInteractionListener;
-import edu.gvsu.cis.mqtt_sweeper.dummy.ScanResultContent;
-import edu.gvsu.cis.mqtt_sweeper.dummy.ScanResultContent.ScanResultItem;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent.ScanResultItem;
 
 import java.util.List;
 

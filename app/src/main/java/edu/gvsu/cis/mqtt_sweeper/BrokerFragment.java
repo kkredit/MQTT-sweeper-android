@@ -11,8 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import edu.gvsu.cis.mqtt_sweeper.dummy.BrokerContent;
-import edu.gvsu.cis.mqtt_sweeper.dummy.BrokerContent.BrokerItem;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent.BrokerItem;
 
 /**
  * A fragment representing a list of Items.

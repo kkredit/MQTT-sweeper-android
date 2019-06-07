@@ -11,8 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import edu.gvsu.cis.mqtt_sweeper.dummy.ScanResultContent;
-import edu.gvsu.cis.mqtt_sweeper.dummy.ScanResultContent.ScanResultItem;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent.ScanResultItem;
 
 /**
  * A fragment representing a list of Items.

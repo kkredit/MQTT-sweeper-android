@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import edu.gvsu.cis.mqtt_sweeper.BrokerFragment.OnListFragmentInteractionListener;
-import edu.gvsu.cis.mqtt_sweeper.dummy.BrokerContent.BrokerItem;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent.BrokerItem;
 
 import java.util.List;
 
