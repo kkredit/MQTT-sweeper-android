@@ -1,5 +1,7 @@
 package edu.gvsu.cis.mqtt_sweeper.Scanner;
 
+import android.os.Bundle;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +9,11 @@ import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent.ScanResultItem;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent.Result;
+import edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTests.TestInternetExposed;
 import edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTests.TestNull;
+
+import static edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTest.BROKER_ID_ARG;
+import static edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTest.SHODAN_KEY_ARG;
 
 public class ScanRunner implements ScannerTest.ScanReportReciever {
 
@@ -19,6 +25,7 @@ public class ScanRunner implements ScannerTest.ScanReportReciever {
     static {
         /* Init tests list */
         TESTS.add(new TestNull());
+        TESTS.add(new TestInternetExposed());
     }
 
     public ScanRunner(BrokerContent.BrokerItem broker, String shodanApiKey) {
@@ -29,60 +36,26 @@ public class ScanRunner implements ScannerTest.ScanReportReciever {
     public void runScans() {
         int key = 0;
 
-        /* Standard Tests */
+        Bundle args = new Bundle();
+        args.putString(BROKER_ID_ARG, m_broker.id);
+        args.putString(SHODAN_KEY_ARG, m_shodanApiKey);
+
         for (ScannerTest test : TESTS) {
             ScanResultItem item = new ScanResultItem(test.getDescription());
             System.out.println("RUNNING TEST: " + item.name);
 
-            test.run(this, m_broker, key);
+            test.run(this, key, args);
             key++;
-//            item.setResult(result);
-//            m_broker.addScanResultItem(item);
-//            System.out.println("TEST " + item.name + " RESULT: " + result.toString());
         }
-
-        /* Special Tests */
-        Result result = run_InternetExposed(m_shodanApiKey);
-        ScanResultItem item = getDescription_InternetExposed();
-        item.setResult(result);
-        m_broker.addScanResultItem(item);
-    }
-
-    private ScanResultItem getDescription_InternetExposed() {
-        return new ScanResultItem(
-                "Internet exposed",
-                "The MQTT broker is visible over the public internet.",
-                ScanResultContent.Severity.MODERATE
-        );
-    }
-
-    private Result run_InternetExposed(String shodanApiKey) {
-        InternetExposureChecker iec = new InternetExposureChecker(
-                shodanApiKey,
-                new InternetExposureChecker.IEC_Handler() {
-                    @Override
-                    public void iecOnComplete() {
-                        System.out.println("IEC Complete!");
-                    }
-
-                    @Override
-                    public void iecOnError(Throwable e) {
-                        System.out.println("IEC error!");
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void iecReceiveAnswer(boolean connected) {
-                        System.out.println("IEC answer is " + (connected ? "TRUE" : "FALSE"));
-                    }
-                });
-        boolean exposed = iec.getExposed();
-        /* TODO: use callbacks. This isn't actually right */
-        return exposed ? Result.CONDITION_PRESENT : Result.CONDITION_NOT_PRESENT;
     }
 
     @Override
     public void scanComplete(int key, Result result) {
-
+        ScannerTest test = TESTS.get(key);
+        ScanResultItem item = new ScanResultItem(test.getDescription());
+        System.out.println("COMPLETED TEST: " + item.name);
+        item.setResult(result);
+        m_broker.addScanResultItem(item);
+        System.out.println("TEST " + item.name + " RESULT: " + result.toString());
     }
 }
