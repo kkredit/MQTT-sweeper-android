@@ -9,7 +9,7 @@ import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent.ScanResultItem;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent.Result;
 import edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTests.TestNull;
 
-public class ScanRunner {
+public class ScanRunner implements ScannerTest.ScanReportReciever {
 
     private BrokerContent.BrokerItem m_broker;
     private String m_shodanApiKey;
@@ -27,16 +27,18 @@ public class ScanRunner {
     }
 
     public void runScans() {
+        int key = 0;
 
         /* Standard Tests */
         for (ScannerTest test : TESTS) {
             ScanResultItem item = new ScanResultItem(test.getDescription());
             System.out.println("RUNNING TEST: " + item.name);
 
-            Result result = test.run(m_broker);
-            item.setResult(result);
-            m_broker.addScanResultItem(item);
-            System.out.println("TEST " + item.name + " RESULT: " + result.toString());
+            test.run(this, m_broker, key);
+            key++;
+//            item.setResult(result);
+//            m_broker.addScanResultItem(item);
+//            System.out.println("TEST " + item.name + " RESULT: " + result.toString());
         }
 
         /* Special Tests */
@@ -77,5 +79,10 @@ public class ScanRunner {
         boolean exposed = iec.getExposed();
         /* TODO: use callbacks. This isn't actually right */
         return exposed ? Result.CONDITION_PRESENT : Result.CONDITION_NOT_PRESENT;
+    }
+
+    @Override
+    public void scanComplete(int key, Result result) {
+
     }
 }

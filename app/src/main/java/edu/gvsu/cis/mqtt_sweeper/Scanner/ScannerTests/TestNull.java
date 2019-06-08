@@ -21,7 +21,7 @@ public class TestNull extends ScannerTest {
     }
 
     @Override
-    public Result run(BrokerItem broker) {
-        return Result.CONDITION_PRESENT;
+    public void run(ScanReportReciever receiver, BrokerItem broker, int key) {
+        receiver.scanComplete(key, Result.CONDITION_PRESENT);
     }
 }
