@@ -49,4 +49,12 @@ public class ScanActivity extends AppCompatActivity
         ScanRunner runner = new ScanRunner(m_broker, SHODAN_API_KEY);
         runner.runScans();
     }
+
+//    /* TODO: where does this go?? */
+//    @Override
+//    public Fragment getItem(int position) {
+//        // getItem is called to instantiate the fragment for the given page.
+//        // Return a PlaceholderFragment (defined as a static inner class below).
+//        return ScanResultFragment.newInstance(position + 1, m_broker.id);
+//    }
 }

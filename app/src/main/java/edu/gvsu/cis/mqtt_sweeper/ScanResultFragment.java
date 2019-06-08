@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent.ScanResultItem;
 
 /**
@@ -24,8 +24,10 @@ public class ScanResultFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private static final String ARG_BROKER_KEY = "broker-key";
     // TODO: Customize parameters
     private int mColumnCount = 1;
+    private BrokerContent.BrokerItem m_broker;
     private OnListFragmentInteractionListener mListener;
 
     /**
@@ -37,10 +39,11 @@ public class ScanResultFragment extends Fragment {
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static ScanResultFragment newInstance(int columnCount) {
+    public static ScanResultFragment newInstance(int columnCount, String brokerKey) {
         ScanResultFragment fragment = new ScanResultFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
+        args.putString(ARG_BROKER_KEY, brokerKey);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,6 +54,7 @@ public class ScanResultFragment extends Fragment {
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            m_broker = BrokerContent.ITEM_MAP.get(getArguments().getString(ARG_BROKER_KEY));
         }
     }
 
@@ -71,7 +75,7 @@ public class ScanResultFragment extends Fragment {
             DividerItemDecoration did = new DividerItemDecoration(recyclerView.getContext(),
                     DividerItemDecoration.VERTICAL);
             recyclerView.addItemDecoration(did);
-            recyclerView.setAdapter(new MyScanResultRecyclerViewAdapter(ScanResultContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyScanResultRecyclerViewAdapter(m_broker.getScanResults(), mListener));
         }
         return view;
     }

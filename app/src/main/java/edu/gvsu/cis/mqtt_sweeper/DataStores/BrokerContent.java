@@ -56,5 +56,9 @@ public class BrokerContent {
             nextId++;
             scanResults.add(item);
         }
+
+        public List<ScanResultContent.ScanResultItem> getScanResults() {
+            return scanResults;
+        }
     }
 }
