@@ -22,6 +22,6 @@ public class TestNull extends ScannerTest {
 
     @Override
     public Result run(BrokerItem broker) {
-        return Result.CONDITION_NOT_PRESENT;
+        return Result.CONDITION_PRESENT;
     }
 }
