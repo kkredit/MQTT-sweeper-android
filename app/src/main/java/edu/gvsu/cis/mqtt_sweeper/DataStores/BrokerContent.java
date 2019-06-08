@@ -36,6 +36,8 @@ public class BrokerContent {
         public final String name;
         public final String url;
         public final String scanSummary;
+        private final List<ScanResultContent.ScanResultItem> scanResults = new ArrayList<ScanResultContent.ScanResultItem>();
+        private Integer nextId = 0;
 
         public BrokerItem(String id, String name, String url, String scanSummary) {
             this.id = id;
@@ -47,6 +49,12 @@ public class BrokerContent {
         @Override
         public String toString() {
             return name;
+        }
+
+        public void addScanResultItem(ScanResultContent.ScanResultItem item) {
+            item.setId(nextId.toString());
+            nextId++;
+            scanResults.add(item);
         }
     }
 }

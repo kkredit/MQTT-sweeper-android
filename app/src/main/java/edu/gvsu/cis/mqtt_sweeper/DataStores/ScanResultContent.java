@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent.Result;
+
 /**
  * Helper class for providing sample content for user interfaces created by
  * Android template wizards.
@@ -17,6 +19,13 @@ public class ScanResultContent {
         MINOR,
         MODERATE,
         SEVERE,
+    }
+
+    public enum Result {
+        HAVE_NOT_RUN,
+        ERROR_WHILE_RUNNING,
+        CONDITION_PRESENT,
+        CONDITION_NOT_PRESENT,
     }
 
     public static final List<ScanResultItem> ITEMS = new ArrayList<ScanResultItem>();
@@ -51,16 +60,38 @@ public class ScanResultContent {
     }
 
     public static class ScanResultItem {
-        public final String id;
+        public String id;
         public final String name;
         public final String details;
         public final Severity severity;
+        public Result result = Result.HAVE_NOT_RUN;
 
         public ScanResultItem(String id, String name, String details, Severity severity) {
             this.id = id;
             this.name = name;
             this.details = details;
             this.severity = severity;
+        }
+
+        public ScanResultItem(String name, String details, Severity severity) {
+            this.name = name;
+            this.details = details;
+            this.severity = severity;
+        }
+
+        public ScanResultItem(ScanResultItem orig) {
+            this.id = orig.id;
+            this.name = orig.name;
+            this.details = orig.details;
+            this.severity = orig.severity;
+        }
+
+        public void setResult(Result result) {
+            this.result = result;
+        }
+
+        public void setId(String id) {
+            this.id = id;
         }
 
         @Override
