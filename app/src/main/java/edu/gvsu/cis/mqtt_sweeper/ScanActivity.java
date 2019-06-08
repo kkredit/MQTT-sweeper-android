@@ -1,7 +1,9 @@
 package edu.gvsu.cis.mqtt_sweeper;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -30,6 +32,14 @@ public class ScanActivity extends AppCompatActivity
         setSupportActionBar(m_toolbar);
 
         updateBrokerId();
+
+        if (savedInstanceState == null) {
+            // First-time init; create fragment to embed in activity.
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            Fragment newFragment = ScanResultFragment.newInstance(1, m_broker.id);
+            ft.add(R.id.scanresult_fragment, newFragment);
+            ft.commit();
+        }
     }
 
     private void updateBrokerId() {

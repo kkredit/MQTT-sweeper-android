@@ -2,7 +2,7 @@ package edu.gvsu.cis.mqtt_sweeper;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent.ScanResultItem;
@@ -75,7 +78,9 @@ public class ScanResultFragment extends Fragment {
             DividerItemDecoration did = new DividerItemDecoration(recyclerView.getContext(),
                     DividerItemDecoration.VERTICAL);
             recyclerView.addItemDecoration(did);
-            recyclerView.setAdapter(new MyScanResultRecyclerViewAdapter(m_broker.getScanResults(), mListener));
+            if (null != m_broker) {
+                recyclerView.setAdapter(new MyScanResultRecyclerViewAdapter(m_broker.getScanResults(), mListener));
+            }
         }
         return view;
     }
