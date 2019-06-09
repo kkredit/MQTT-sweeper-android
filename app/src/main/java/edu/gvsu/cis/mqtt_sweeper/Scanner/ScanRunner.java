@@ -17,6 +17,11 @@ import static edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTest.SHODAN_KEY_ARG;
 
 public class ScanRunner implements ScannerTest.ScanReportReciever {
 
+    public interface ScanReportUpdater {
+        void scanReportHasUpdate();
+    }
+
+    private ScanReportUpdater m_updater;
     private BrokerContent.BrokerItem m_broker;
     private String m_shodanApiKey;
 
@@ -28,7 +33,8 @@ public class ScanRunner implements ScannerTest.ScanReportReciever {
         TESTS.add(new TestInternetExposed());
     }
 
-    public ScanRunner(BrokerContent.BrokerItem broker, String shodanApiKey) {
+    public ScanRunner(ScanReportUpdater updater, BrokerContent.BrokerItem broker, String shodanApiKey) {
+        m_updater = updater;
         m_broker = broker;
         m_shodanApiKey = shodanApiKey;
     }
@@ -57,5 +63,6 @@ public class ScanRunner implements ScannerTest.ScanReportReciever {
         item.setResult(result);
         m_broker.addScanResultItem(item);
         System.out.println("TEST " + item.name + " RESULT: " + result.toString());
+        m_updater.scanReportHasUpdate();
     }
 }

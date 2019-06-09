@@ -1,9 +1,9 @@
 package edu.gvsu.cis.mqtt_sweeper;
 
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -17,9 +17,10 @@ import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent;
 import static edu.gvsu.cis.mqtt_sweeper.ApiKeys.SHODAN_API_KEY;
 
 public class ScanActivity extends AppCompatActivity
-        implements ScanResultFragment.OnListFragmentInteractionListener {
+        implements ScanResultFragment.OnListFragmentInteractionListener, ScanRunner.ScanReportUpdater {
 
     private BrokerContent.BrokerItem m_broker;
+    private ScanRunner m_runner;
 
     @BindView(R.id.toolbar) Toolbar m_toolbar;
 
@@ -33,9 +34,11 @@ public class ScanActivity extends AppCompatActivity
 
         updateBrokerId();
 
+        m_runner = new ScanRunner(this, m_broker, SHODAN_API_KEY);
+
         if (savedInstanceState == null) {
             // First-time init; create fragment to embed in activity.
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             Fragment newFragment = ScanResultFragment.newInstance(1, m_broker.id);
             ft.add(R.id.scanresult_fragment, newFragment);
             ft.commit();
@@ -56,15 +59,11 @@ public class ScanActivity extends AppCompatActivity
 
     @OnClick(R.id.button)
     void onClickScan()  {
-        ScanRunner runner = new ScanRunner(m_broker, SHODAN_API_KEY);
-        runner.runScans();
+        m_runner.runScans();
     }
 
-//    /* TODO: where does this go?? */
-//    @Override
-//    public Fragment getItem(int position) {
-//        // getItem is called to instantiate the fragment for the given page.
-//        // Return a PlaceholderFragment (defined as a static inner class below).
-//        return ScanResultFragment.newInstance(position + 1, m_broker.id);
-//    }
+    @Override
+    public void scanReportHasUpdate() {
+        System.out.println("Test results update!");
+    }
 }

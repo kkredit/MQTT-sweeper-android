@@ -2,7 +2,7 @@ package edu.gvsu.cis.mqtt_sweeper;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,6 +32,8 @@ public class ScanResultFragment extends Fragment {
     private int mColumnCount = 1;
     private BrokerContent.BrokerItem m_broker;
     private OnListFragmentInteractionListener mListener;
+
+    private RecyclerView m_view;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -69,22 +71,27 @@ public class ScanResultFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            m_view = (RecyclerView) view;
             if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                m_view.setLayoutManager(new LinearLayoutManager(context));
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                m_view.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            DividerItemDecoration did = new DividerItemDecoration(recyclerView.getContext(),
+            DividerItemDecoration did = new DividerItemDecoration(m_view.getContext(),
                     DividerItemDecoration.VERTICAL);
-            recyclerView.addItemDecoration(did);
-            if (null != m_broker) {
-                recyclerView.setAdapter(new MyScanResultRecyclerViewAdapter(m_broker.getScanResults(), mListener));
-            }
+            m_view.addItemDecoration(did);
+            m_view.setAdapter(new MyScanResultRecyclerViewAdapter(new ArrayList<>(), mListener));
+            updateAdapterData();
         }
         return view;
     }
 
+    void updateAdapterData() {
+        MyScanResultRecyclerViewAdapter adapter = (MyScanResultRecyclerViewAdapter) m_view.getAdapter();
+        if (null != adapter && null != m_broker) {
+            adapter.updateList(m_broker.getScanResults());
+        }
+    }
 
     @Override
     public void onAttach(Context context) {

@@ -36,7 +36,7 @@ public class BrokerContent {
         public final String name;
         public final String url;
         public final String scanSummary;
-        private final List<ScanResultContent.ScanResultItem> scanResults = new ArrayList<ScanResultContent.ScanResultItem>();
+        private final List<ScanResultContent.ScanResultItem> scanResults;
         private Integer nextId = 0;
 
         public BrokerItem(String id, String name, String url, String scanSummary) {
@@ -44,6 +44,7 @@ public class BrokerContent {
             this.name = name;
             this.url = url;
             this.scanSummary = scanSummary;
+            this.scanResults = new ArrayList<>();
         }
 
         @Override

@@ -20,12 +20,16 @@ import java.util.List;
  */
 public class MyScanResultRecyclerViewAdapter extends RecyclerView.Adapter<MyScanResultRecyclerViewAdapter.ViewHolder> {
 
-    private final List<ScanResultItem> mValues;
+    private List<ScanResultItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
     public MyScanResultRecyclerViewAdapter(List<ScanResultItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
+    }
+
+    public void updateList(List<ScanResultItem> items) {
+        mValues = items;
     }
 
     @Override
