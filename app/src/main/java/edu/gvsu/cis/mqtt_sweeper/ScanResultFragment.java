@@ -23,7 +23,8 @@ import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent.ScanResultItem;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class ScanResultFragment extends Fragment {
+public class ScanResultFragment extends Fragment
+        implements DataUpdateListener {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -80,22 +81,17 @@ public class ScanResultFragment extends Fragment {
             DividerItemDecoration did = new DividerItemDecoration(m_view.getContext(),
                     DividerItemDecoration.VERTICAL);
             m_view.addItemDecoration(did);
-            m_view.setAdapter(new MyScanResultRecyclerViewAdapter(new ArrayList<>(), mListener));
-            updateAdapterData();
+            if (null != m_broker) {
+                m_view.setAdapter(new MyScanResultRecyclerViewAdapter(m_broker.getScanResults(), mListener));
+            }
         }
         return view;
-    }
-
-    void updateAdapterData() {
-        MyScanResultRecyclerViewAdapter adapter = (MyScanResultRecyclerViewAdapter) m_view.getAdapter();
-        if (null != adapter && null != m_broker) {
-            adapter.updateList(m_broker.getScanResults());
-        }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        ((ScanActivity) getActivity()).registerDataUpdateListener(this);
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
         } else {
@@ -107,7 +103,16 @@ public class ScanResultFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        ((ScanActivity) getActivity()).unregisterDataUpdateListener(this);
         mListener = null;
+    }
+
+    @Override
+    public void onDataUpdate() {
+        MyScanResultRecyclerViewAdapter adapter = (MyScanResultRecyclerViewAdapter) m_view.getAdapter();
+        if (null != adapter && null != m_broker) {
+            adapter.notifyDataSetChanged();
+        }
     }
 
     /**

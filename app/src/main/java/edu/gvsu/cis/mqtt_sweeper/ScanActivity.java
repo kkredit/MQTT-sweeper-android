@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -16,24 +19,26 @@ import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent;
 
 import static edu.gvsu.cis.mqtt_sweeper.ApiKeys.SHODAN_API_KEY;
 
+
 public class ScanActivity extends AppCompatActivity
         implements ScanResultFragment.OnListFragmentInteractionListener, ScanRunner.ScanReportUpdater {
 
     private BrokerContent.BrokerItem m_broker;
     private ScanRunner m_runner;
+    private List<DataUpdateListener> m_listeners;
 
     @BindView(R.id.toolbar) Toolbar m_toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        m_listeners = new ArrayList<>();
         setContentView(R.layout.activity_scan);
         ButterKnife.bind(this);
 
         setSupportActionBar(m_toolbar);
 
         updateBrokerId();
-
         m_runner = new ScanRunner(this, m_broker, SHODAN_API_KEY);
 
         if (savedInstanceState == null) {
@@ -52,6 +57,14 @@ public class ScanActivity extends AppCompatActivity
         m_broker = BrokerContent.ITEM_MAP.get(brokerId);
     }
 
+    public synchronized void registerDataUpdateListener(DataUpdateListener listener) {
+        m_listeners.add(listener);
+    }
+
+    public synchronized void unregisterDataUpdateListener(DataUpdateListener listener) {
+        m_listeners.remove(listener);
+    }
+
     @Override
     public void onListFragmentInteraction(ScanResultContent.ScanResultItem item) {
         System.out.println("Interact!");
@@ -65,5 +78,8 @@ public class ScanActivity extends AppCompatActivity
     @Override
     public void scanReportHasUpdate() {
         System.out.println("Test results update!");
+        for (DataUpdateListener listener : m_listeners) {
+            listener.onDataUpdate();
+        }
     }
 }
