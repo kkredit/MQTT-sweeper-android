@@ -9,6 +9,7 @@ import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 public class AddBrokerActivity extends AppCompatActivity {
@@ -28,8 +29,12 @@ public class AddBrokerActivity extends AppCompatActivity {
        client = new MqttAndroidClient(this.getApplicationContext(), "tcp://broker.hivemq.com:1883",
                         clientId);
 
+        MqttConnectOptions options = new MqttConnectOptions();
+        options.setUserName(USERNAME);
+        options.setPassword(PASSWORD.toCharArray());
+
         try {
-            IMqttToken token = client.connect();
+            IMqttToken token = client.connect(options);
             token.setActionCallback(new IMqttActionListener() {
 
 
