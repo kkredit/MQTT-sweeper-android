@@ -8,11 +8,15 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.regex.Pattern;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,11 +31,12 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         EditText email = (EditText) findViewById(R.id.email);
+
         EditText passwd = (EditText) findViewById(R.id.password2);
         Button signin = (Button) findViewById(R.id.signin);
         Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
         mAuth = FirebaseAuth.getInstance();
-
+        ButterKnife.bind(this);
         signin.setOnClickListener(v -> {
             String emailStr = email.getText().toString();
             if (emailStr.length() == 0) {

@@ -10,10 +10,13 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.regex.Pattern;
+
+import butterknife.BindView;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -22,17 +25,20 @@ public class SignUpActivity extends AppCompatActivity {
             Pattern.CASE_INSENSITIVE);
 
     private FirebaseAuth mAuth;
+    @BindView(R.id.email) EditText email;
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
 
         mAuth = FirebaseAuth.getInstance();
         Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
-        EditText email = (EditText) findViewById(R.id.email);
+
         EditText passwd = (EditText) findViewById(R.id.password);
         EditText verifyPasswd = (EditText) findViewById(R.id.password2);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -73,7 +79,6 @@ public class SignUpActivity extends AppCompatActivity {
                         Snackbar.make(email, msg, Snackbar.LENGTH_SHORT).show();
                     }
                 });
-
             }
         });
     }
