@@ -18,6 +18,22 @@ public class TestBrokerValidatesClients extends ScannerTest {
 
     @Override
     protected void doTest() {
-        m_reportReceiver.scanComplete(m_key, ScanResultContent.Result.CONDITION_PRESENT, "This is a dummy test.");
+        ScanResultContent.Result result = ScanResultContent.Result.CONDITION_NOT_PRESENT;
+        String details;
+
+        /* TODO: update to rate the actual password */
+        /* TODO: update to check for more than presence of password */
+
+        String password = m_broker.name;
+
+        if (password.isEmpty()) {
+            result = ScanResultContent.Result.CONDITION_PRESENT;
+            details = "This connection does not use password authentication.";
+        }
+        else {
+            details = "This connection uses password authentication.";
+        }
+
+        m_reportReceiver.scanComplete(m_key, result, details);
     }
 }

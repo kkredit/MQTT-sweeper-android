@@ -12,6 +12,7 @@ import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent.Result;
 import edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTests.TestBrokerValidatesClients;
 import edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTests.TestInternetExposed;
 import edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTests.TestNull;
+import edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTests.TestPasswordStrength;
 import edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTests.TestUsingEncryption;
 
 import static edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTest.BROKER_ID_ARG;
@@ -36,6 +37,7 @@ public class ScanRunner implements ScannerTest.ScanReportReciever {
         TESTS.add(new TestInternetExposed());
         TESTS.add(new TestUsingEncryption());
         TESTS.add(new TestBrokerValidatesClients());
+        TESTS.add(new TestPasswordStrength());
     }
 
     public ScanRunner(ScanReportUpdater updater, Context context, BrokerContent.BrokerItem broker, String shodanApiKey) {
@@ -69,6 +71,6 @@ public class ScanRunner implements ScannerTest.ScanReportReciever {
         item.setResult(result, details);
         m_broker.addScanResultItem(item);
         System.out.println("TEST " + item.name + " RESULT: " + result.toString() + ": " + details);
-        m_updater.scanReportHasUpdate();
+//        m_updater.scanReportHasUpdate();
     }
 }
