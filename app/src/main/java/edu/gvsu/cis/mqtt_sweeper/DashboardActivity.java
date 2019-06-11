@@ -21,7 +21,6 @@ public class DashboardActivity extends AppCompatActivity
         implements BrokerFragment.OnListFragmentInteractionListener {
 
     @BindView(R.id.toolbar) Toolbar m_toolbar;
-    @BindView(R.id.fab) FloatingActionButton addButton;
     private FirebaseAuth mAuth;
 
 
@@ -34,11 +33,11 @@ public class DashboardActivity extends AppCompatActivity
 
         setSupportActionBar(m_toolbar);
         mAuth = FirebaseAuth.getInstance();
-        popScreen();
+//        popScreen();
 
     }
 
-    @OnClick
+    @OnClick (R.id.fab)
     void popScreen(){
         startActivity(new Intent(DashboardActivity.this, AddBrokerActivity.class));
     }
@@ -77,9 +76,4 @@ public class DashboardActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    @OnClick(R.id.fab)
-    void onClickFab(View view) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
-    }
 }

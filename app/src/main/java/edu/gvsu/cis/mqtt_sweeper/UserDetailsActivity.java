@@ -15,7 +15,7 @@ public class UserDetailsActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-    @BindView(R.id.activity_login) TextView userName;
+   @BindView(R.id.userName) TextView userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
