@@ -1,6 +1,7 @@
 package edu.gvsu.cis.mqtt_sweeper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,7 +24,7 @@ import java.io.UnsupportedEncodingException;
 public class AddBrokerActivity extends AppCompatActivity {
 
 //    static String MQTTHOST = "tcp://broker.hivemq.com:1883";
-//    static String USERNAME = "USERNAME";
+//    static String USERNAME = "USERNAME";                        Test Credentials
 //    static String PASSWORD = "PASSWORD";
     MqttAndroidClient client;
 
@@ -72,6 +73,7 @@ public class AddBrokerActivity extends AppCompatActivity {
                     public void onSuccess(IMqttToken asyncActionToken) {
                         // We are connected
                         Toast.makeText(AddBrokerActivity.this,"Connected",Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(AddBrokerActivity.this, DashboardActivity.class));
                     }
 
                     @Override
