@@ -1,8 +1,5 @@
 package edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTests;
 
-import android.os.Bundle;
-
-import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent.BrokerItem;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent.ScanResultItem;
 import edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTest;
 
@@ -23,9 +20,7 @@ public class TestNull extends ScannerTest {
     }
 
     @Override
-    public void run(ScanReportReciever receiver, int key, Bundle args) {
-        super.initArgs(receiver, key, args);
-
-        m_reportReceiver.scanComplete(m_key, Result.CONDITION_PRESENT);
+    protected void doTest() {
+        m_reportReceiver.scanComplete(m_key, Result.CONDITION_PRESENT, "This is a dummy test.");
     }
 }

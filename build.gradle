@@ -12,6 +12,7 @@ buildscript {
             url 'https://repo.eclipse.org/content/repositories/paho-releases/'
             name 'Paho'
         }
+        mavenLocal()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.1'

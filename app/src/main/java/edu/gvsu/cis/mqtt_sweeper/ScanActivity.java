@@ -39,7 +39,7 @@ public class ScanActivity extends AppCompatActivity
         setSupportActionBar(m_toolbar);
 
         updateBrokerId();
-        m_runner = new ScanRunner(this, m_broker, SHODAN_API_KEY);
+        m_runner = new ScanRunner(this, getApplicationContext(), m_broker, SHODAN_API_KEY);
 
         if (savedInstanceState == null) {
             // First-time init; create fragment to embed in activity.

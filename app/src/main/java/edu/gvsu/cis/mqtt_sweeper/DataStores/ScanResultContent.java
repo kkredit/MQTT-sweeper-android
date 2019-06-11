@@ -65,6 +65,7 @@ public class ScanResultContent {
         public final String details;
         public final Severity severity;
         public Result result = Result.HAVE_NOT_RUN;
+        public String resultDetails = "";
 
         public ScanResultItem(String id, String name, String details, Severity severity) {
             this.id = id;
@@ -86,8 +87,9 @@ public class ScanResultContent {
             this.severity = orig.severity;
         }
 
-        public void setResult(Result result) {
+        public void setResult(Result result, String details) {
             this.result = result;
+            this.resultDetails = details;
         }
 
         public void setId(String id) {
