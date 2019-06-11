@@ -20,4 +20,7 @@
     <string name="accout_details">Accout Details</string>
     <string name="todo">TODO</string>
     <string name="username">Username</string>
+    <string name="button">Button</string>
+    <string name="mqtt_host">MQTT Host</string>
+    <string name="connect">Connect</string>
 </resources>

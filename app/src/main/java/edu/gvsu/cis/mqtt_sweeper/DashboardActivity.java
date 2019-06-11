@@ -2,6 +2,7 @@ package edu.gvsu.cis.mqtt_sweeper;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,14 +22,21 @@ public class DashboardActivity extends AppCompatActivity
 
     @BindView(R.id.toolbar) Toolbar m_toolbar;
     private FirebaseAuth mAuth;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
+        FloatingActionButton addButton =  findViewById(R.id.fab);
 
         setSupportActionBar(m_toolbar);
         mAuth = FirebaseAuth.getInstance();
+
+      addButton.setOnClickListener(v -> {
+          startActivity(new Intent(DashboardActivity.this, AddBrokerActivity.class));
+      });
     }
 
     @Override
