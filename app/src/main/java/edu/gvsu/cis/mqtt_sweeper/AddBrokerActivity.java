@@ -21,6 +21,10 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.io.UnsupportedEncodingException;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class AddBrokerActivity extends AppCompatActivity {
 
 //    static String MQTTHOST = "tcp://broker.hivemq.com:1883";
@@ -28,38 +32,34 @@ public class AddBrokerActivity extends AppCompatActivity {
 //    static String PASSWORD = "PASSWORD";
     MqttAndroidClient client;
 
+    @BindView(R.id.hostText)EditText mqttHost;
+    @BindView(R.id.usernameText) EditText usernameText;
+    @BindView(R.id.passwdText)EditText passwordText;
+    @BindView(R.id.passwdVerify) EditText passwordVerify;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_broker);
+        ButterKnife.bind(this);
 
-        Button connectBtn = findViewById(R.id.connectBtn);
-        EditText mqttHost = findViewById(R.id.hostText);
-        EditText usernameText = findViewById(R.id.usernameText);
-        EditText passwordText = findViewById(R.id.passwdText);
-        EditText passwordVerify = findViewById(R.id.passwdVerify);
-        Context context = this.getApplicationContext();
-
-
-        connectBtn.setOnClickListener(v -> {
+        @OnClick(R.id.connectBtn)
+        public void connectBroker() {
             String MQTTHOST = mqttHost.getText().toString();
             String USERNAME = usernameText.getText().toString();
             String PASSWORD = passwordText.getText().toString();
             String passVerify = passwordVerify.getText().toString();
 
             if (MQTTHOST.length() == 0 || USERNAME.length() == 0
-                       || PASSWORD.length()== 0 || passVerify.length() == 0 ) {
-                Toast.makeText(AddBrokerActivity.this,"field is required",
+                    || PASSWORD.length() == 0 || passVerify.length() == 0) {
+                Toast.makeText(AddBrokerActivity.this, "field is required",
                         Toast.LENGTH_LONG).show();
                 return;
             }
 
-
-
             String clientId = MqttClient.generateClientId();
-            client = new MqttAndroidClient(context,MQTTHOST,
+            client = new MqttAndroidClient(this.getApplicationContext(),MQTTHOST,
                     clientId);
-
             MqttConnectOptions options = new MqttConnectOptions();
             options.setUserName(USERNAME);
             options.setPassword(PASSWORD.toCharArray());
@@ -86,8 +86,6 @@ public class AddBrokerActivity extends AppCompatActivity {
             } catch (MqttException e) {
                 e.printStackTrace();
             }
-        });
-
+        }
     }
-
 }
