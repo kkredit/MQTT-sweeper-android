@@ -16,15 +16,15 @@ import butterknife.OnClick;
 import edu.gvsu.cis.mqtt_sweeper.Scanner.ScanRunner;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent;
+import edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerService;
 
 import static edu.gvsu.cis.mqtt_sweeper.ApiKeys.SHODAN_API_KEY;
 
 
 public class ScanActivity extends AppCompatActivity
-        implements ScanResultFragment.OnListFragmentInteractionListener, ScanRunner.ScanReportUpdater {
+        implements ScanResultFragment.OnListFragmentInteractionListener {
 
     private BrokerContent.BrokerItem m_broker;
-    private ScanRunner m_runner;
     private List<DataUpdateListener> m_listeners;
 
     @BindView(R.id.toolbar) Toolbar m_toolbar;
@@ -39,7 +39,6 @@ public class ScanActivity extends AppCompatActivity
         setSupportActionBar(m_toolbar);
 
         updateBrokerId();
-        m_runner = new ScanRunner(this, getApplicationContext(), m_broker, SHODAN_API_KEY);
 
         if (savedInstanceState == null) {
             // First-time init; create fragment to embed in activity.
@@ -71,15 +70,12 @@ public class ScanActivity extends AppCompatActivity
     }
 
     @OnClick(R.id.button)
-    void onClickScan()  {
-        m_runner.runScans();
-    }
+    void onClickScan() {
+        ScannerService.startActionStartScan(getApplicationContext(), "asdf", "asdf");
 
-    @Override
-    public void scanReportHasUpdate() {
-        System.out.println("Test results update!");
-        for (DataUpdateListener listener : m_listeners) {
-            listener.onDataUpdate();
-        }
+//        System.out.println("Test results update!");
+//        for (DataUpdateListener listener : m_listeners) {
+//            listener.onDataUpdate();
+//        }
     }
 }

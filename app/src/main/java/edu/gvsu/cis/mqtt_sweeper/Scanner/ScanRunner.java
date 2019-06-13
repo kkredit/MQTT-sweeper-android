@@ -71,6 +71,6 @@ public class ScanRunner implements ScannerTest.ScanReportReciever {
         item.setResult(result, details);
         m_broker.addScanResultItem(item);
         System.out.println("TEST " + item.name + " RESULT: " + result.toString() + ": " + details);
-//        m_updater.scanReportHasUpdate();
+        m_updater.scanReportHasUpdate();
     }
 }
