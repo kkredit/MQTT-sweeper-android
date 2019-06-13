@@ -2,15 +2,19 @@ package edu.gvsu.cis.mqtt_sweeper;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import org.parceler.Parcels;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.Broker;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
 
 public class BrokerActivity extends AppCompatActivity {
@@ -20,7 +24,7 @@ public class BrokerActivity extends AppCompatActivity {
     private final int SCAN_RESULT = 0;
 
     @BindView(R.id.toolbar) Toolbar m_toolbar;
-
+     Broker broker;
     @BindView(R.id.brokerName) TextView m_nameField;
     @BindView(R.id.id_field) TextView m_idField;
     @BindView(R.id.addr_field) TextView m_addrField;
@@ -34,22 +38,21 @@ public class BrokerActivity extends AppCompatActivity {
 
         setSupportActionBar(m_toolbar);
 
-        updateBrokerId();
+        retrieveBroker();
         updateFields();
     }
 
-    private void updateBrokerId() {
+    private void retrieveBroker() {
         Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        String brokerId = extras.getString("BrokerId");
-        m_broker = BrokerContent.ITEM_MAP.get(brokerId);
+        Parcelable brokerData = intent.getParcelableExtra("BrokerObject");
+        broker = Parcels.unwrap(brokerData);
     }
 
     private void updateFields() {
-        m_nameField.setText(m_broker.name);
-        m_idField.setText("ID: " + m_broker.id);
-        m_addrField.setText("URL: " + m_broker.url);
-        m_scanField.setText("Scan summary: " + m_broker.scanSummary);
+        m_nameField.setText(broker.servername);
+        m_idField.setText("ID: " + broker.bid);
+        m_addrField.setText("URL: " + broker.url);
+//        m_scanField.setText("Scan summary: " + m_broker.scanSummary);
     }
 
     @OnClick(R.id.button_scan)
