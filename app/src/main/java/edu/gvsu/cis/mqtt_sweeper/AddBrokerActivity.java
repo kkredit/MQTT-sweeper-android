@@ -1,13 +1,9 @@
 package edu.gvsu.cis.mqtt_sweeper;
 
-import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -17,13 +13,17 @@ import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.joda.time.DateTime;
+import org.parceler.Parcels;
 
-import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.Broker;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent;
 
 public class AddBrokerActivity extends AppCompatActivity {
 
@@ -33,6 +33,7 @@ public class AddBrokerActivity extends AppCompatActivity {
       MqttAndroidClient client;
 
     @BindView(R.id.hostText) EditText mqttHost;
+    @BindView(R.id.brokerName) EditText brokerName;
     @BindView(R.id.usernameText) EditText usernameText;
     @BindView(R.id.passwdText) EditText passwordText;
     @BindView(R.id.passwdVerify) EditText passwordVerify;
@@ -60,6 +61,11 @@ public class AddBrokerActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
             return;
         }
+        if (!PASSWORD.contains(passVerify) ) {
+            Toast.makeText(AddBrokerActivity.this, "passwords do not match",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
 
         String clientId = MqttClient.generateClientId();
         client = new MqttAndroidClient(this.getApplicationContext(),MQTTHOST,
@@ -77,7 +83,17 @@ public class AddBrokerActivity extends AppCompatActivity {
                 public void onSuccess(IMqttToken asyncActionToken) {
                     // We are connected
                     Toast.makeText(AddBrokerActivity.this,"Connected",Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(AddBrokerActivity.this, DashboardActivity.class));
+                    Intent result = new Intent();
+                    Broker aBroker = new Broker();
+                    aBroker.url =  mqttHost.getText().toString();
+                    aBroker.servername = brokerName.getText().toString();
+                    aBroker.username = usernameText.getText().toString();
+                    aBroker.password = passwordText.getText().toString();
+                    aBroker.bid = brokerName.getText().toString() + usernameText.getText().toString();
+                    Parcelable parcel = Parcels.wrap(aBroker);
+                    result.putExtra("Broker",parcel);
+                    setResult(RESULT_OK,result);
+                    finish();
                 }
 
                 @Override

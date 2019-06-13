@@ -1,7 +1,5 @@
 package edu.gvsu.cis.mqtt_sweeper.DataStores;
 
-import org.parceler.Parcel;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,10 +13,9 @@ import java.util.Map;
  */
 public class BrokerContent {
 
-    public static final List<BrokerItem> ITEMS = new ArrayList<BrokerItem>();
-    public static final Map<String, BrokerItem> ITEM_MAP = new HashMap<String, BrokerItem>();
+    public static  List<BrokerItem> ITEMS = new ArrayList<BrokerItem>();
+    public static  Map<String, BrokerItem> ITEM_MAP = new HashMap<String, BrokerItem>();
 
-    @Parcel
     public static class BrokerItem {
         public final String id;
         public final String name;
@@ -52,6 +49,7 @@ public class BrokerContent {
         public String getScanSummary() {
             return scanSummary;
         }
+
 
         @Override
         public String toString() {
