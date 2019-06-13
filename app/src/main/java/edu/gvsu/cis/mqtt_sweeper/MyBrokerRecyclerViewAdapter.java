@@ -6,9 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.joda.time.DateTime;
+
 import edu.gvsu.cis.mqtt_sweeper.BrokerFragment.OnListFragmentInteractionListener;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.Broker;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent.BrokerItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,12 +22,21 @@ import java.util.List;
  */
 public class MyBrokerRecyclerViewAdapter extends RecyclerView.Adapter<MyBrokerRecyclerViewAdapter.ViewHolder> {
 
-    private final List<BrokerItem> mValues;
+    private final List<Broker> broker;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyBrokerRecyclerViewAdapter(List<BrokerItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
+    public MyBrokerRecyclerViewAdapter(List<Broker> items, OnListFragmentInteractionListener listener) {
+        this.broker = new ArrayList<Broker>();
         mListener = listener;
+        reloadFrom(items);
+    }
+
+    private void reloadFrom(List<Broker> data) {
+        broker.clear();
+        for(Broker b : data){
+           broker.add(b);
+        }
+        notifyDataSetChanged();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package edu.gvsu.cis.mqtt_sweeper.DataStores;
 
+import org.joda.time.DateTime;
 import org.parceler.Parcel;
 
 @Parcel
@@ -9,6 +10,15 @@ public class Broker {
     public String url;
     public String username;
     public String password;
+    String _key;
+
+    public String get_key() {
+        return _key;
+    }
+
+    public void set_key(String _key) {
+        this._key = _key;
+    }
 
     public String getUsername() {
         return username;
