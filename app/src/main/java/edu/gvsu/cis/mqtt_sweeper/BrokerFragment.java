@@ -2,6 +2,7 @@ package edu.gvsu.cis.mqtt_sweeper;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
@@ -19,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +86,7 @@ public class BrokerFragment extends Fragment {
             FirebaseUser user = auth.getCurrentUser();
             DatabaseReference userRef = dbRef.getReference(user.getUid());
             userRef.addChildEventListener(chEvListener);
+            userRef.addValueEventListener(valEvListener);
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1){
@@ -131,13 +134,25 @@ public class BrokerFragment extends Fragment {
 
     }
 
+    private ValueEventListener valEvListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            adapter.reloadFrom(allBrokers);
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    };
+
     private ChildEventListener chEvListener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
             Broker entry = (Broker) dataSnapshot.getValue(Broker.class);
             entry._key = dataSnapshot.getKey();
             allBrokers.add(entry);
-            adapter.reloadFrom(allBrokers);
+//            adapter.reloadFrom(allBrokers);
         }
 
         @Override
