@@ -53,6 +53,7 @@ public class MyBrokerRecyclerViewAdapter extends RecyclerView.Adapter<MyBrokerRe
 
     @Override
     public int getItemCount() {
+
         return mValues.size();
     }
 

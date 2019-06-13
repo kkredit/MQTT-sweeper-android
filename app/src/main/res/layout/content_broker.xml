@@ -22,7 +22,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:text="Broker Name"
+            android:text="@string/broker_name"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -34,7 +34,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="ID:"
+            android:text="@string/id"
             android:textSize="18sp" />
 
         <TextView
@@ -44,7 +44,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="URL:"
+            android:text="@string/url"
             android:textSize="18sp" />
 
         <TextView
@@ -54,7 +54,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="Scan results:"
+            android:text="@string/scan_results"
             android:textSize="18sp" />
 
         <LinearLayout
@@ -68,21 +68,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Delete" />
+                android:text="@string/delete" />
 
             <Button
                 android:id="@+id/button_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Edit" />
+                android:text="@string/edit" />
 
             <Button
                 android:id="@+id/button_scan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Scan" />
+                android:text="@string/scan" />
         </LinearLayout>
 
     </LinearLayout>
@@ -100,7 +100,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:text="Topics"
+            android:text="@string/topics"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold" />
