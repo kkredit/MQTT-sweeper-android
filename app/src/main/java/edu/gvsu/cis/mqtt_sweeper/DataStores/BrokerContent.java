@@ -15,25 +15,25 @@ import java.util.Map;
  */
 public class BrokerContent {
 
-    public static final List<BrokerItem> ITEMS = new ArrayList<BrokerItem>();
-    public static final Map<String, BrokerItem> ITEM_MAP = new HashMap<String, BrokerItem>();
+    public static  List<BrokerItem> ITEMS = new ArrayList<BrokerItem>();
+    public static  Map<String, BrokerItem> ITEM_MAP = new HashMap<String, BrokerItem>();
 
-    @Parcel
     public static class BrokerItem {
-        public final String id;
-        public final String name;
-        public final String url;
-        public final String scanSummary;
-        private final List<ScanResultContent.ScanResultItem> scanResults;
+        public String id;
+        public String name;
+        public String url;
+        public String scanSummary;
+        private List<ScanResultContent.ScanResultItem> scanResults;
         private Integer nextId = 0;
 
-        public BrokerItem(String id, String name, String url, String scanSummary) {
+        public BrokerItem(String id, String name, String url, String scanSummary, List<ScanResultContent.ScanResultItem> scanResults) {
             this.id = id;
             this.name = name;
             this.url = url;
             this.scanSummary = scanSummary;
-            this.scanResults = new ArrayList<>();
+            this.scanResults = scanResults;
         }
+
 
         @Override
         public String toString() {
@@ -50,20 +50,5 @@ public class BrokerContent {
             return scanResults;
         }
 
-        public String getId() {
-            return id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public String getScanSummary() {
-            return scanSummary;
-        }
     }
 }
