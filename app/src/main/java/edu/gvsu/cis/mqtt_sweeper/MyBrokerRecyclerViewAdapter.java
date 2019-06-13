@@ -31,7 +31,7 @@ public class MyBrokerRecyclerViewAdapter extends RecyclerView.Adapter<MyBrokerRe
         reloadFrom(items);
     }
 
-    private void reloadFrom(List<Broker> data) {
+    public void reloadFrom(final List<Broker> data) {
         broker.clear();
         for(Broker b : data){
            broker.add(b);
@@ -48,9 +48,11 @@ public class MyBrokerRecyclerViewAdapter extends RecyclerView.Adapter<MyBrokerRe
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).name);
+        Broker item;
+        item = this.broker.get(position);
+        holder.mItem = item;
+        holder.mIdView.setText(broker.get(position).servername);
+        holder.mContentView.setText(broker.get(position).url);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,14 +69,14 @@ public class MyBrokerRecyclerViewAdapter extends RecyclerView.Adapter<MyBrokerRe
     @Override
     public int getItemCount() {
 
-        return mValues.size();
+        return broker.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public BrokerItem mItem;
+        public Broker mItem;
 
         public ViewHolder(View view) {
             super(view);

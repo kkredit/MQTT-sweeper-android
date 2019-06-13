@@ -28,8 +28,9 @@ import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
 public class DashboardActivity extends AppCompatActivity
         implements BrokerFragment.OnListFragmentInteractionListener {
 
-       final int NEW_BROKER_REQUEST = 1;
-    @BindView(R.id.toolbar) Toolbar m_toolbar;
+    final int NEW_BROKER_REQUEST = 1;
+    @BindView(R.id.toolbar)
+    Toolbar m_toolbar;
     private FirebaseAuth mAuth;
     DatabaseReference topRef;
 
@@ -44,7 +45,7 @@ public class DashboardActivity extends AppCompatActivity
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         FirebaseDatabase dbRef = FirebaseDatabase.getInstance();
         FirebaseUser mUser = mAuth.getCurrentUser();
@@ -53,11 +54,11 @@ public class DashboardActivity extends AppCompatActivity
         topRef = dbRef.getReference(uid);
     }
 
-    @OnClick (R.id.fab)
-    void popScreen(){
+    @OnClick(R.id.fab)
+    void popScreen() {
         Intent newBroker = new Intent(
                 DashboardActivity.this, AddBrokerActivity.class);
-        startActivityForResult(newBroker,NEW_BROKER_REQUEST);
+        startActivityForResult(newBroker, NEW_BROKER_REQUEST);
     }
 
     @Override
@@ -68,14 +69,14 @@ public class DashboardActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.action_logout) {
+        if (item.getItemId() == R.id.action_logout) {
             mAuth.signOut();
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
             return true;
         }
-        if(item.getItemId() ==R.id.action_accountDetails ) {
+        if (item.getItemId() == R.id.action_accountDetails) {
             Intent intent = new Intent(this, UserDetailsActivity.class);
             startActivity(intent);
             finish();
@@ -85,27 +86,28 @@ public class DashboardActivity extends AppCompatActivity
         return false;
     }
 
+
     @Override
-    public void onListFragmentInteraction(BrokerContent.BrokerItem item) {
+    public void onListFragmentInteraction(Broker item) {
         System.out.println("Interact!");
 
-        Intent intent = new Intent(DashboardActivity.this, BrokerActivity.class);
-        intent.putExtra("BrokerId", item.id);
+        Intent intent = new Intent(DashboardActivity.this, Broker.class);
+        intent.putExtra("BrokerId", item.servername);
         startActivity(intent);
     }
 
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(requestCode == NEW_BROKER_REQUEST) {
-            if(data !=null && data.hasExtra("Broker")){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == NEW_BROKER_REQUEST) {
+            if (data != null && data.hasExtra("Broker")) {
                 Parcelable brokerData = data.getParcelableExtra("Broker");
                 Broker broker = Parcels.unwrap(brokerData);
                 topRef.push().setValue(broker);
-                Toast.makeText(DashboardActivity.this,"Broker Added",Toast.LENGTH_LONG).show();
+                Toast.makeText(DashboardActivity.this, "Broker Added", Toast.LENGTH_LONG).show();
             }
-        }
-        else
-            super.onActivityResult(requestCode,resultCode,data);
+        } else
+            super.onActivityResult(requestCode, resultCode, data);
     }
 
 }
