@@ -23,10 +23,19 @@
     <string name="button">Button</string>
     <string name="mqtt_host">MQTT address</string>
     <string name="connect">Connect</string>
-    <string name="broker_name">Broker Name</string>
     <string name="error_details_network_error">A network error occurred while the test was running.</string>
     <string name="error_details_not_using_encryption">This connection is communicating on the network using unencrypted protocols.</string>
     <string name="error_details_using_encryption">This connection is communicating on the network using encrypted protocols.</string>
     <string name="error_details_using_local_conn">This connection is not communicating on the network.</string>
     <string name="error_details_invalid_config">This connection does not have a valid configuration.</string>
+    <string name="id">ID:</string>
+    <string name="url">URL:</string>
+    <string name="scan_results">Scan results:</string>
+    <string name="topics">Topics</string>
+    <string name="scan">Scan</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="description">Description</string>
+    <string name="mqtt_broker">Mqtt broker</string>
+    <string name="broker_name">Broker Name</string>
 </resources>

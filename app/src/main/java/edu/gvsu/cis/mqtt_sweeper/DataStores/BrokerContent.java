@@ -1,5 +1,7 @@
 package edu.gvsu.cis.mqtt_sweeper.DataStores;
 
+import org.parceler.Parcel;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,21 +18,7 @@ public class BrokerContent {
     public static final List<BrokerItem> ITEMS = new ArrayList<BrokerItem>();
     public static final Map<String, BrokerItem> ITEM_MAP = new HashMap<String, BrokerItem>();
 
-    static {
-        // Add a sample item.
-        addItem(createDummyItem(0));
-    }
-
-    private static void addItem(BrokerItem item) {
-        ITEMS.add(item);
-        ITEM_MAP.put(item.id, item);
-    }
-
-    private static BrokerItem createDummyItem(int position) {
-        return new BrokerItem(String.valueOf(position), "Broker " + position,
-                "tcp://broker.mqttdashboard.com:1883", "None");
-    }
-
+    @Parcel
     public static class BrokerItem {
         public final String id;
         public final String name;
@@ -60,6 +48,22 @@ public class BrokerContent {
 
         public List<ScanResultContent.ScanResultItem> getScanResults() {
             return scanResults;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public String getScanSummary() {
+            return scanSummary;
         }
     }
 }
