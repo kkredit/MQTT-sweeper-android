@@ -11,6 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.gvsu.cis.mqtt_sweeper.DataStores.Broker;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent.BrokerItem;
 
@@ -28,11 +32,16 @@ public class BrokerFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
+
+    private List<Broker> allBrokers;
+    private MyBrokerRecyclerViewAdapter adapter;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
     public BrokerFragment() {
+        allBrokers = new ArrayList<Broker>();
+
     }
 
     // TODO: Customize parameter initialization
@@ -71,7 +80,7 @@ public class BrokerFragment extends Fragment {
             DividerItemDecoration did = new DividerItemDecoration(recyclerView.getContext(),
                     DividerItemDecoration.VERTICAL);
             recyclerView.addItemDecoration(did);
-            recyclerView.setAdapter(new MyBrokerRecyclerViewAdapter(BrokerContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyBrokerRecyclerViewAdapter(BrokerContent.ITEMS, broker, mListener));
         }
         return view;
     }
