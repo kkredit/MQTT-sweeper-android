@@ -11,6 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.FirebaseApiNotAvailableException;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +51,7 @@ public class BrokerFragment extends Fragment {
     public BrokerFragment() {
         allBrokers = new ArrayList<Broker>();
 
+
     }
 
     // TODO: Customize parameter initialization
@@ -67,20 +77,22 @@ public class BrokerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_broker_list, container, false);
-
         // Set the adapter
         if (view instanceof RecyclerView) {
+            FirebaseDatabase dbRef = FirebaseDatabase.getInstance();
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            FirebaseUser user = auth.getCurrentUser();
+            DatabaseReference userRef = dbRef.getReference(user.getUid());
+            userRef.addChildEventListener(chEvListener);
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
+            if (mColumnCount <= 1){
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            }else{
+                recyclerView.setLayoutManager(new GridLayoutManager(context,mColumnCount));
             }
-            DividerItemDecoration did = new DividerItemDecoration(recyclerView.getContext(),
-                    DividerItemDecoration.VERTICAL);
-            recyclerView.addItemDecoration(did);
-            recyclerView.setAdapter(new MyBrokerRecyclerViewAdapter(BrokerContent.ITEMS, broker, mListener));
+            adapter = new MyBrokerRecyclerViewAdapter(allBrokers,mListener);
+            recyclerView.setAdapter(adapter);
         }
         return view;
     }
@@ -115,6 +127,44 @@ public class BrokerFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(BrokerItem item);
+        void onListFragmentInteraction(Broker item);
+
     }
+
+    private ChildEventListener chEvListener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            Broker entry = (Broker) dataSnapshot.getValue(Broker.class);
+            entry._key = dataSnapshot.getKey();
+            allBrokers.add(entry);
+            adapter.reloadFrom(allBrokers);
+        }
+
+        @Override
+        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+        }
+
+        @Override
+        public void onChildRemoved(DataSnapshot dataSnapshot) {
+            Broker entry = (Broker) dataSnapshot.getValue(Broker.class);
+            List<Broker> newBroker = new ArrayList<Broker>();
+            for (Broker b : allBrokers) {
+                if (!b._key.equals(dataSnapshot.getKey())) {
+                    newBroker.add(b);
+                }
+            }
+            allBrokers = newBroker;
+        }
+
+        @Override
+        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
+
 }
