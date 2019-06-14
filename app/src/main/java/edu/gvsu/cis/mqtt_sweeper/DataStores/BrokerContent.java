@@ -61,5 +61,9 @@ public class BrokerContent {
         public List<ScanResultContent.ScanResultItem> getScanResults() {
             return scanResults;
         }
+
+        public void clearScanResults() {
+            scanResults.clear();
+        }
     }
 }

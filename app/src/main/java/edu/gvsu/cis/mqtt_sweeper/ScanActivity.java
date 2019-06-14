@@ -97,6 +97,7 @@ public class ScanActivity extends AppCompatActivity
 
     @OnClick(R.id.button)
     void onClickScan() {
+        m_broker.clearScanResults();
         ScannerService.startActionStartScan(getApplicationContext(), m_broker.id, SHODAN_API_KEY);
     }
 }
