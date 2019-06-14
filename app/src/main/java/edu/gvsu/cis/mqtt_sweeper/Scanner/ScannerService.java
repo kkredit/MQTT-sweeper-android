@@ -3,6 +3,7 @@ package edu.gvsu.cis.mqtt_sweeper.Scanner;
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.Context;
+import android.support.v4.content.LocalBroadcastManager;
 
 import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
 import edu.gvsu.cis.mqtt_sweeper.DataUpdateListener;
@@ -15,6 +16,8 @@ import edu.gvsu.cis.mqtt_sweeper.DataUpdateListener;
  */
 public class ScannerService extends IntentService
         implements ScanRunner.ScanReportUpdater {
+
+    public static final String BROADCAST_SCAN_RESULT = "edu.gvsu.cis.mqtt_sweeper.Scanner.action.BROADCAST";
 
     private static final String ACTION_START_SCAN = "edu.gvsu.cis.mqtt_sweeper.Scanner.action.START";
     private static final String ACTION_CANCEL_SCAN = "edu.gvsu.cis.mqtt_sweeper.Scanner.action.CANCEL";
@@ -73,5 +76,13 @@ public class ScannerService extends IntentService
 
     @Override
     public void scanReportHasUpdate() {
+        Intent result = new Intent(BROADCAST_SCAN_RESULT);
+
+//        result.putExtra("SUMMARY", condition);
+//        result.putExtra("TEMPERATURE", temp);
+//        result.putExtra("ICON", icon);
+//
+//        result.putExtra("KEY", key);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(result);
     }
 }

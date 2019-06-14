@@ -45,6 +45,7 @@ public class BrokerContent {
             this.url = url;
             this.scanSummary = scanSummary;
             this.scanResults = new ArrayList<>();
+            addScanResultItem(new ScanResultContent.ScanResultItem("fake", "fake fake", ScanResultContent.Severity.SEVERE));
         }
 
         @Override
