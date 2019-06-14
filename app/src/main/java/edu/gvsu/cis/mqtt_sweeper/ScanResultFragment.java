@@ -1,5 +1,6 @@
 package edu.gvsu.cis.mqtt_sweeper;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,10 @@ import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent.ScanResultItem;
 public class ScanResultFragment extends Fragment
         implements DataUpdateListener {
 
+    public interface BrokerSupplier {
+        String SupplyBrokerId();
+    }
+
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     private static final String ARG_BROKER_KEY = "broker-key";
@@ -43,25 +48,9 @@ public class ScanResultFragment extends Fragment
     public ScanResultFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static ScanResultFragment newInstance(int columnCount, String brokerKey) {
-        ScanResultFragment fragment = new ScanResultFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        args.putString(ARG_BROKER_KEY, brokerKey);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-            m_broker = BrokerContent.ITEM_MAP.get(getArguments().getString(ARG_BROKER_KEY));
-        }
     }
 
     @Override
@@ -70,20 +59,12 @@ public class ScanResultFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_scanresult_list, container, false);
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
+        if (view instanceof RecyclerView && null != m_broker) {
             Context context = view.getContext();
             m_view = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                m_view.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                m_view.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            DividerItemDecoration did = new DividerItemDecoration(m_view.getContext(),
-                    DividerItemDecoration.VERTICAL);
-            m_view.addItemDecoration(did);
-            if (null != m_broker) {
-                m_view.setAdapter(new MyScanResultRecyclerViewAdapter(m_broker.getScanResults(), mListener));
-            }
+            m_view.setLayoutManager(new LinearLayoutManager(context));
+            m_view.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
+            m_view.setAdapter(new MyScanResultRecyclerViewAdapter(m_broker.getScanResults(), mListener));
         }
         return view;
     }
@@ -91,7 +72,14 @@ public class ScanResultFragment extends Fragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        ((ScanActivity) getActivity()).registerDataUpdateListener(this);
+        Activity activity = getActivity();
+        if (activity instanceof ScanActivity) {
+            ScanActivity sa = (ScanActivity) activity;
+            String brokerId = sa.registerDataUpdateListener(this);
+            m_broker = BrokerContent.ITEM_MAP.get(brokerId);
+        } else {
+            throw new RuntimeException("activity must be ScanActivity");
+        }
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
         } else {

@@ -54,21 +54,11 @@ public class ScanActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         m_listeners = new ArrayList<>();
+        updateBrokerId();
         setContentView(R.layout.activity_scan);
         ButterKnife.bind(this);
 
         setSupportActionBar(m_toolbar);
-
-        updateBrokerId();
-
-        if (savedInstanceState == null) {
-            // First-time init; create fragment to embed in activity.
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            Fragment newFragment = ScanResultFragment.newInstance(1, m_broker.id);
-            ft.replace(R.id.scanresult_fragment, newFragment);
-//            ft.add(R.id.scanresult_fragment, newFragment);
-            ft.commit();
-        }
     }
 
     @Override
@@ -91,8 +81,9 @@ public class ScanActivity extends AppCompatActivity
         m_broker = BrokerContent.ITEM_MAP.get(brokerId);
     }
 
-    public synchronized void registerDataUpdateListener(DataUpdateListener listener) {
+    public synchronized String registerDataUpdateListener(DataUpdateListener listener) {
         m_listeners.add(listener);
+        return m_broker.id;
     }
 
     public synchronized void unregisterDataUpdateListener(DataUpdateListener listener) {
