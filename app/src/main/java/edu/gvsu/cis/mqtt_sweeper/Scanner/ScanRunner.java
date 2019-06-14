@@ -33,7 +33,6 @@ public class ScanRunner implements ScannerTest.ScanReportReciever {
 
     static {
         /* Init tests list */
-        TESTS.add(new TestNull());
         TESTS.add(new TestInternetExposed());
         TESTS.add(new TestUsingEncryption());
         TESTS.add(new TestBrokerValidatesClients());
