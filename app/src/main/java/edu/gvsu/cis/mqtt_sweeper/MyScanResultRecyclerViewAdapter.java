@@ -42,7 +42,7 @@ public class MyScanResultRecyclerViewAdapter extends RecyclerView.Adapter<MyScan
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mName.setText(mValues.get(position).id);
+        holder.mName.setText(mValues.get(position).name);
         holder.mDescr.setText(mValues.get(position).details);
         int imageId = getImageFromSeverity(mValues.get(position).severity);
         holder.mLogo.setImageResource(imageId);
