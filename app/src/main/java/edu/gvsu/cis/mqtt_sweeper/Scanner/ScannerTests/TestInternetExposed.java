@@ -9,7 +9,8 @@ public class TestInternetExposed extends ScannerTest {
     private static final ScanResultContent.ScanResultItem description = new ScanResultContent.ScanResultItem(
             "Internet exposed",
             "Tests whether the MQTT broker is visible over the public internet.",
-            ScanResultContent.Severity.MODERATE
+            ScanResultContent.Severity.MODERATE,
+            "TODO More info."
     );
 
     @Override

@@ -11,7 +11,8 @@ public class TestNull extends ScannerTest {
     private static final ScanResultItem description = new ScanResultItem(
             "NULL TEST",
             "Dummy test that does nothing",
-            Severity.MINOR
+            Severity.MINOR,
+            "This is a dummy test that exists as a template for real tests."
     );
 
     @Override

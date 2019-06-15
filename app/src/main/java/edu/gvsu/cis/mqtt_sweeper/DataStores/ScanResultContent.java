@@ -47,7 +47,7 @@ public class ScanResultContent {
 
     private static ScanResultItem createDummyItem(int position) {
         return new ScanResultItem(String.valueOf(position), "Item " + position,
-                                  makeDetails(position), Severity.MINOR);
+                                  makeDetails(position), Severity.MINOR, "More info.");
     }
 
     private static String makeDetails(int position) {
@@ -64,20 +64,23 @@ public class ScanResultContent {
         public final String name;
         public final String details;
         public final Severity severity;
+        public final String moreInfo;
         public Result result = Result.HAVE_NOT_RUN;
         public String resultDetails = "";
 
-        public ScanResultItem(String id, String name, String details, Severity severity) {
+        public ScanResultItem(String id, String name, String details, Severity severity, String moreInfo) {
             this.id = id;
             this.name = name;
             this.details = details;
             this.severity = severity;
+            this.moreInfo = moreInfo;
         }
 
-        public ScanResultItem(String name, String details, Severity severity) {
+        public ScanResultItem(String name, String details, Severity severity, String moreInfo) {
             this.name = name;
             this.details = details;
             this.severity = severity;
+            this.moreInfo = moreInfo;
         }
 
         public ScanResultItem(ScanResultItem orig) {
@@ -85,6 +88,7 @@ public class ScanResultContent {
             this.name = orig.name;
             this.details = orig.details;
             this.severity = orig.severity;
+            this.moreInfo = orig.moreInfo;
         }
 
         public void setResult(Result result, String details) {

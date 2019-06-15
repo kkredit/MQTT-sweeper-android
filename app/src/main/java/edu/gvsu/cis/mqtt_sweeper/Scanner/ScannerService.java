@@ -77,12 +77,6 @@ public class ScannerService extends IntentService
     @Override
     public void scanReportHasUpdate() {
         Intent result = new Intent(BROADCAST_SCAN_RESULT);
-
-//        result.putExtra("SUMMARY", condition);
-//        result.putExtra("TEMPERATURE", temp);
-//        result.putExtra("ICON", icon);
-//
-//        result.putExtra("KEY", key);
         LocalBroadcastManager.getInstance(this).sendBroadcast(result);
     }
 }

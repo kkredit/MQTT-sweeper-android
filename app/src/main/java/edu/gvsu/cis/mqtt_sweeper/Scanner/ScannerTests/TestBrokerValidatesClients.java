@@ -8,7 +8,8 @@ public class TestBrokerValidatesClients extends ScannerTest {
     private static final ScanResultContent.ScanResultItem description = new ScanResultContent.ScanResultItem(
             "Broker authenticates clients",
             "Tests whether the broker performs any authentication of clients.",
-            ScanResultContent.Severity.SEVERE
+            ScanResultContent.Severity.SEVERE,
+            "TODO More info."
     );
 
     @Override

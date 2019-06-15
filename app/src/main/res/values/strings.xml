@@ -29,4 +29,5 @@
     <string name="error_details_using_encryption">This connection is communicating on the network using encrypted protocols.</string>
     <string name="error_details_using_local_conn">This connection is not communicating on the network.</string>
     <string name="error_details_invalid_config">This connection does not have a valid configuration.</string>
+    <string name="title_activity_scan_result">Scan Result Details</string>
 </resources>

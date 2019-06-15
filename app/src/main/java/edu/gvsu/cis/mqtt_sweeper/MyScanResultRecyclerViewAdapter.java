@@ -60,7 +60,7 @@ public class MyScanResultRecyclerViewAdapter extends RecyclerView.Adapter<MyScan
         });
     }
 
-    private int getImageFromSeverity(ScanResultContent.Result result, ScanResultContent.Severity severity) {
+    static int getImageFromSeverity(ScanResultContent.Result result, ScanResultContent.Severity severity) {
         int image = R.drawable.ic_excl_point_gray_24dp;;
         switch (result) {
             case CONDITION_PRESENT:

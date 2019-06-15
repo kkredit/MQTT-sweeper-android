@@ -3,7 +3,6 @@ package edu.gvsu.cis.mqtt_sweeper;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.IntentFilter;
-import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
@@ -91,6 +90,11 @@ public class ScanActivity extends AppCompatActivity
     @Override
     public void onListFragmentInteraction(ScanResultContent.ScanResultItem item) {
         System.out.println("Interact!");
+
+        Intent intent = new Intent(ScanActivity.this, ScanResultActivity.class);
+        intent.putExtra("BrokerId", m_broker.id);
+        intent.putExtra("ScanResultId", item.id);
+        startActivity(intent);
     }
 
     @OnClick(R.id.button)
