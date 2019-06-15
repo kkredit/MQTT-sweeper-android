@@ -14,6 +14,7 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.joda.time.DateTime;
+import org.parceler.Parcel;
 import org.parceler.Parcels;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class AddBrokerActivity extends AppCompatActivity {
     //static String MQTTHOST = "tcp://broker.hivemq.com:1883";
 //    static String USERNAME = "USERNAME";                        Test Credentials
  //   static String PASSWORD = "PASSWORD";
+
       MqttAndroidClient client;
 
     @BindView(R.id.hostText) EditText mqttHost;
@@ -68,7 +70,7 @@ public class AddBrokerActivity extends AppCompatActivity {
         }
 
         String clientId = MqttClient.generateClientId();
-        client = new MqttAndroidClient(this.getApplicationContext(),MQTTHOST,
+        client = new MqttAndroidClient(this.getApplication(),MQTTHOST,
                 clientId);
         MqttConnectOptions options = new MqttConnectOptions();
         options.setUserName(USERNAME);
@@ -82,17 +84,17 @@ public class AddBrokerActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     // We are connected
-                    Toast.makeText(AddBrokerActivity.this,"Connected",Toast.LENGTH_LONG).show();
                     Intent result = new Intent();
                     Broker aBroker = new Broker();
                     aBroker.url =  mqttHost.getText().toString();
                     aBroker.servername = brokerName.getText().toString();
                     aBroker.username = usernameText.getText().toString();
                     aBroker.password = passwordText.getText().toString();
-                    aBroker.bid = brokerName.getText().toString() + usernameText.getText().toString();
+                    aBroker.bid = clientId;
                     Parcelable parcel = Parcels.wrap(aBroker);
                     result.putExtra("Broker",parcel);
                     setResult(RESULT_OK,result);
+                    client.close();
                     finish();
                 }
 

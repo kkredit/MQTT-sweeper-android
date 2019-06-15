@@ -1,5 +1,6 @@
 package edu.gvsu.cis.mqtt_sweeper.DataStores;
 
+import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.joda.time.DateTime;
 import org.parceler.Parcel;
 
@@ -11,6 +12,7 @@ public class Broker {
     public String username;
     public String password;
     public String _key;
+  
 
     public String get_key() {
         return _key;
