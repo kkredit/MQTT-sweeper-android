@@ -102,9 +102,44 @@ public class BrokerContent {
                 scanSummary = "No tests to report";
             }
             else {
-                scanSummary = "Passes: " + Integer.toString(scanMetadata.numPasses) + " " +
-                        "Fails: " + Integer.toString(scanMetadata.numFailsTotal) + " " +
-                        "Errors: " + Integer.toString(scanMetadata.numErrors);
+                StringBuilder builder = new StringBuilder();
+                if (0 < scanMetadata.numPasses) {
+                    builder.append(scanMetadata.numPasses);
+                    if (1 == scanMetadata.numPasses) {
+                        builder.append(" Pass");
+                    }
+                    else {
+                        builder.append(" Passes");
+                    }
+                }
+                if (0 < scanMetadata.numFailsTotal) {
+                    if (0 < builder.length()) {
+                        builder.append(" | ");
+                    }
+                    builder.append(scanMetadata.numFailsTotal);
+                    if (1 == scanMetadata.numFailsTotal) {
+                        builder.append(" Fail");
+                    }
+                    else {
+                        builder.append(" Fails");
+                    }
+                }
+                if (0 < scanMetadata.numErrors) {
+                    if (0 < builder.length()) {
+                        builder.append(" | ");
+                    }
+                    builder.append(scanMetadata.numErrors);
+                    if (1 == scanMetadata.numErrors) {
+                        builder.append(" Error");
+                    }
+                    else {
+                        builder.append(" Errors");
+                    }
+                }
+                scanSummary = builder.toString();
+//                scanSummary = "Passes: " + Integer.toString(scanMetadata.numPasses) + " " +
+//                        "Fails: " + Integer.toString(scanMetadata.numFailsTotal) + " " +
+//                        "Errors: " + Integer.toString(scanMetadata.numErrors);
             }
         }
 
