@@ -49,5 +49,5 @@
         android:layout_height="70dp"
         android:layout_weight="1"
         android:contentDescription="@string/vuln_image_descr"
-        app:srcCompat="@drawable/ic_error_outline_black_24dp" />
+        app:srcCompat="@drawable/ic_excl_outline_black_24dp" />
 </LinearLayout>

@@ -63,9 +63,9 @@ public class MyScanResultRecyclerViewAdapter extends RecyclerView.Adapter<MyScan
         if (ScanResultContent.Severity.MINOR == severity)
             return R.drawable.ic_info_outline_black_24dp;
         if (ScanResultContent.Severity.MODERATE == severity)
-            return R.drawable.ic_error_outline_black_24dp;
+            return R.drawable.ic_excl_outline_black_24dp;
         if (ScanResultContent.Severity.SEVERE == severity)
-            return R.drawable.ic_error_black_24dp;
+            return R.drawable.ic_excl_filled_black_24dp;
         return R.drawable.ic_info_outline_black_24dp;
     }
 
