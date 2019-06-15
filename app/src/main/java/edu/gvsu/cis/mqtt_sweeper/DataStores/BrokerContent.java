@@ -68,6 +68,7 @@ public class BrokerContent {
 
         public void clearScanResults() {
             scanResults.clear();
+            scanMetadata.clear();
             updateSummary();
         }
 
@@ -116,6 +117,15 @@ public class BrokerContent {
             int numErrors = 0;
 
             BrokerScanMetadata() {
+            }
+
+            void clear() {
+                numPasses = 0;
+                numFailsTotal = 0;
+                numFailsMinor = 0;
+                numFailsModerate = 0;
+                numFailsSevere = 0;
+                numErrors = 0;
             }
         }
     }
