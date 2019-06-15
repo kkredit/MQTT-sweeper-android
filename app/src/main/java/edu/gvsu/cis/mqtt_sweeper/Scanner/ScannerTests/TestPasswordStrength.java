@@ -39,7 +39,7 @@ public class TestPasswordStrength extends ScannerTest {
         /* TODO: update to rate the actual password */
         Result passwordResult = strengthRater.estimate(m_broker.name);
         Double entropy = passwordResult.getEntropy();
-        DecimalFormat f = new DecimalFormat("#.##");
+        DecimalFormat f = new DecimalFormat("#");
         String entropyStr = f.format(entropy);
 
         if (entropy < OK_PW_THRESHOLD_MIN) {
