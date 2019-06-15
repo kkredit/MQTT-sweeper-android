@@ -35,6 +35,11 @@ public class BrokerActivity extends AppCompatActivity {
         setSupportActionBar(m_toolbar);
 
         updateBrokerId();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         updateFields();
     }
 

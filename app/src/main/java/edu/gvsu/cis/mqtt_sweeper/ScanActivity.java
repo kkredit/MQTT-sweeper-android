@@ -6,10 +6,10 @@ import android.content.IntentFilter;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,19 +31,16 @@ public class ScanActivity extends AppCompatActivity
     private BrokerContent.BrokerItem m_broker;
     private List<DataUpdateListener> m_listeners;
 
-    @BindView(R.id.toolbar) Toolbar m_toolbar;
+    @BindView(R.id.toolbar)
+    Toolbar m_toolbar;
+    @BindView(R.id.summary_text)
+    TextView m_summary;
 
     private BroadcastReceiver scanRunReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-//            Bundle bundle = intent.getExtras();
-//            double temp = bundle.getDouble("TEMPERATURE");
-//            String summary = bundle.getString("SUMMARY");
-//            String icon = bundle.getString("ICON").replaceAll("-", "_");
-//            String key = bundle.getString("KEY");
-//            int resID = getResources().getIdentifier(icon , "drawable", getPackageName());
-
             System.out.println("Test results update!");
+            updateSummaryText();
             for (DataUpdateListener listener : m_listeners) {
                 listener.onDataUpdate();
             }
@@ -59,6 +56,7 @@ public class ScanActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         setSupportActionBar(m_toolbar);
+        updateSummaryText();
     }
 
     @Override
@@ -69,7 +67,7 @@ public class ScanActivity extends AppCompatActivity
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(scanRunReceiver);
     }
@@ -99,5 +97,9 @@ public class ScanActivity extends AppCompatActivity
     void onClickScan() {
         m_broker.clearScanResults();
         ScannerService.startActionStartScan(getApplicationContext(), m_broker.id, SHODAN_API_KEY);
+    }
+
+    private void updateSummaryText() {
+        m_summary.setText(m_broker.scanSummary);
     }
 }

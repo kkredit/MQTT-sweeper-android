@@ -28,23 +28,25 @@ public class BrokerContent {
 
     private static BrokerItem createDummyItem(int position) {
         return new BrokerItem(String.valueOf(position), "Broker " + position,
-                "tcp://broker.mqttdashboard.com:1883", "None");
+                "tcp://broker.mqttdashboard.com:1883");
     }
 
     public static class BrokerItem {
         public final String id;
         public final String name;
         public final String url;
-        public final String scanSummary;
+        public String scanSummary;
+        public final BrokerScanMetadata scanMetadata;
         private final List<ScanResultContent.ScanResultItem> scanResults;
         private Integer nextId = 0;
 
-        public BrokerItem(String id, String name, String url, String scanSummary) {
+        public BrokerItem(String id, String name, String url) {
             this.id = id;
             this.name = name;
             this.url = url;
-            this.scanSummary = scanSummary;
+            this.scanMetadata = new BrokerScanMetadata();
             this.scanResults = new ArrayList<>();
+            updateSummary();
         }
 
         @Override
@@ -56,6 +58,8 @@ public class BrokerContent {
             item.setId(nextId.toString());
             nextId++;
             scanResults.add(item);
+            updateMetadata(item);
+            updateSummary();
         }
 
         public List<ScanResultContent.ScanResultItem> getScanResults() {
@@ -64,6 +68,55 @@ public class BrokerContent {
 
         public void clearScanResults() {
             scanResults.clear();
+            updateSummary();
+        }
+
+        private void updateMetadata(ScanResultContent.ScanResultItem item) {
+            switch (item.result) {
+                case CONDITION_PRESENT:
+                    scanMetadata.numFailsTotal++;
+                    switch (item.severity) {
+                        case MINOR:
+                            scanMetadata.numFailsMinor++;
+                            break;
+                        case MODERATE:
+                            scanMetadata.numFailsModerate++;
+                            break;
+                        case SEVERE:
+                            scanMetadata.numFailsSevere++;
+                            break;
+                    }
+                    break;
+                case CONDITION_NOT_PRESENT:
+                    scanMetadata.numPasses++;
+                    break;
+                case ERROR_WHILE_RUNNING:
+                    scanMetadata.numErrors++;
+                    break;
+            }
+        }
+
+        private void updateSummary() {
+            if (0 == scanMetadata.numPasses + scanMetadata.numFailsTotal + scanMetadata.numErrors) {
+                scanSummary = "No tests to report";
+            }
+            else {
+                scanSummary = "Passes: " + Integer.toString(scanMetadata.numPasses) + " " +
+                        "Fails: " + Integer.toString(scanMetadata.numFailsTotal) + " " +
+                        "Errors: " + Integer.toString(scanMetadata.numErrors);
+            }
+        }
+
+        class BrokerScanMetadata {
+            int numPasses = 0;
+            int numFailsTotal = 0;
+            int numFailsMinor = 0;
+            int numFailsModerate = 0;
+            int numFailsSevere = 0;
+            int numErrors = 0;
+
+            BrokerScanMetadata() {
+            }
         }
     }
 }

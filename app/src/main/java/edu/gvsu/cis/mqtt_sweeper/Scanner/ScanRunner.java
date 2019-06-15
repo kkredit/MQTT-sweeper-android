@@ -15,6 +15,7 @@ import edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTests.TestNull;
 import edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTests.TestPasswordStrength;
 import edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTests.TestUsingEncryption;
 
+import static edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent.Severity.MINOR;
 import static edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTest.BROKER_ID_ARG;
 import static edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTest.SHODAN_KEY_ARG;
 
