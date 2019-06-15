@@ -13,7 +13,7 @@ public class TestPasswordStrength extends ScannerTest {
     private static final ScanResultContent.ScanResultItem description = new ScanResultContent.ScanResultItem(
             "Password strength",
             "Tests password strength.",
-            ScanResultContent.Severity.MODERATE
+            ScanResultContent.Severity.MINOR
     );
 
     @Override

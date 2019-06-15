@@ -41,10 +41,11 @@ public class MyScanResultRecyclerViewAdapter extends RecyclerView.Adapter<MyScan
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mName.setText(mValues.get(position).name);
-        holder.mDescr.setText(mValues.get(position).details);
-        int imageId = getImageFromSeverity(mValues.get(position).severity);
+        ScanResultItem result = mValues.get(position);
+        holder.mItem = result;
+        holder.mName.setText(result.name);
+        holder.mDescr.setText(result.details);
+        int imageId = getImageFromSeverity(result.result, result.severity);
         holder.mLogo.setImageResource(imageId);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -59,14 +60,31 @@ public class MyScanResultRecyclerViewAdapter extends RecyclerView.Adapter<MyScan
         });
     }
 
-    private int getImageFromSeverity(ScanResultContent.Severity severity) {
-        if (ScanResultContent.Severity.MINOR == severity)
-            return R.drawable.ic_info_outline_black_24dp;
-        if (ScanResultContent.Severity.MODERATE == severity)
-            return R.drawable.ic_excl_outline_black_24dp;
-        if (ScanResultContent.Severity.SEVERE == severity)
-            return R.drawable.ic_excl_filled_black_24dp;
-        return R.drawable.ic_info_outline_black_24dp;
+    private int getImageFromSeverity(ScanResultContent.Result result, ScanResultContent.Severity severity) {
+        int image = R.drawable.ic_excl_point_gray_24dp;;
+        switch (result) {
+            case CONDITION_PRESENT:
+                /* nested switches aren't very nice... */
+                switch (severity) {
+                    case MINOR:
+                        image = R.drawable.ic_excl_triangle_yellow_24dp;
+                        break;
+                    case MODERATE:
+                        image = R.drawable.ic_excl_outline_red_24dp;
+                        break;
+                    case SEVERE:
+                        image = R.drawable.ic_excl_filled_red_24dp;
+                        break;
+                }
+                break;
+            case CONDITION_NOT_PRESENT:
+                image = R.drawable.ic_check_green_24dp;
+                break;
+            case ERROR_WHILE_RUNNING:
+                image = R.drawable.ic_excl_point_gray_24dp;
+                break;
+        }
+        return image;
     }
 
     @Override

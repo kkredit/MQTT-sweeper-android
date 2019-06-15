@@ -37,10 +37,16 @@ public class TestInternetExposed extends ScannerTest {
 
                     @Override
                     public void iecReceiveAnswer(boolean connected) {
-                        System.out.println("IEC answer is " + (connected ? "TRUE" : "FALSE"));
-                        m_reportReceiver.scanComplete(m_key, (connected ? ScanResultContent.Result.CONDITION_PRESENT :
-                                ScanResultContent.Result.CONDITION_NOT_PRESENT),
-                                "This broker is visible from anywhere on the internet.");
+                        if (connected) {
+                            System.out.println("IEC answer is TRUE");
+                            m_reportReceiver.scanComplete(m_key, ScanResultContent.Result.CONDITION_PRESENT,
+                                    "This broker is visible from anywhere on the internet.");
+                        }
+                        else {
+                            System.out.println("IEC answer is FALSE");
+                            m_reportReceiver.scanComplete(m_key, ScanResultContent.Result.CONDITION_NOT_PRESENT,
+                                    "This broker is not visible from the internet.");
+                        }
                     }
                 });
         iec.getExposed();
