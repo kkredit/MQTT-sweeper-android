@@ -8,8 +8,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.eclipse.paho.android.service.MqttAndroidClient;
+import org.eclipse.paho.client.mqttv3.IMqttActionListener;
+import org.eclipse.paho.client.mqttv3.IMqttToken;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.parceler.Parcels;
+
+import java.io.UnsupportedEncodingException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +31,7 @@ public class BrokerActivity extends AppCompatActivity {
 
     private BrokerContent.BrokerItem m_broker = null;
     private Broker broker;
+    MqttAndroidClient client;
 
     private final int SCAN_RESULT = 0;
 
@@ -66,8 +77,50 @@ public class BrokerActivity extends AppCompatActivity {
         startActivityForResult(intent, SCAN_RESULT);
     }
 
+     @OnClick(R.id.button_edit)
+     void onClickPub() {
+         String clientId = MqttClient.generateClientId();
+         client = new MqttAndroidClient(this.getApplication(),broker.url,
+                 clientId);
+         MqttConnectOptions options = new MqttConnectOptions();
+         options.setUserName(broker.username);
+         options.setPassword(broker.password.toCharArray());
+
+         try {
+             IMqttToken token = client.connect(options);
+             token.setActionCallback(new IMqttActionListener() {
+
+                 @Override
+                 public void onSuccess(IMqttToken asyncActionToken) {
+                     // We are connected
+                 }
+                 @Override
+                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                     // Something went wrong e.g. connection timeout or firewall problems
+                 }
+             });
+          } catch (MqttException e) {
+             e.printStackTrace();
+         }
+     }
+
+     public void Publish(View view) {
+        String topic = "foo/bar";
+        String payload = "the payload";
+        byte[] encodedPayload = new byte[0];
+        try {
+            encodedPayload = payload.getBytes("UTF-8");
+            MqttMessage message = new MqttMessage(encodedPayload);
+            client.publish(topic, message);
+
+        } catch (UnsupportedEncodingException | MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
     @OnClick(R.id.fab)
     void onClickFab(View view) {
+
         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
