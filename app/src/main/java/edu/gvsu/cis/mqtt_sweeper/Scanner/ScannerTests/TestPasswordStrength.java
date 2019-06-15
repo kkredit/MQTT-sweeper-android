@@ -26,7 +26,9 @@ public class TestPasswordStrength extends ScannerTest {
                     "\t0-19 bits of entropy: extremely poor\n" +
                     "\t20-39 bits of entropy: poor\n" +
                     "\t40-59 bits of entropy: good\n" +
-                    "\t60+ bits of entropy: very good"
+                    "\t60+ bits of entropy: very good",
+            "Read more on Wikipedia",
+            "https://en.wikipedia.org/wiki/Password_strength"
     );
 
     @Override

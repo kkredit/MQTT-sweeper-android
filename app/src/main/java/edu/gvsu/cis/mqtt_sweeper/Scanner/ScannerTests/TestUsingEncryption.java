@@ -13,7 +13,9 @@ public class TestUsingEncryption extends ScannerTest {
             "Using encryption",
             "Tests whether the connection uses encrypted protocols.",
             ScanResultContent.Severity.MODERATE,
-            "TODO More info."
+            "TODO More info.",
+            "Read more on Wikipedia",
+            "https://en.wikipedia.org/wiki/Encryption"
     );
 
     @Override

@@ -1,12 +1,14 @@
 package edu.gvsu.cis.mqtt_sweeper;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +16,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent;
 
@@ -28,6 +31,7 @@ public class ScanResultActivity extends AppCompatActivity {
     @BindView(R.id.severity_logo) ImageView m_severityLogo;
     @BindView(R.id.your_result) TextView m_yourResult;
     @BindView(R.id.more_information) TextView m_moreInformation;
+    @BindView(R.id.button_link) Button m_linkButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,13 @@ public class ScanResultActivity extends AppCompatActivity {
             m_severityLogo.setImageResource(image);
             m_yourResult.setText(m_result.resultDetails);
             m_moreInformation.setText(m_result.moreInfo);
+            m_linkButton.setText(m_result.linkText);
         }
+    }
+
+    @OnClick(R.id.button_link)
+    void onClickLinkButton() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Uri.decode(m_result.linkUri)));
+        startActivity(browserIntent);
     }
 }

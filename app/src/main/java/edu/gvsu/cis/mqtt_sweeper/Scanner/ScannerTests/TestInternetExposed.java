@@ -10,7 +10,9 @@ public class TestInternetExposed extends ScannerTest {
             "Internet exposed",
             "Tests whether the MQTT broker is visible over the public internet.",
             ScanResultContent.Severity.MODERATE,
-            "TODO More info."
+            "TODO More info.",
+            "Read more on Wikipedia",
+            "https://en.wikipedia.org/wiki/Firewall_(computing)"
     );
 
     @Override

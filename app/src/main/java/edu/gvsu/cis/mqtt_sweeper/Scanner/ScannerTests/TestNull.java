@@ -12,7 +12,9 @@ public class TestNull extends ScannerTest {
             "NULL TEST",
             "Dummy test that does nothing",
             Severity.MINOR,
-            "This is a dummy test that exists as a template for real tests."
+            "This is a dummy test that exists as a template for real tests.",
+            "Read more on Wikipedia",
+            "https://en.wikipedia.org"
     );
 
     @Override

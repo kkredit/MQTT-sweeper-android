@@ -9,7 +9,9 @@ public class TestBrokerValidatesClients extends ScannerTest {
             "Broker authenticates clients",
             "Tests whether the broker performs any authentication of clients.",
             ScanResultContent.Severity.SEVERE,
-            "TODO More info."
+            "TODO More info.",
+            "Read more on Wikipedia",
+            "https://en.wikipedia.org/wiki/Electronic_authentication"
     );
 
     @Override

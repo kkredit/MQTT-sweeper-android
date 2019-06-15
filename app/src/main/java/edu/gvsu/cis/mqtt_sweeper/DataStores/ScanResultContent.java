@@ -47,7 +47,8 @@ public class ScanResultContent {
 
     private static ScanResultItem createDummyItem(int position) {
         return new ScanResultItem(String.valueOf(position), "Item " + position,
-                                  makeDetails(position), Severity.MINOR, "More info.");
+                                  makeDetails(position), Severity.MINOR, "More info.",
+                           "Dummy link", "https://www.wikipedia.org");
     }
 
     private static String makeDetails(int position) {
@@ -65,22 +66,30 @@ public class ScanResultContent {
         public final String details;
         public final Severity severity;
         public final String moreInfo;
+        public final String linkText;
+        public final String linkUri;
         public Result result = Result.HAVE_NOT_RUN;
         public String resultDetails = "";
 
-        public ScanResultItem(String id, String name, String details, Severity severity, String moreInfo) {
+        public ScanResultItem(String id, String name, String details, Severity severity,
+                              String moreInfo, String linkText, String linkUri) {
             this.id = id;
             this.name = name;
             this.details = details;
             this.severity = severity;
             this.moreInfo = moreInfo;
+            this.linkText = linkText;
+            this.linkUri = linkUri;
         }
 
-        public ScanResultItem(String name, String details, Severity severity, String moreInfo) {
+        public ScanResultItem(String name, String details, Severity severity, String moreInfo,
+                              String linkText, String linkUri) {
             this.name = name;
             this.details = details;
             this.severity = severity;
             this.moreInfo = moreInfo;
+            this.linkText = linkText;
+            this.linkUri = linkUri;
         }
 
         public ScanResultItem(ScanResultItem orig) {
@@ -89,6 +98,8 @@ public class ScanResultContent {
             this.details = orig.details;
             this.severity = orig.severity;
             this.moreInfo = orig.moreInfo;
+            this.linkText = orig.linkText;
+            this.linkUri = orig.linkUri;
         }
 
         public void setResult(Result result, String details) {
