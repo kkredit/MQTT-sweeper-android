@@ -14,7 +14,19 @@ public class TestPasswordStrength extends ScannerTest {
             "Password strength",
             "Tests password strength.",
             ScanResultContent.Severity.MINOR,
-            "TODO More info."
+            "The importance of password strength depends on your threat model. " +
+                    "If your broker is exposed to the internet, a strong password is extremely " +
+                    "important. If your broker is used to distribute sensitive data or is " +
+                    "necessary for the operation of critical functions, a strong password is " +
+                    "important. However, if your broker is neither of these things, password " +
+                    "strength may be less important. In any case, default credentials or trivial " +
+                    "passwords are always bad.\n\n" +
+                    "Password strength requirements change as technology advances, but this app " +
+                    "rates passwords as follows:\n" +
+                    "\t0-19 bits of entropy: extremely poor\n" +
+                    "\t20-39 bits of entropy: poor\n" +
+                    "\t40-59 bits of entropy: good\n" +
+                    "\t60+ bits of entropy: very good"
     );
 
     @Override
