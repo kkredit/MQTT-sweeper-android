@@ -23,10 +23,10 @@ public class TestPasswordStrength extends ScannerTest {
                     "passwords are always bad.\n\n" +
                     "Password strength requirements change as technology advances, but this app " +
                     "rates passwords as follows:\n" +
-                    "\t0-19 bits of entropy: extremely poor\n" +
-                    "\t20-39 bits of entropy: poor\n" +
-                    "\t40-59 bits of entropy: good\n" +
-                    "\t60+ bits of entropy: very good",
+                    "\t- 0-19 bits of entropy: extremely poor\n" +
+                    "\t- 20-39 bits of entropy: poor\n" +
+                    "\t- 40-59 bits of entropy: good\n" +
+                    "\t- 60+ bits of entropy: very good",
             "Read more on Wikipedia",
             "https://en.wikipedia.org/wiki/Password_strength"
     );

@@ -8,8 +8,15 @@ public class TestBrokerValidatesClients extends ScannerTest {
     private static final ScanResultContent.ScanResultItem description = new ScanResultContent.ScanResultItem(
             "Broker authenticates clients",
             "Tests whether the broker performs any authentication of clients.",
-            ScanResultContent.Severity.SEVERE,
-            "TODO More info.",
+            ScanResultContent.Severity.MODERATE,
+            "Client authentication makes it so that only those who are authorized to " +
+                    "connect to a broker can actually do so. While its importance depends on " +
+                    "your threat model and things such as whether the broker is exposed to the " +
+                    "internet, in almost no situation is the complete lack of client " +
+                    "authentication the right choice.\n\n" +
+                    "MQTT allows for several forms of client authentication: username and " +
+                    "password, cryptographic certificate, and client ID whitelisting. This test " +
+                    "checks for whether your connection uses password authentication.",
             "Read more on Wikipedia",
             "https://en.wikipedia.org/wiki/Electronic_authentication"
     );

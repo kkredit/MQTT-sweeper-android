@@ -9,8 +9,16 @@ public class TestInternetExposed extends ScannerTest {
     private static final ScanResultContent.ScanResultItem description = new ScanResultContent.ScanResultItem(
             "Internet exposed",
             "Tests whether the MQTT broker is visible over the public internet.",
-            ScanResultContent.Severity.MODERATE,
-            "TODO More info.",
+            ScanResultContent.Severity.SEVERE,
+            "Being exposed to the internet is not itself a security vulnerability. " +
+                    "However, it dramatically increases the importance of real " +
+                    "vulnerabilities.\n\n" +
+                    "While making it available on the internet increases usability, it also " +
+                    "makes it directly attackable from anywhere. Internet exposed MQTT brokers " +
+                    "must either use strong client authentication or else handle absolutely " +
+                    "no sensitive data.\n\n" +
+                    "If this doesn't absolutely need to be accessed from anywhere, putting it " +
+                    "behind a network firewall is advisable.",
             "Read more on Wikipedia",
             "https://en.wikipedia.org/wiki/Firewall_(computing)"
     );
