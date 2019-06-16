@@ -23,6 +23,14 @@
             android:name=".Scanner.ScannerService"
             android:exported="false" />
 
+        <activity
+            android:name=".PublishTopic"
+            android:label="@string/title_activity_publish_topic"
+            android:parentActivityName=".BrokerActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.gvsu.cis.mqtt_sweeper.BrokerActivity" />
         <activity android:name=".UserDetailsActivity" />
         <activity android:name=".AddBrokerActivity" />
         <activity

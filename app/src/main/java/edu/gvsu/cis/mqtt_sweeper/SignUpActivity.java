@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -43,7 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         EditText passwd = (EditText) findViewById(R.id.password);
         EditText verifyPasswd = (EditText) findViewById(R.id.password2);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addTopic);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
