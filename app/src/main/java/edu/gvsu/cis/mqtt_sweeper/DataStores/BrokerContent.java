@@ -103,43 +103,25 @@ public class BrokerContent {
             }
             else {
                 StringBuilder builder = new StringBuilder();
-                if (0 < scanMetadata.numPasses) {
-                    builder.append(scanMetadata.numPasses);
-                    if (1 == scanMetadata.numPasses) {
-                        builder.append(" Pass");
-                    }
-                    else {
-                        builder.append(" Passes");
-                    }
-                }
-                if (0 < scanMetadata.numFailsTotal) {
-                    if (0 < builder.length()) {
-                        builder.append(" | ");
-                    }
-                    builder.append(scanMetadata.numFailsTotal);
-                    if (1 == scanMetadata.numFailsTotal) {
-                        builder.append(" Fail");
-                    }
-                    else {
-                        builder.append(" Fails");
-                    }
-                }
-                if (0 < scanMetadata.numErrors) {
-                    if (0 < builder.length()) {
-                        builder.append(" | ");
-                    }
-                    builder.append(scanMetadata.numErrors);
-                    if (1 == scanMetadata.numErrors) {
-                        builder.append(" Error");
-                    }
-                    else {
-                        builder.append(" Errors");
-                    }
-                }
+                addSummaryPart(builder, scanMetadata.numPasses, "Pass", "Passes");
+                addSummaryPart(builder, scanMetadata.numFailsTotal, "Fail", "Fails");
+                addSummaryPart(builder, scanMetadata.numErrors, "Error", "Errors");
                 scanSummary = builder.toString();
-//                scanSummary = "Passes: " + Integer.toString(scanMetadata.numPasses) + " " +
-//                        "Fails: " + Integer.toString(scanMetadata.numFailsTotal) + " " +
-//                        "Errors: " + Integer.toString(scanMetadata.numErrors);
+            }
+        }
+
+        private void addSummaryPart(StringBuilder builder, int num, String singular, String plural) {
+            if (0 < num) {
+                if (0 < builder.length()) {
+                    builder.append(", ");
+                }
+                builder.append(num).append(" ");
+                if (1 == num) {
+                    builder.append(singular);
+                }
+                else {
+                    builder.append(plural);
+                }
             }
         }
 
