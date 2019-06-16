@@ -13,7 +13,13 @@ public class TestUsingEncryption extends ScannerTest {
             "Using encryption",
             "Tests whether the connection uses encrypted protocols.",
             ScanResultContent.Severity.MODERATE,
-            "TODO More info.",
+            "Encryption scrambles data so that only those who hold the encryption " +
+            "keys can decipher it. Encrypting data in transit is necessary " +
+            "to prevent anyone connected to the network from being able to read intercepted " +
+            "data. The MQTT standard excludes encryption. Either lower level carrier protocols " +
+            "or higher level application protocols must be used instead. This test checks " +
+            "whether the connection is configured using a carrier protocol that implements " +
+            "encryption.",
             "Read more on Wikipedia",
             "https://en.wikipedia.org/wiki/Encryption"
     );
