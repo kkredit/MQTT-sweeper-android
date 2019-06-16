@@ -12,7 +12,7 @@ public class Broker {
     public String username;
     public String password;
     public String _key;
-  
+
 
     public String get_key() {
         return _key;

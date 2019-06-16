@@ -14,7 +14,6 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.joda.time.DateTime;
-import org.parceler.Parcel;
 import org.parceler.Parcels;
 
 import java.util.List;
@@ -30,9 +29,8 @@ public class AddBrokerActivity extends AppCompatActivity {
 
     //static String MQTTHOST = "tcp://broker.hivemq.com:1883";
 //    static String USERNAME = "USERNAME";                        Test Credentials
- //   static String PASSWORD = "PASSWORD";
-
-      MqttAndroidClient client;
+    //   static String PASSWORD = "PASSWORD";
+    MqttAndroidClient client;
 
     @BindView(R.id.hostText) EditText mqttHost;
     @BindView(R.id.brokerName) EditText brokerName;
@@ -45,9 +43,7 @@ public class AddBrokerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_broker);
         ButterKnife.bind(this);
-
         connectBroker();
-
     }
 
     @OnClick(R.id.connectBtn)
@@ -70,7 +66,7 @@ public class AddBrokerActivity extends AppCompatActivity {
         }
 
         String clientId = MqttClient.generateClientId();
-        client = new MqttAndroidClient(this.getApplication(),MQTTHOST,
+        client = new MqttAndroidClient(this.getApplicationContext(),MQTTHOST,
                 clientId);
         MqttConnectOptions options = new MqttConnectOptions();
         options.setUserName(USERNAME);
@@ -84,17 +80,18 @@ public class AddBrokerActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     // We are connected
+                    Toast.makeText(AddBrokerActivity.this,"Broker Added",Toast.LENGTH_LONG).show();
                     Intent result = new Intent();
                     Broker aBroker = new Broker();
                     aBroker.url =  mqttHost.getText().toString();
                     aBroker.servername = brokerName.getText().toString();
                     aBroker.username = usernameText.getText().toString();
                     aBroker.password = passwordText.getText().toString();
-                    aBroker.bid = clientId;
+                    aBroker.bid = brokerName.getText().toString() + usernameText.getText().toString();
                     Parcelable parcel = Parcels.wrap(aBroker);
                     result.putExtra("Broker",parcel);
                     setResult(RESULT_OK,result);
-                    client.close();
+                    disconnectBroker();
                     finish();
                 }
 
@@ -102,7 +99,6 @@ public class AddBrokerActivity extends AppCompatActivity {
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
                     // Something went wrong e.g. connection timeout or firewall problems
                     Toast.makeText(AddBrokerActivity.this,"Connection failed",Toast.LENGTH_LONG).show();
-
                 }
             });
         } catch (MqttException e) {
@@ -110,4 +106,23 @@ public class AddBrokerActivity extends AppCompatActivity {
         }
     }
 
+    public void disconnectBroker(){
+        try {
+            IMqttToken disconToken = client.disconnect();
+            disconToken.setActionCallback(new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    // we are now successfully disconnected
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken,
+                                      Throwable exception) {
+                    // something went wrong, but probably we are disconnected anyway
+                }
+            });
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
 }

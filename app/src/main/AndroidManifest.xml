@@ -14,7 +14,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserDetailsActivity"></activity>
+        <activity
+            android:name=".PublishTopic"
+            android:label="@string/title_activity_publish_topic"
+            android:parentActivityName=".BrokerActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.gvsu.cis.mqtt_sweeper.BrokerActivity" />
+        </activity>
+        <activity android:name=".UserDetailsActivity" />
         <activity android:name=".AddBrokerActivity" />
         <activity
             android:name=".ScanActivity"
@@ -56,8 +65,8 @@
             android:name=".DashboardActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <service android:name="org.eclipse.paho.android.service.MqttService" >
-        </service>
+
+        <service android:name="org.eclipse.paho.android.service.MqttService"></service>
     </application>
 
 </manifest>

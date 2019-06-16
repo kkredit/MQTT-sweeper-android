@@ -2,14 +2,11 @@ package edu.gvsu.cis.mqtt_sweeper;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,14 +20,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.Broker;
-import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
 
 public class DashboardActivity extends AppCompatActivity
         implements BrokerFragment.OnListFragmentInteractionListener {
 
     final int NEW_BROKER_REQUEST = 1;
-    @BindView(R.id.toolbar)
-    Toolbar m_toolbar;
+    @BindView(R.id.toolbar) Toolbar m_toolbar;
     private FirebaseAuth mAuth;
     DatabaseReference topRef;
 
@@ -54,7 +49,7 @@ public class DashboardActivity extends AppCompatActivity
         topRef = dbRef.getReference(uid);
     }
 
-    @OnClick(R.id.fab)
+    @OnClick(R.id.addTopic)
     void popScreen() {
         Intent newBroker = new Intent(
                 DashboardActivity.this, AddBrokerActivity.class);
