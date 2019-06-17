@@ -13,15 +13,13 @@ import android.view.ViewGroup;
 import edu.gvsu.cis.mqtt_sweeper.dummy.DummyContent;
 import edu.gvsu.cis.mqtt_sweeper.dummy.DummyContent.DummyItem;
 
-import java.util.List;
-
 /**
  * A fragment representing a list of Items.
  * <p/>
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class topicsFragment extends Fragment {
+public class TopicsFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -33,13 +31,13 @@ public class topicsFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public topicsFragment() {
+    public TopicsFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static topicsFragment newInstance(int columnCount) {
-        topicsFragment fragment = new topicsFragment();
+    public static TopicsFragment newInstance(int columnCount) {
+        TopicsFragment fragment = new TopicsFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);

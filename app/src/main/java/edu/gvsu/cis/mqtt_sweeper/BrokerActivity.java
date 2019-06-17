@@ -33,8 +33,9 @@ import butterknife.OnClick;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.Broker;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.Topic;
+import edu.gvsu.cis.mqtt_sweeper.dummy.DummyContent;
 
-public class BrokerActivity extends AppCompatActivity {
+public class BrokerActivity extends AppCompatActivity implements TopicsFragment.OnListFragmentInteractionListener   {
 
     final int NEW_TOPIC_REQUEST = 1;
     private BrokerContent.BrokerItem m_broker = null;
@@ -178,4 +179,9 @@ public class BrokerActivity extends AppCompatActivity {
          String uid = mUser.getUid();
          topRef = dbRef.getReference(uid);
      }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+        
+    }
 }
