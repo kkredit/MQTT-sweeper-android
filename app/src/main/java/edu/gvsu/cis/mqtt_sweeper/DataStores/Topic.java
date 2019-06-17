@@ -6,6 +6,15 @@ import org.parceler.Parcel;
 public class Topic {
     public String topic;
     public String message;
+    public String _key;
+
+    public String get_key() {
+        return _key;
+    }
+
+    public void set_key(String _key) {
+        this._key = _key;
+    }
 
     public String getTopic() {
         return topic;

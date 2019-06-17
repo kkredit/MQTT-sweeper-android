@@ -59,7 +59,7 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
         ButterKnife.bind(this);
 
         setSupportActionBar(m_toolbar);
-
+        mAuth = FirebaseAuth.getInstance();
         retrieveBroker();
         updateFields();
         connectBroker();
@@ -77,6 +77,17 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
         m_addrField.setText("URL: " + broker.url);
 //      m_scanField.setText("Scan summary: " + m_broker.scanSummary);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        FirebaseDatabase dbRef = FirebaseDatabase.getInstance();
+        FirebaseUser mUser = mAuth.getCurrentUser();
+        mAuth = FirebaseAuth.getInstance();
+        String uid = mUser.getUid();
+        topRef = dbRef.getReference(uid);
+    }
+
 
     @OnClick(R.id.button_scan)
     void onClickScan() {
@@ -145,26 +156,15 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == NEW_TOPIC_REQUEST) {
-            if (data != null && data.hasExtra("Broker")) {
-                Parcelable topicData = data.getParcelableExtra("Topic");
-                Topic topic = Parcels.unwrap(topicData);
-                String newTopic = topic.topic;
-                String payload = topic.message;
-                byte[] encodedPayload = new byte[0];
-                try {
-                    encodedPayload = payload.getBytes("UTF-8");
-                    MqttMessage message = new MqttMessage(encodedPayload);
-                    message.setRetained(true);
-                    client.publish(newTopic, message);
-                } catch (UnsupportedEncodingException | MqttException e) {
-                    e.printStackTrace();
+                if (data != null && data.hasExtra("Topic_Item")) {
+                    Parcelable topicData = data.getParcelableExtra("Topic_Item");
+                    Topic topic = Parcels.unwrap(topicData);
+                    topRef.push().setValue(topic);
+                    Toast.makeText(BrokerActivity.this, "Broker Added", Toast.LENGTH_LONG).show();
                 }
-
-                Toast.makeText(BrokerActivity.this, "Broker Added", Toast.LENGTH_LONG).show();
-            }
-        } else
-            super.onActivityResult(requestCode, resultCode, data);
-    }
+            } else
+                super.onActivityResult(requestCode, resultCode, data);
+        }
 
      @OnClick(R.id.button_delete)
       void brokerDelete(){
@@ -176,12 +176,14 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
      }
 
     @Override
-    public void onListFragmentInteraction(TopicContent.topicItem item) {
+    public void onListFragmentInteraction(Topic item) {
      System.out.println("interact") ;
      Intent intent = new Intent(this, TopicViewActivity.class);
      intent.putExtra("TOPIC_NAME",item.topic);
      startActivity(intent);
     }
+
+
 }
 
 

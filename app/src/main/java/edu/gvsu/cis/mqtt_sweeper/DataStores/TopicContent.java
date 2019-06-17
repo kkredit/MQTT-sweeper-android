@@ -16,30 +16,13 @@ public class TopicContent {
     /**
      * An array of sample (dummy) items.
      */
-    public static final List<topicItem> ITEMS = new ArrayList<topicItem>();
+    public static final List<TopicItem> ITEMS = new ArrayList<TopicItem>();
 
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static final Map<String, topicItem> ITEM_MAP = new HashMap<String, topicItem>();
+    public static final Map<String, TopicItem> ITEM_MAP = new HashMap<String, TopicItem>();
 
-    private static final int COUNT = 25;
-
-    static {
-        // Add some sample items.
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createTopicItem(i));
-        }
-    }
-
-    private static void addItem(topicItem item) {
-        ITEMS.add(item);
-        ITEM_MAP.put(item.id, item);
-    }
-
-    private static topicItem createTopicItem(int position) {
-        return new topicItem(String.valueOf(position), "Item " + position, makeDetails(position));
-    }
 
     private static String makeDetails(int position) {
         StringBuilder builder = new StringBuilder();
@@ -53,15 +36,17 @@ public class TopicContent {
     /**
      * A dummy item representing a piece of topic.
      */
-    public static class topicItem {
+    public static class TopicItem {
         public final String id;
         public final String topic;
         public final String message;
+        public  String _key;
 
-        public topicItem(String id, String content, String details) {
+        public TopicItem(String id, String content, String details) {
             this.id = id;
             this.topic = content;
             this.message = details;
+            _key = null;
         }
 
         @Override

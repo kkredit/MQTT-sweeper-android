@@ -13,17 +13,12 @@ import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
-import org.joda.time.DateTime;
 import org.parceler.Parcels;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.Broker;
-import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
-import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent;
 
 public class AddBrokerActivity extends AppCompatActivity {
 
@@ -32,8 +27,8 @@ public class AddBrokerActivity extends AppCompatActivity {
     //   static String PASSWORD = "PASSWORD";
     MqttAndroidClient client;
 
-    @BindView(R.id.hostText) EditText mqttHost;
-    @BindView(R.id.brokerName) EditText brokerName;
+    @BindView(R.id.brokerName) EditText mqttHost;
+    @BindView(R.id.brokerURL) EditText brokerName;
     @BindView(R.id.usernameText) EditText usernameText;
     @BindView(R.id.passwdText) EditText passwordText;
     @BindView(R.id.passwdVerify) EditText passwordVerify;

@@ -85,7 +85,6 @@ public class DashboardActivity extends AppCompatActivity
     @Override
     public void onListFragmentInteraction(Broker item) {
         System.out.println("Interact!");
-
         Intent intent = new Intent(DashboardActivity.this, BrokerActivity.class);
         Parcelable parcel = Parcels.wrap(item);
         intent.putExtra("BrokerObject", parcel);

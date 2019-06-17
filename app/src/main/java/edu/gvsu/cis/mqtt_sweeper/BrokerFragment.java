@@ -52,8 +52,6 @@ public class BrokerFragment extends Fragment {
      */
     public BrokerFragment() {
         allBrokers = new ArrayList<Broker>();
-
-
     }
 
     // TODO: Customize parameter initialization

@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     android:id="@+id/coordinatorLayout">
 
+    <EditText
+        android:id="@+id/brokerURL2"
+        android:layout_width="283dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/mqtt_broker"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/brokerName" />
+
     <Button
         android:id="@+id/connectBtn"
         android:layout_width="275dp"
@@ -19,35 +33,20 @@
         app:layout_constraintTop_toBottomOf="@+id/passwdVerify" />
 
     <EditText
-        android:id="@+id/hostText"
-        android:layout_width="298dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:hint="@string/mqtt_host"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/brokerName" />
-
-    <EditText
         android:id="@+id/usernameText"
         android:layout_width="298dp"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="@string/username"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintHorizontal_bias="0.577"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hostText" />
+        app:layout_constraintTop_toBottomOf="@+id/brokerURL2" />
 
     <EditText
         android:id="@+id/passwdText"

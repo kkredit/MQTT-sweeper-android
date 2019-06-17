@@ -16,6 +16,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.Broker;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.Topic;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.TopicContent;
 
@@ -24,8 +25,6 @@ public class PublishTopic extends AppCompatActivity {
     @BindView(R.id.fabTopic) FloatingActionButton fab;
     @BindView(R.id.addtopic) EditText newTopic;
     @BindView(R.id.payload) EditText message;
-    TopicContent.topicItem topic;
-
 
 
     @Override
@@ -36,21 +35,17 @@ public class PublishTopic extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String Topic = newTopic.getText().toString();
-                String Message = message.getText().toString();
-                Intent result = new Intent();
-                topic.message = Message;
-                topicList.add(1,topic);
-                Parcelable parcel = Parcels.wrap(topic);
-                result.putExtra("Topic",parcel);
-                setResult(RESULT_OK,result);
-                Snackbar.make(view, "Topic Added", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                finish();
-            }
+        fab.setOnClickListener(view -> {
+            Intent result = new Intent();
+            Topic aTopic = new Topic();
+            aTopic.message = message.getText().toString();
+            aTopic.topic = newTopic.getText().toString();
+            Parcelable parcel = Parcels.wrap(aTopic);
+            result.putExtra("Topic_Item",parcel);
+            setResult(RESULT_OK,result);
+            Snackbar.make(view, "TopicItem Added", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            finish();
         });
     }
 
