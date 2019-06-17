@@ -12,44 +12,41 @@
         android:layout_width="255dp"
         android:layout_height="204dp"
         android:layout_marginStart="76dp"
+        android:layout_marginTop="148dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="260dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="@string/message"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/fabTopic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.027"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/addtopic"
         android:layout_width="239dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="@string/topics"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/payload"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.448"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabTopic"
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="28dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_check_circle_black_24dp"
-        android:focusable="true" />
+        app:srcCompat="@drawable/ic_check_circle_black_24dp" />
 
 </android.support.constraint.ConstraintLayout>

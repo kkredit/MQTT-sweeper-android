@@ -6,24 +6,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import edu.gvsu.cis.mqtt_sweeper.DataStores.Broker;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.Topic;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.TopicContent;
 import edu.gvsu.cis.mqtt_sweeper.TopicsFragment.OnListFragmentInteractionListener;
-import edu.gvsu.cis.mqtt_sweeper.DataStores.TopicContent.topicItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link topicItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link TopicContent.TopicItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MytopicsRecyclerViewAdapter extends RecyclerView.Adapter<MytopicsRecyclerViewAdapter.ViewHolder> {
 
-    private final List<topicItem> mValues;
+    private final List<Topic> topics;
     private final OnListFragmentInteractionListener mListener;
 
-    public MytopicsRecyclerViewAdapter(List<topicItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
+    public MytopicsRecyclerViewAdapter(List<Topic> items, OnListFragmentInteractionListener listener) {
+        this.topics = new ArrayList<Topic>();
         mListener = listener;
+        reloadFrom(items);
+    }
+    public void reloadFrom(final List<Topic> data) {
+        topics.clear();
+        for(Topic p : data){
+            topics.add(p);
+        }
+        notifyDataSetChanged();
     }
 
     @Override
@@ -35,9 +46,11 @@ public class MytopicsRecyclerViewAdapter extends RecyclerView.Adapter<MytopicsRe
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).topic);
+        Topic item;
+        item = this.topics.get(position);
+        holder.mItem = item;
+        holder.mIdView.setText(topics.get(position).topic);
+        holder.mContentView.setText(topics.get(position).message);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,14 +66,14 @@ public class MytopicsRecyclerViewAdapter extends RecyclerView.Adapter<MytopicsRe
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return topics.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public topicItem mItem;
+        public Topic mItem;
 
         public ViewHolder(View view) {
             super(view);
