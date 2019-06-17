@@ -40,4 +40,5 @@
     <string name="broker_name">Broker Name</string>
     <string name="add">Add</string>
     <string name="title_activity_publish_topic">PublishTopic</string>
+    <string name="message">message</string>
 </resources>

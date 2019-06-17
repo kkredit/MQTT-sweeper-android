@@ -18,8 +18,8 @@ import edu.gvsu.cis.mqtt_sweeper.DataStores.Topic;
 
 public class PublishTopic extends AppCompatActivity {
 
-    @BindView(R.id.addTopic) FloatingActionButton fab;
-    @BindView(R.id.topic) EditText newTopic;
+    @BindView(R.id.fabTopic) FloatingActionButton fab;
+    @BindView(R.id.addtopic) EditText newTopic;
     @BindView(R.id.payload) EditText message;
     edu.gvsu.cis.mqtt_sweeper.DataStores.Topic topic;
 
@@ -48,7 +48,6 @@ public class PublishTopic extends AppCompatActivity {
                 finish();
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 }
