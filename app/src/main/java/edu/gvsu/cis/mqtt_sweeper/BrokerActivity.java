@@ -33,7 +33,7 @@ import butterknife.OnClick;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.Broker;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.Topic;
-import edu.gvsu.cis.mqtt_sweeper.DataStores.DummyContent;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.TopicContent;
 
 public class BrokerActivity extends AppCompatActivity implements TopicsFragment.OnListFragmentInteractionListener   {
 
@@ -176,10 +176,10 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
      }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFragmentInteraction(TopicContent.topicItem item) {
      System.out.println("interact") ;
      Intent intent = new Intent(this, TopicViewActivity.class);
-     intent.putExtra("TOPIC_NAME",item.content);
+     intent.putExtra("TOPIC_NAME",item.topic);
      startActivity(intent);
     }
 }

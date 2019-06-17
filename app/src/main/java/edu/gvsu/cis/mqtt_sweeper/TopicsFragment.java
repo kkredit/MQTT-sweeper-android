@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import edu.gvsu.cis.mqtt_sweeper.DataStores.DummyContent;
-import edu.gvsu.cis.mqtt_sweeper.DataStores.DummyContent.DummyItem;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.TopicContent;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.TopicContent.topicItem;
 
 /**
  * A fragment representing a list of Items.
@@ -67,7 +67,7 @@ public class TopicsFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MytopicsRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MytopicsRecyclerViewAdapter(TopicContent.ITEMS, mListener));
         }
         return view;
     }
@@ -102,6 +102,6 @@ public class TopicsFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(topicItem item);
     }
 }

@@ -8,7 +8,7 @@ import java.util.Map;
 import static edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent.Result;
 
 /**
- * Helper class for providing sample content for user interfaces created by
+ * Helper class for providing sample topic for user interfaces created by
  * Android template wizards.
  * <p>
  * TODO: Replace all uses of this class before publishing your app.
@@ -54,7 +54,7 @@ public class ScanResultContent {
         StringBuilder builder = new StringBuilder();
         builder.append("Details about Item: ").append(position);
         for (int i = 0; i < position; i++) {
-            builder.append("\nMore details information here.");
+            builder.append("\nMore message information here.");
         }
         return builder.toString();
     }

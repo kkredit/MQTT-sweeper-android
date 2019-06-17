@@ -12,16 +12,21 @@ import android.widget.EditText;
 
 import org.parceler.Parcels;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.Topic;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.TopicContent;
 
 public class PublishTopic extends AppCompatActivity {
 
     @BindView(R.id.fabTopic) FloatingActionButton fab;
     @BindView(R.id.addtopic) EditText newTopic;
     @BindView(R.id.payload) EditText message;
-    edu.gvsu.cis.mqtt_sweeper.DataStores.Topic topic;
+    TopicContent.topicItem topic;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +42,8 @@ public class PublishTopic extends AppCompatActivity {
                 String Topic = newTopic.getText().toString();
                 String Message = message.getText().toString();
                 Intent result = new Intent();
-                topic = new Topic();
-                topic.topic = Topic;
                 topic.message = Message;
+                topicList.add(1,topic);
                 Parcelable parcel = Parcels.wrap(topic);
                 result.putExtra("Topic",parcel);
                 setResult(RESULT_OK,result);
