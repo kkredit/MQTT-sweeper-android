@@ -27,8 +27,8 @@ public class AddBrokerActivity extends AppCompatActivity {
     //   static String PASSWORD = "PASSWORD";
     MqttAndroidClient client;
 
-    @BindView(R.id.brokerName) EditText mqttHost;
-    @BindView(R.id.brokerURL) EditText brokerName;
+    @BindView(R.id.brokerName) EditText brokerNameField;
+    @BindView(R.id.brokerURL) EditText brokerUrl;
     @BindView(R.id.usernameText) EditText usernameText;
     @BindView(R.id.passwdText) EditText passwordText;
     @BindView(R.id.passwdVerify) EditText passwordVerify;
@@ -38,24 +38,24 @@ public class AddBrokerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_broker);
         ButterKnife.bind(this);
-        connectBroker();
     }
 
     @OnClick(R.id.connectBtn)
     public void connectBroker() {
-        String MQTTHOST = mqttHost.getText().toString();
+        String brokerName = brokerNameField.getText().toString();
+        String MQTTHOST = brokerUrl.getText().toString();
         String USERNAME = usernameText.getText().toString();
         String PASSWORD = passwordText.getText().toString();
         String passVerify = passwordVerify.getText().toString();
 
         if (MQTTHOST.length() == 0 || USERNAME.length() == 0
                 || PASSWORD.length() == 0 || passVerify.length() == 0) {
-            Toast.makeText(AddBrokerActivity.this, "field is required",
+            Toast.makeText(AddBrokerActivity.this, "All fields required",
                     Toast.LENGTH_LONG).show();
             return;
         }
-        if (!PASSWORD.contains(passVerify) ) {
-            Toast.makeText(AddBrokerActivity.this, "passwords do not match",
+        if (!PASSWORD.equals(passVerify) ) {
+            Toast.makeText(AddBrokerActivity.this, "Passwords do not match",
                     Toast.LENGTH_LONG).show();
             return;
         }
@@ -75,17 +75,17 @@ public class AddBrokerActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     // We are connected
-                    Toast.makeText(AddBrokerActivity.this,"Broker Added",Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddBrokerActivity.this,"Broker added",Toast.LENGTH_LONG).show();
                     Intent result = new Intent();
                     Broker aBroker = new Broker();
-                    aBroker.url =  mqttHost.getText().toString();
-                    aBroker.servername = brokerName.getText().toString();
-                    aBroker.username = usernameText.getText().toString();
-                    aBroker.password = passwordText.getText().toString();
-                    aBroker.bid = brokerName.getText().toString() + usernameText.getText().toString();
+                    aBroker.url = MQTTHOST;
+                    aBroker.servername = brokerName;
+                    aBroker.username = USERNAME;
+                    aBroker.password = PASSWORD;
+                    aBroker.bid = brokerName + USERNAME;
                     Parcelable parcel = Parcels.wrap(aBroker);
-                    result.putExtra("Broker",parcel);
-                    setResult(RESULT_OK,result);
+                    result.putExtra("Broker", parcel);
+                    setResult(RESULT_OK, result);
                     disconnectBroker();
                     finish();
                 }
