@@ -49,8 +49,13 @@ public class LoginActivity extends AppCompatActivity {
                         Snackbar.LENGTH_LONG).show();
                 return;
             }
-            String passStr = passwd.getText().toString();
 
+            String passStr = passwd.getText().toString();
+            if (passStr.length() == 0) {
+                Snackbar.make(email, R.string.password_required,
+                        Snackbar.LENGTH_LONG).show();
+                return;
+            }
             mAuth.signInWithEmailAndPassword(emailStr, passStr)
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
