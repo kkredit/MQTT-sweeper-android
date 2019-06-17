@@ -112,12 +112,11 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/topics_recycler"
+        <fragment
+            android:id="@+id/fragment2"
+            android:name="edu.gvsu.cis.mqtt_sweeper.TopicsFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp" />
+            android:layout_height="398dp" />
+
     </LinearLayout>
 </LinearLayout>
