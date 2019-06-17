@@ -86,13 +86,13 @@
 
     <EditText
         android:id="@+id/brokerURL"
-        android:layout_width="283dp"
+        android:layout_width="298dp"
         android:layout_height="39dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
-        android:hint="@string/mqtt_broker"
+        android:hint="@string/broker_uri"
         android:inputType="textUri"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
