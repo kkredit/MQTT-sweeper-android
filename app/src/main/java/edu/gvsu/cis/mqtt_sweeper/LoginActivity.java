@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
 
         EditText email = (EditText) findViewById(R.id.email);
 
@@ -36,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
         Button signin = (Button) findViewById(R.id.signin);
         Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
         mAuth = FirebaseAuth.getInstance();
-        ButterKnife.bind(this);
         signin.setOnClickListener(v -> {
             String emailStr = email.getText().toString();
             if (emailStr.length() == 0) {

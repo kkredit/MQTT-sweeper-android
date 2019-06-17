@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -32,6 +33,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
