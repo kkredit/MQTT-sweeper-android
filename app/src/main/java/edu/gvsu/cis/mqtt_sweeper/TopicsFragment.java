@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import edu.gvsu.cis.mqtt_sweeper.dummy.DummyContent;
-import edu.gvsu.cis.mqtt_sweeper.dummy.DummyContent.DummyItem;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.DummyContent;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.DummyContent.DummyItem;
 
 /**
  * A fragment representing a list of Items.

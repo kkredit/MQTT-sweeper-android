@@ -33,7 +33,7 @@ import butterknife.OnClick;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.Broker;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.Topic;
-import edu.gvsu.cis.mqtt_sweeper.dummy.DummyContent;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.DummyContent;
 
 public class BrokerActivity extends AppCompatActivity implements TopicsFragment.OnListFragmentInteractionListener   {
 
