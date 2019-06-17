@@ -24,13 +24,13 @@
             android:exported="false" />
 
         <activity
-            android:name=".TopicViewAcivity"
+            android:name=".TopicViewActivity"
             android:label="@string/title_activity_topiv_view_acivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".PublishTopic"
             android:label="@string/title_activity_publish_topic"
-            android:parentActivityName=".BrokerActivity"gita
+            android:parentActivityName=".BrokerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -43,4 +43,5 @@
     <string name="title_activity_publish_topic">PublishTopic</string>
     <string name="message">message</string>
     <string name="title_activity_topiv_view_acivity">TopivViewAcivity</string>
+    <string name="topicname">topicName</string>
 </resources>
