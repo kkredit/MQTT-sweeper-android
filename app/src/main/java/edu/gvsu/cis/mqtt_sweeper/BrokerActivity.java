@@ -3,13 +3,17 @@ package edu.gvsu.cis.mqtt_sweeper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -45,6 +49,8 @@ public class BrokerActivity extends AppCompatActivity {
     @BindView(R.id.addr_field) TextView m_addrField;
     @BindView(R.id.scan_field) TextView m_scanField;
     @BindView(R.id.connectBroker) Button connButton;
+    private FirebaseAuth mAuth;
+    DatabaseReference topRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +89,7 @@ public class BrokerActivity extends AppCompatActivity {
         startActivityForResult(intent, SCAN_RESULT);
     }
 
-     @OnClick(R.id.addTopic)
+     @OnClick(R.id.addtopic)
     void onClickFab(View view) {
          Intent newBroker = new Intent(
                  BrokerActivity.this, PublishTopic.class);
@@ -163,4 +169,13 @@ public class BrokerActivity extends AppCompatActivity {
         } else
             super.onActivityResult(requestCode, resultCode, data);
     }
+
+     @OnClick(R.id.button_delete)
+      void brokerDelete(){
+         FirebaseDatabase dbRef = FirebaseDatabase.getInstance();
+         FirebaseUser mUser = mAuth.getCurrentUser();
+         mAuth = FirebaseAuth.getInstance();
+         String uid = mUser.getUid();
+         topRef = dbRef.getReference(uid);
+     }
 }

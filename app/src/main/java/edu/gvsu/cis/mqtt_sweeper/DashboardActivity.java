@@ -49,7 +49,7 @@ public class DashboardActivity extends AppCompatActivity
         topRef = dbRef.getReference(uid);
     }
 
-    @OnClick(R.id.addTopic)
+    @OnClick(R.id.addtopic)
     void popScreen() {
         Intent newBroker = new Intent(
                 DashboardActivity.this, AddBrokerActivity.class);

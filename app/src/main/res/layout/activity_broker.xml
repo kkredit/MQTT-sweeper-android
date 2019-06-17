@@ -23,7 +23,7 @@
     <include layout="@layout/content_broker" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/addTopic"
+        android:id="@+id/addtopic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
