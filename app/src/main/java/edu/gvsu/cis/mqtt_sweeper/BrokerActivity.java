@@ -177,7 +177,10 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
 
     @Override
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
-        
+     System.out.println("interact") ;
+     Intent intent = new Intent(this, TopicViewActivity.class);
+     intent.putExtra("TOPIC_NAME",item.content);
+     startActivity(intent);
     }
 }
 
