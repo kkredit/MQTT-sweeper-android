@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import edu.gvsu.cis.mqtt_sweeper.TopicsFragment.OnListFragmentInteractionListener;
-import edu.gvsu.cis.mqtt_sweeper.dummy.DummyContent.DummyItem;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.DummyContent.DummyItem;
 
 import java.util.List;
 
