@@ -67,6 +67,11 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
         updateFields();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
     private void retrieveBroker() {
         Intent intent = getIntent();
         String brokerId = intent.getStringExtra("BrokerId");
@@ -78,6 +83,9 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
         m_idField.setText("ID: " + m_broker.broker.bid);
         m_addrField.setText("URL: " + m_broker.broker.url);
         m_scanField.setText("Scan summary: " + m_broker.scanSummary);
+        if (null != m_client && m_client.isConnected()) {
+            connButton.setText("Disconnect");
+        }
     }
 
 
@@ -103,8 +111,17 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
     }
 
     @OnClick(R.id.connectBroker)
-    public void connectBroker() {
+    public void connectClicked() {
         if (connButton.getText().equals("Connect")) {
+            connectBroker();
+        }
+        else {
+            disconnectBroker();
+        }
+    }
+
+    private void connectBroker() {
+        if (null == m_client || !m_client.isConnected()) {
             String clientId = MqttClient.generateClientId();
             m_client = new MqttAndroidClient(this.getApplicationContext(), m_broker.broker.url, clientId);
             MqttConnectOptions options = new MqttConnectOptions();
@@ -148,16 +165,34 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
         }
     }
 
+    private void disconnectBroker() {
+        if (null != m_client && m_client.isConnected()) {
+            try {
+                IMqttToken disconToken = m_client.disconnect();
+                disconToken.setActionCallback(new IMqttActionListener() {
+                    @Override
+                    public void onSuccess(IMqttToken asyncActionToken) {
+                        // we are now successfully disconnected
+                        connButton.setText("Connect");
+                        Toast.makeText(BrokerActivity.this, "Disconnected", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure(IMqttToken asyncActionToken,
+                                          Throwable exception) {
+                        // something went wrong, but probably we are disconnected anyway
+                        Toast.makeText(BrokerActivity.this, "Error disconnecting", Toast.LENGTH_LONG).show();
+                    }
+                });
+            } catch (MqttException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == NEW_TOPIC_REQUEST) {
-            if (data != null && data.hasExtra("Topic_Item")) {
-                Parcelable topicData = data.getParcelableExtra("Topic_Item");
-                Topic topic = Parcels.unwrap(topicData);
-//              topRef.push().setValue(topic);
-                Toast.makeText(BrokerActivity.this, "Topic published", Toast.LENGTH_LONG).show();
-            }
             if (data != null && data.hasExtra("Topic_Item")) {
                 Parcelable topicData = data.getParcelableExtra("Topic_Item");
                 Topic topic = Parcels.unwrap(topicData);
@@ -169,13 +204,13 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
                     MqttMessage message = new MqttMessage(encodedPayload);
                     message.setRetained(true);
                     m_client.publish(topicTitle, message);
+                    Toast.makeText(BrokerActivity.this, "Topic published", Toast.LENGTH_LONG).show();
                 } catch (UnsupportedEncodingException | MqttException e) {
                     e.printStackTrace();
                 }
             }
-        } else{
-            super.onActivityResult(requestCode, resultCode, data);}
-        if (requestCode == UPDATE_RESULT) {
+        }
+        else if (requestCode == UPDATE_RESULT) {
             if (data != null && data.hasExtra("Broker")) {
                 Parcelable brokerData = data.getParcelableExtra("Broker");
                 Broker broker = Parcels.unwrap(brokerData);
@@ -191,7 +226,10 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
 
     @OnClick(R.id.button_delete)
     void brokerDelete() {
-        m_client.close();
+        disconnectBroker();
+        if (m_client != null) {
+            m_client.close();
+        }
         BrokerContent.delBroker(m_broker.id);
         finish();
     }
@@ -205,9 +243,9 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
 
     @Override
     public void onListFragmentInteraction(Topic item) {
-     System.out.println("interact") ;
-     Intent intent = new Intent(this, TopicViewActivity.class);
-     intent.putExtra("TOPIC_NAME", item.topic);
-     startActivity(intent);
+        System.out.println("interact") ;
+        Intent intent = new Intent(this, TopicViewActivity.class);
+        intent.putExtra("TOPIC_NAME", item.topic);
+        startActivity(intent);
     }
 }
