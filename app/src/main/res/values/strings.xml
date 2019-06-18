@@ -46,4 +46,23 @@
     <string name="topicname">topicName</string>
     <string name="title_activity_about">About MQTT Sweeper</string>
     <string name="action_about">About</string>
+    <string name="label_about_mqtt">About MQTT</string>
+    <string name="about_mqtt_sweeper">About MQTT Sweeper</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="about_app_field">
+        MQTT Sweeper was developed by Kevin Kredit and Brian Mbeere. It is designed to help IoT
+        development and shed a little light on IoT security.
+    </string>
+    <string name="about_mqtt_field">
+        MQTT is a lightweight, pub/sub, client-broker messaging protocol. It is heavily used with
+        IoT devices.
+    </string>
+    <string name="priv_policy_field">
+        Your privacy is important to us. We collect some data in order to sync across devices.
+        The only identifiable information we store is your email address.
+    </string>
+    <string name="kevin_github">Kevin on GitHub</string>
+    <string name="brian_github">Brian on GitHub</string>
+    <string name="read_more_on_wikipedia">Read more on Wikipedia</string>
+    <string name="priv_policy_online">See the full policy online</string>
 </resources>
