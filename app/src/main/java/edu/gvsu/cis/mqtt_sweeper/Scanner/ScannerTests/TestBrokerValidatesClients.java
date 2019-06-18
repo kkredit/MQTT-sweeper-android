@@ -31,10 +31,9 @@ public class TestBrokerValidatesClients extends ScannerTest {
         ScanResultContent.Result result = ScanResultContent.Result.CONDITION_NOT_PRESENT;
         String details;
 
-        /* TODO: update to rate the actual password */
         /* TODO: update to check for more than presence of password */
 
-        String password = m_broker.name;
+        String password = m_broker.broker.password;
 
         if (password.isEmpty()) {
             result = ScanResultContent.Result.CONDITION_PRESENT;

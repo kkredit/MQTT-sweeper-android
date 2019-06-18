@@ -1,5 +1,8 @@
 package edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTests;
 
+import java.net.InetAddress;
+import java.net.URI;
+
 import edu.gvsu.cis.mqtt_sweeper.DataStores.ScanResultContent;
 import edu.gvsu.cis.mqtt_sweeper.R;
 import edu.gvsu.cis.mqtt_sweeper.Scanner.ScannerTest;
@@ -30,6 +33,25 @@ public class TestInternetExposed extends ScannerTest {
 
     @Override
     protected void doTest() {
+
+        try {
+            InetAddress address = InetAddress.getByName(new URI(m_broker.broker.url).getHost());
+            if (address.isSiteLocalAddress()) {
+                doShodanExposureTest();
+            }
+            else {
+                m_reportReceiver.scanComplete(m_key, ScanResultContent.Result.CONDITION_PRESENT,
+                        "This broker is visible from anywhere on the internet.");
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            m_reportReceiver.scanComplete(m_key, ScanResultContent.Result.ERROR_WHILE_RUNNING,
+                    "Malformed broker URL");
+        }
+    }
+
+    private void doShodanExposureTest() {
         InternetExposureChecker iec = new InternetExposureChecker(
                 m_shodanKey,
                 new InternetExposureChecker.IEC_Handler() {

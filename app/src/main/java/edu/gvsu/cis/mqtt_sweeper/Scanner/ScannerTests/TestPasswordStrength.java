@@ -50,8 +50,7 @@ public class TestPasswordStrength extends ScannerTest {
         ScanResultContent.Result result = ScanResultContent.Result.CONDITION_NOT_PRESENT;
         String details;
 
-        /* TODO: update to rate the actual password */
-        Result passwordResult = strengthRater.estimate(m_broker.name);
+        Result passwordResult = strengthRater.estimate(m_broker.broker.password);
         Double entropy = passwordResult.getEntropy();
         DecimalFormat f = new DecimalFormat("#");
         String entropyStr = f.format(entropy);

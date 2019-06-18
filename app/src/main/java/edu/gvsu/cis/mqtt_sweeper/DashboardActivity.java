@@ -9,10 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
 
@@ -20,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.Broker;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
 
 public class DashboardActivity extends AppCompatActivity
         implements BrokerFragment.OnListFragmentInteractionListener {
@@ -27,7 +26,6 @@ public class DashboardActivity extends AppCompatActivity
     final int NEW_BROKER_REQUEST = 1;
     @BindView(R.id.toolbar) Toolbar m_toolbar;
     private FirebaseAuth mAuth;
-    DatabaseReference topRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +35,12 @@ public class DashboardActivity extends AppCompatActivity
 
         setSupportActionBar(m_toolbar);
         mAuth = FirebaseAuth.getInstance();
+        BrokerContent.initDb();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        FirebaseDatabase dbRef = FirebaseDatabase.getInstance();
-        FirebaseUser mUser = mAuth.getCurrentUser();
-        mAuth = FirebaseAuth.getInstance();
-        String uid = mUser.getUid();
-        topRef = dbRef.getReference(uid);
     }
 
     @OnClick(R.id.addtopic)
@@ -86,8 +80,7 @@ public class DashboardActivity extends AppCompatActivity
     public void onListFragmentInteraction(Broker item) {
         System.out.println("Interact!");
         Intent intent = new Intent(DashboardActivity.this, BrokerActivity.class);
-        Parcelable parcel = Parcels.wrap(item);
-        intent.putExtra("BrokerObject", parcel);
+        intent.putExtra("BrokerId", BrokerContent.getBrokerIdByBroker(item));
         startActivity(intent);
     }
 
@@ -98,7 +91,8 @@ public class DashboardActivity extends AppCompatActivity
             if (data != null && data.hasExtra("Broker")) {
                 Parcelable brokerData = data.getParcelableExtra("Broker");
                 Broker broker = Parcels.unwrap(brokerData);
-                topRef.push().setValue(broker);
+
+                BrokerContent.addBroker(broker);
                 Toast.makeText(DashboardActivity.this, "Broker Added", Toast.LENGTH_LONG).show();
             }
         } else

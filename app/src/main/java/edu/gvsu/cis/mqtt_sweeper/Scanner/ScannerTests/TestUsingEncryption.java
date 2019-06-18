@@ -34,7 +34,7 @@ public class TestUsingEncryption extends ScannerTest {
         String details = m_strings.getString(R.string.error_details_using_encryption);
 
         try {
-            URI vURI = new URI(m_broker.url);
+            URI vURI = new URI(m_broker.broker.url);
             if (vURI.getScheme().equals("ws")){
                 result = ScanResultContent.Result.CONDITION_PRESENT;
                 details = m_strings.getString(R.string.error_details_not_using_encryption);

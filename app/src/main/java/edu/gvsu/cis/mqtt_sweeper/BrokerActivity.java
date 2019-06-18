@@ -10,11 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
@@ -24,13 +19,9 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.parceler.Parcels;
 
-
-import java.io.UnsupportedEncodingException;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import edu.gvsu.cis.mqtt_sweeper.DataStores.Broker;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.Topic;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.TopicContent;
@@ -39,7 +30,6 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
 
     final int NEW_TOPIC_REQUEST = 1;
     private BrokerContent.BrokerItem m_broker = null;
-    private Broker broker;
     MqttAndroidClient client;
 
     private final int SCAN_RESULT = 0;
@@ -50,8 +40,6 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
     @BindView(R.id.addr_field) TextView m_addrField;
     @BindView(R.id.scan_field) TextView m_scanField;
     @BindView(R.id.connectBroker) Button connButton;
-    private FirebaseAuth mAuth;
-    DatabaseReference topRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +48,6 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
         ButterKnife.bind(this);
 
         setSupportActionBar(m_toolbar);
-        mAuth = FirebaseAuth.getInstance();
         retrieveBroker();
     }
 
@@ -68,27 +55,20 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
     protected void onResume() {
         super.onResume();
         updateFields();
-
-        FirebaseDatabase dbRef = FirebaseDatabase.getInstance();
-        FirebaseUser mUser = mAuth.getCurrentUser();
-        mAuth = FirebaseAuth.getInstance();
-        String uid = mUser.getUid();
-        topRef = dbRef.getReference(uid);
-
         connectBroker();
     }
 
     private void retrieveBroker() {
         Intent intent = getIntent();
-        Parcelable brokerData = intent.getParcelableExtra("BrokerObject");
-        broker = Parcels.unwrap(brokerData);
+        String brokerId = intent.getStringExtra("BrokerId");
+        m_broker = BrokerContent.getBroker(brokerId);
     }
 
     private void updateFields() {
-        m_nameField.setText(broker.servername);
-        m_idField.setText("ID: " + broker.bid);
-        m_addrField.setText("URL: " + broker.url);
-//        m_scanField.setText("Scan summary: " + m_broker.scanSummary);
+        m_nameField.setText(m_broker.broker.servername);
+        m_idField.setText("ID: " + m_broker.broker.bid);
+        m_addrField.setText("URL: " + m_broker.broker.url);
+        m_scanField.setText("Scan summary: " + m_broker.scanSummary);
     }
 
 
@@ -110,11 +90,10 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
     public void connectBroker(){
         String clientId = MqttClient.generateClientId();
         MqttAndroidClient client =
-                new MqttAndroidClient(this.getApplicationContext(),broker.url,
-                        clientId);
+                new MqttAndroidClient(this.getApplicationContext(), m_broker.broker.url, clientId);
         MqttConnectOptions options = new MqttConnectOptions();
-        options.setUserName(broker.username);
-        options.setPassword(broker.password.toCharArray());
+        options.setUserName(m_broker.broker.username);
+        options.setPassword(m_broker.broker.password.toCharArray());
 
         try {
             IMqttToken token = client.connect();
@@ -162,29 +141,24 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
                 if (data != null && data.hasExtra("Topic_Item")) {
                     Parcelable topicData = data.getParcelableExtra("Topic_Item");
                     Topic topic = Parcels.unwrap(topicData);
-                    topRef.push().setValue(topic);
+//                    topRef.push().setValue(topic);
                     Toast.makeText(BrokerActivity.this, "Broker Added", Toast.LENGTH_LONG).show();
                 }
             } else
                 super.onActivityResult(requestCode, resultCode, data);
         }
 
-     @OnClick(R.id.button_delete)
-      void brokerDelete(){
-         FirebaseDatabase dbRef = FirebaseDatabase.getInstance();
-         FirebaseUser mUser = mAuth.getCurrentUser();
-         mAuth = FirebaseAuth.getInstance();
-         String uid = mUser.getUid();
-         topRef = dbRef.getReference(uid);
-     }
+    @OnClick(R.id.button_delete)
+    void brokerDelete(){
+        BrokerContent.delBroker(m_broker.id);
+        finish();
+    }
 
     @Override
     public void onListFragmentInteraction(Topic item) {
      System.out.println("interact") ;
      Intent intent = new Intent(this, TopicViewActivity.class);
-     intent.putExtra("TOPIC_NAME",item.topic);
+     intent.putExtra("TOPIC_NAME", item.topic);
      startActivity(intent);
     }
-
-
 }
