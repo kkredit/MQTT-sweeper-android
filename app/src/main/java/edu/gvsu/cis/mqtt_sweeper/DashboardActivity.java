@@ -62,13 +62,11 @@ public class DashboardActivity extends AppCompatActivity
             mAuth.signOut();
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-            finish();
             return true;
         }
-        if (item.getItemId() == R.id.action_accountDetails) {
-            Intent intent = new Intent(this, UserDetailsActivity.class);
+        if (item.getItemId() == R.id.action_about) {
+            Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
-            finish();
             return true;
         }
 

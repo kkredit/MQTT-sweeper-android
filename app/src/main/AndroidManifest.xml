@@ -41,7 +41,6 @@
             android:name="android.support.PARENT_ACTIVITY"
             android:value="edu.gvsu.cis.mqtt_sweeper.BrokerActivity" />
 
-        <activity android:name=".UserDetailsActivity" />
         <activity android:name=".AddBrokerActivity" />
         <activity
             android:name=".ScanActivity"
