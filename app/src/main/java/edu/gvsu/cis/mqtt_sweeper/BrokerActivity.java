@@ -90,9 +90,16 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
 
      @OnClick(R.id.topicAd)
     void onClickFab(View view) {
-         Intent newTopic = new Intent(
-                 BrokerActivity.this, PublishTopic.class);
-         startActivityForResult(newTopic, NEW_TOPIC_REQUEST);
+        if (null == m_client || !m_client.isConnected()) {
+            Toast.makeText(BrokerActivity.this,
+                    "Must be connected before you can publish to a topic",
+                    Toast.LENGTH_LONG).show();
+        }
+        else {
+            Intent newTopic = new Intent(
+                    BrokerActivity.this, PublishTopic.class);
+            startActivityForResult(newTopic, NEW_TOPIC_REQUEST);
+        }
     }
 
     @OnClick(R.id.connectBroker)
