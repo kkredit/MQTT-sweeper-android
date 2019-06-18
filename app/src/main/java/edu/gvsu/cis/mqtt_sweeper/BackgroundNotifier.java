@@ -146,6 +146,8 @@ public class BackgroundNotifier extends IntentService {
 
         notificationManager.notify(m_notificationId, n);
         m_notificationId++;
-        m_notificationId %= 1000;
+        if (m_notificationId > 1000) {
+            m_notificationId = 0;
+        }
     }
 }
