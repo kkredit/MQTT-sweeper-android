@@ -20,6 +20,8 @@ import butterknife.OnClick;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.Broker;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
 
+import static edu.gvsu.cis.mqtt_sweeper.BackgroundNotifier.startActionBgService;
+
 public class DashboardActivity extends AppCompatActivity
         implements BrokerFragment.OnListFragmentInteractionListener {
 
@@ -36,6 +38,7 @@ public class DashboardActivity extends AppCompatActivity
         setSupportActionBar(m_toolbar);
         mAuth = FirebaseAuth.getInstance();
         BrokerContent.initDb();
+        startActionBgService(getApplicationContext());
     }
 
     @Override

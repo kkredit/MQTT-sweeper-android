@@ -14,45 +14,50 @@
         android:roundIcon="@drawable/sweep_color"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name=".BackgroundNotifier"
+            android:exported="false"></service>
+
         <activity
             android:name=".AboutActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_about"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ScanResultActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_scan_result"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service
             android:name=".Scanner.ScannerService"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".TopicViewActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_topiv_view_acivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PublishTopic"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_publish_topic"
             android:parentActivityName=".BrokerActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value="edu.gvsu.cis.mqtt_sweeper.BrokerActivity" />
 
-        <activity android:name=".AddBrokerActivity"
+        <activity
+            android:name=".AddBrokerActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ScanActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_scan"
             android:parentActivityName=".BrokerActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -60,9 +65,9 @@
         </activity>
         <activity
             android:name=".BrokerActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_broker"
             android:parentActivityName=".DashboardActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -70,8 +75,8 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -80,9 +85,9 @@
         </activity>
         <activity
             android:name=".SignUpActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_sign_up"
             android:parentActivityName=".LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -90,8 +95,8 @@
         </activity>
         <activity
             android:name=".DashboardActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service android:name="org.eclipse.paho.android.service.MqttService" />
