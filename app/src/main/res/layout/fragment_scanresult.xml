@@ -35,7 +35,7 @@
             android:layout_height="match_parent"
             android:text="@string/sample_vuln_desc"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/textSecondary"
             android:textSize="14sp"
             tools:layout_conversion_absoluteHeight="22dp"
             tools:layout_conversion_absoluteWidth="0dp"

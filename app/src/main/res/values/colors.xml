@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#607d8b</color>
-    <color name="colorPrimaryDark">#455A64</color>
-    <color name="colorAccent">#9E9E9E</color>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorAccent">#FF5722</color>
     <color name="windowBackground">#cfd8dc</color>
     <color name="logo">#3A90C0</color>
     <color name="buttonText">#FFFFFF</color>
     <color name="error_soft">#64FF5722</color>
     <color name="success_soft">#64669900</color>
-    <color name="colorPrimary_soft">#64607D8B</color>
+    <color name="colorPrimary_soft">#BBDEFB</color>
+    <color name="textPrimary">#212121</color>
+    <color name="textSecondary">#757575</color>
+    <color name="textIcons">#FFFFFF</color>
+    <color name="dividers">#BDBDBD</color>
 </resources>
