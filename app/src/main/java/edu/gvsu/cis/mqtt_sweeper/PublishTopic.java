@@ -19,10 +19,8 @@ import edu.gvsu.cis.mqtt_sweeper.DataStores.Topic;
 public class PublishTopic extends AppCompatActivity {
 
     @BindView(R.id.cTopic) Button addTopic;
-    @BindView(R.id.topicHeading)
-    EditText newTopic;
-    @BindView(R.id.payload)
-    EditText message;
+    @BindView(R.id.topicHeading) EditText newTopic;
+    @BindView(R.id.payload) EditText message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +34,20 @@ public class PublishTopic extends AppCompatActivity {
 
     @OnClick(R.id.cTopic)
     public void addTopic() {
-        Intent result = new Intent();
-        Topic aTopic = new Topic();
-        aTopic.message = message.getText().toString();
-        aTopic.topic = newTopic.getText().toString();
-        Parcelable parcel = Parcels.wrap(aTopic);
-        result.putExtra("Topic_Item", parcel);
-        setResult(RESULT_OK, result);
-        Toast.makeText(this, "Topic A", Toast.LENGTH_SHORT).show();
-        finish();
+        String topic = newTopic.getText().toString();
+        String topicMessage = message.getText().toString();
+        if(topic.length()==0 || topicMessage.length()==0){
+            Toast.makeText(this,"Cannot be blank",Toast.LENGTH_LONG).show();
+        }else {
+            Intent result = new Intent();
+            Topic aTopic = new Topic();
+            aTopic.message = topicMessage;
+            aTopic.topic = topic;
+            Parcelable parcel = Parcels.wrap(aTopic);
+            result.putExtra("Topic_Item", parcel);
+            setResult(RESULT_OK, result);
+            Toast.makeText(this, "Topic Added", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 }
