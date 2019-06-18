@@ -156,7 +156,7 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
                 Parcelable topicData = data.getParcelableExtra("Topic_Item");
                 Topic topic = Parcels.unwrap(topicData);
 //              topRef.push().setValue(topic);
-                Toast.makeText(BrokerActivity.this, "Broker Added", Toast.LENGTH_LONG).show();
+                Toast.makeText(BrokerActivity.this, "Topic published", Toast.LENGTH_LONG).show();
             }
             if (data != null && data.hasExtra("Topic_Item")) {
                 Parcelable topicData = data.getParcelableExtra("Topic_Item");

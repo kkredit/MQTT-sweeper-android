@@ -37,7 +37,7 @@ public class PublishTopic extends AppCompatActivity {
         String topic = newTopic.getText().toString();
         String topicMessage = message.getText().toString();
         if(topic.length()==0 || topicMessage.length()==0){
-            Toast.makeText(this,"Cannot be blank",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Fields may not be blank",Toast.LENGTH_LONG).show();
         }else {
             Intent result = new Intent();
             Topic aTopic = new Topic();
@@ -46,7 +46,6 @@ public class PublishTopic extends AppCompatActivity {
             Parcelable parcel = Parcels.wrap(aTopic);
             result.putExtra("Topic_Item", parcel);
             setResult(RESULT_OK, result);
-            Toast.makeText(this, "Topic Added", Toast.LENGTH_SHORT).show();
             finish();
         }
     }
