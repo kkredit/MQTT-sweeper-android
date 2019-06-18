@@ -65,28 +65,28 @@
 
             <Button
                 android:id="@+id/connectBroker"
-                android:layout_width="59dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/connect" />
 
             <Button
                 android:id="@+id/button_delete"
-                android:layout_width="41dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/delete" />
 
             <Button
                 android:id="@+id/button_edit"
-                android:layout_width="20dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/edit" />
 
             <Button
                 android:id="@+id/button_scan"
-                android:layout_width="49dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/scan" />
