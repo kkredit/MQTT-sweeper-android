@@ -15,9 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".AboutActivity"
+            android:label="@string/title_activity_about"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".ScanResultActivity"
             android:label="@string/title_activity_scan_result"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <service
             android:name=".Scanner.ScannerService"
@@ -26,15 +30,17 @@
         <activity
             android:name=".TopicViewActivity"
             android:label="@string/title_activity_topiv_view_acivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PublishTopic"
             android:label="@string/title_activity_publish_topic"
             android:parentActivityName=".BrokerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.gvsu.cis.mqtt_sweeper.BrokerActivity" />
+
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="edu.gvsu.cis.mqtt_sweeper.BrokerActivity" />
+
         <activity android:name=".UserDetailsActivity" />
         <activity android:name=".AddBrokerActivity" />
         <activity
