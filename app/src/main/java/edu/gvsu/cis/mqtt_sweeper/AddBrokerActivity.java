@@ -1,5 +1,6 @@
 package edu.gvsu.cis.mqtt_sweeper;
 
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.Broker;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
+
+import static edu.gvsu.cis.mqtt_sweeper.BackgroundNotifier.BG_NOTIF_EXTRA;
 
 public class AddBrokerActivity extends AppCompatActivity {
 
@@ -48,6 +51,15 @@ public class AddBrokerActivity extends AppCompatActivity {
         if (null != brokerId) {
             m_broker = BrokerContent.getBroker(brokerId);
             setFields();
+        }
+        clearNotification(intent.getIntExtra(BG_NOTIF_EXTRA, -1));
+    }
+
+    private void clearNotification(int notificationId) {
+        if (-1 != notificationId) {
+            NotificationManager notificationManager =
+                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.cancel(notificationId);
         }
     }
 

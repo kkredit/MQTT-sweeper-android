@@ -1,5 +1,6 @@
 package edu.gvsu.cis.mqtt_sweeper;
 
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -20,6 +21,7 @@ import butterknife.OnClick;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.Broker;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
 
+import static edu.gvsu.cis.mqtt_sweeper.BackgroundNotifier.BG_NOTIF_EXTRA;
 import static edu.gvsu.cis.mqtt_sweeper.BackgroundNotifier.startActionBgService;
 
 public class DashboardActivity extends AppCompatActivity
@@ -39,6 +41,15 @@ public class DashboardActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
         BrokerContent.initDb();
         startActionBgService(getApplicationContext());
+        clearNotification(getIntent().getIntExtra(BG_NOTIF_EXTRA, -1));
+    }
+
+    private void clearNotification(int notificationId) {
+        if (-1 != notificationId) {
+            NotificationManager notificationManager =
+                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.cancel(notificationId);
+        }
     }
 
     @Override
