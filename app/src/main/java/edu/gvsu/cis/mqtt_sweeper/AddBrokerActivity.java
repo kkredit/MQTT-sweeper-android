@@ -93,8 +93,6 @@ public class AddBrokerActivity extends AppCompatActivity {
         try {
             IMqttToken token = client.connect(options);
             token.setActionCallback(new IMqttActionListener() {
-
-
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     // We are connected

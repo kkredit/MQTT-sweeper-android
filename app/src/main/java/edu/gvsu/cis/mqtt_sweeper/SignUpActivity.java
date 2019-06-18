@@ -42,7 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         EditText passwd = (EditText) findViewById(R.id.password);
         EditText verifyPasswd = (EditText) findViewById(R.id.password2);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addtopic);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.topicHeading);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

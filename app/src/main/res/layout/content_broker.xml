@@ -59,7 +59,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="94dp"
             android:layout_marginTop="8dp"
             android:orientation="horizontal">
 
@@ -94,29 +94,48 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/ConstraintLayout">
 
         <TextView
             android:id="@+id/topicsLabel"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="28dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="1dp"
             android:text="@string/topics"
             android:textAlignment="center"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/fragment2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.6"
+            tools:layout_conversion_absoluteHeight="32dp"
+            tools:layout_conversion_absoluteWidth="395dp" />
 
         <fragment
             android:id="@+id/fragment2"
             android:name="edu.gvsu.cis.mqtt_sweeper.TopicsFragment"
-            android:layout_width="match_parent"
-            android:layout_height="398dp" />
+            android:layout_width="403dp"
+            android:layout_height="388dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topicsLabel"
+            tools:layout_conversion_absoluteHeight="398dp"
+            tools:layout_conversion_absoluteWidth="411dp" />
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 </LinearLayout>

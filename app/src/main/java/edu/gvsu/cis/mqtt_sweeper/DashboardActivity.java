@@ -43,7 +43,7 @@ public class DashboardActivity extends AppCompatActivity
         super.onResume();
     }
 
-    @OnClick(R.id.addtopic)
+    @OnClick(R.id.addBroker)
     void popScreen() {
         Intent newBroker = new Intent(
                 DashboardActivity.this, AddBrokerActivity.class);

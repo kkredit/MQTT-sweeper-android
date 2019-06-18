@@ -9,23 +9,23 @@
 
     <EditText
         android:id="@+id/payload"
-        android:layout_width="255dp"
-        android:layout_height="204dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="148dp"
+        android:layout_width="240dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="@string/message"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/topicHeading" />
 
     <EditText
-        android:id="@+id/addtopic"
-        android:layout_width="239dp"
+        android:id="@+id/topicHeading"
+        android:layout_width="240dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="48dp"
@@ -38,15 +38,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <Button
+        android:id="@+id/cTopic"
+        android:layout_width="145dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/add"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="@dimen/fab_margin"
-        app:maxImageSize="@android:dimen/app_icon_size"
-        app:srcCompat="@drawable/ic_check_black_24dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/payload" />
 
 </android.support.constraint.ConstraintLayout>

@@ -20,9 +20,14 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.internal.security.SSLSocketFactoryFactory;
 import org.parceler.Parcels;
 
+<<<<<<< HEAD
 import java.util.Properties;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
+=======
+import java.io.UnsupportedEncodingException;
+>>>>>>> topic added
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +35,6 @@ import butterknife.OnClick;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.Broker;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.Topic;
-import edu.gvsu.cis.mqtt_sweeper.DataStores.TopicContent;
 
 public class BrokerActivity extends AppCompatActivity implements TopicsFragment.OnListFragmentInteractionListener   {
 
@@ -85,14 +89,15 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
         startActivityForResult(intent, SCAN_RESULT);
     }
 
-     @OnClick(R.id.addtopic)
+     @OnClick(R.id.topicAd)
     void onClickFab(View view) {
-         Intent newBroker = new Intent(
+         Intent newTopic = new Intent(
                  BrokerActivity.this, PublishTopic.class);
-         startActivityForResult(newBroker, NEW_TOPIC_REQUEST);
+         startActivityForResult(newTopic, NEW_TOPIC_REQUEST);
     }
 
     @OnClick(R.id.connectBroker)
+<<<<<<< HEAD
     public void connectBroker(){
 
         if (connButton.getText().equals("Connect")) {
@@ -159,17 +164,64 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
                 e.printStackTrace();
             }
         }
-    }
+=======
+    public void connectBroker() {
+        String clientId = MqttClient.generateClientId();
+        client =
+                new MqttAndroidClient(this.getApplicationContext(), m_broker.broker.url, clientId);
+        MqttConnectOptions options = new MqttConnectOptions();
+        options.setUserName(m_broker.broker.username);
+        options.setPassword(m_broker.broker.password.toCharArray());
 
+        try {
+            IMqttToken token = client.connect();
+            token.setActionCallback(new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    // We are connected
+                    Toast.makeText(BrokerActivity.this, "Connected", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                    // Something went wrong e.g. connection timeout or firewall problems
+                    Toast.makeText(BrokerActivity.this, "Connection failed", Toast.LENGTH_LONG).show();
+                }
+            });
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+>>>>>>> topic added
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == NEW_TOPIC_REQUEST) {
+<<<<<<< HEAD
             if (data != null && data.hasExtra("Topic_Item")) {
                 Parcelable topicData = data.getParcelableExtra("Topic_Item");
                 Topic topic = Parcels.unwrap(topicData);
 //              topRef.push().setValue(topic);
                 Toast.makeText(BrokerActivity.this, "Broker Added", Toast.LENGTH_LONG).show();
             }
+=======
+                if (data != null && data.hasExtra("Topic_Item")) {
+                    Parcelable topicData = data.getParcelableExtra("Topic_Item");
+                    Topic topic = Parcels.unwrap(topicData);
+                   String topicTitle =  topic.topic;
+                   String topicMessage = topic.message;
+                    byte[] encodedPayload = new byte[0];
+                    try {
+                        encodedPayload = topicMessage.getBytes("UTF-8");
+                        MqttMessage message = new MqttMessage(encodedPayload);
+                        message.setRetained(true);
+                        client.publish(topicTitle, message);
+                    } catch (UnsupportedEncodingException | MqttException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } else
+                super.onActivityResult(requestCode, resultCode, data);
+>>>>>>> topic added
         }
         else if (requestCode == UPDATE_RESULT) {
             if (data != null && data.hasExtra("Broker")) {
