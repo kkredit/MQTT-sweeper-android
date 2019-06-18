@@ -15,6 +15,36 @@
         android:orientation="vertical" >
 
         <TextView
+            android:id="@+id/mqtt_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/label_about_mqtt"
+            android:textColor="@color/textPrimary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/about_mqtt_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/about_mqtt_field"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/button_wiki"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Button" />
+
+        <TextView
             android:id="@+id/about_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,34 +92,38 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/mqtt_label"
+            android:id="@+id/icon_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginRight="8dp"
-            android:text="@string/label_about_mqtt"
+            android:text="@string/about_icon"
             android:textColor="@color/textPrimary"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/about_mqtt_field"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:text="@string/about_mqtt_field"
-            android:textSize="16sp" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/button_wiki"
+            <ImageView
+                android:id="@+id/app_logo"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/about_icon_large"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/sweep_color" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/icon_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
-            android:text="Button" />
+            android:text="@string/about_icon_field"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/priv_policy_label"

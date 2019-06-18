@@ -36,6 +36,11 @@ public class AboutActivity extends AppCompatActivity {
         mButtonPrivPolicy.setText(getString(R.string.priv_policy_online));
     }
 
+    @OnClick(R.id.app_logo)
+    void onClickIcon() {
+        launchUri("https://www.flaticon.com/free-icon/sweep_571643");
+    }
+
     @OnClick(R.id.github_kevin)
     void onClickGithubKevin() {
         launchUri("https://github.com/kkredit");
