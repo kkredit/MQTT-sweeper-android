@@ -53,7 +53,7 @@ public class AboutActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_priv_policy)
     void onClickPrivPolicy() {
-        launchUri("https://github.com/kkredit/MQTT-sweeper-android/blob/master/privacy_policy.md");
+        launchUri("https://github.com/kkredit/MQTT-sweeper-android/blob/master/privacy_policy.md#privacy-policy");
     }
 
     private void launchUri(String uri) {

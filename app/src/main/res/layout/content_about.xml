@@ -22,8 +22,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginRight="8dp"
             android:text="@string/about_mqtt_sweeper"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textColor="@color/textPrimary"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/about_field"
@@ -69,8 +69,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginRight="8dp"
             android:text="@string/label_about_mqtt"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textColor="@color/textPrimary"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/about_mqtt_field"
@@ -99,8 +99,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginRight="8dp"
             android:text="@string/privacy_policy"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textColor="@color/textPrimary"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/priv_policy_field"
