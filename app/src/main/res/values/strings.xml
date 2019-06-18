@@ -54,7 +54,7 @@
         development and shed a little light on IoT security.
     </string>
     <string name="about_mqtt_field">
-        MQTT is a lightweight, pub/sub, client-broker messaging protocol. It is heavily used with
+        MQTT is a lightweight pub/sub, client/broker messaging protocol. It is heavily used with
         IoT devices.
     </string>
     <string name="priv_policy_field">
