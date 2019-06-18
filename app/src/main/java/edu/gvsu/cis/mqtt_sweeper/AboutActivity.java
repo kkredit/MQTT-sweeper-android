@@ -11,10 +11,12 @@ import android.view.View;
 import android.widget.Button;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AboutActivity extends AppCompatActivity {
 
+    @BindView(R.id.toolbar) Toolbar m_toolbar;
     @BindView(R.id.github_kevin) Button mButtonGithubKevin;
     @BindView(R.id.github_brian) Button mButtonGithubBrian;
     @BindView(R.id.button_wiki) Button mButtonMqttWiki;
@@ -24,8 +26,9 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
+
+        setSupportActionBar(m_toolbar);
 
         mButtonGithubKevin.setText(getString(R.string.kevin_github));
         mButtonGithubBrian.setText(getString(R.string.brian_github));
