@@ -88,7 +88,7 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
         m_nameField.setText(broker.servername);
         m_idField.setText("ID: " + broker.bid);
         m_addrField.setText("URL: " + broker.url);
-        m_scanField.setText("Scan summary: " + m_broker.scanSummary);
+//        m_scanField.setText("Scan summary: " + m_broker.scanSummary);
     }
 
 
