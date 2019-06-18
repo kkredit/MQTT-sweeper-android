@@ -9,9 +9,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Helper class for providing sample topic for user interfaces created by
@@ -46,7 +48,7 @@ public class BrokerContent {
             String brokerId = getBrokerIdByBroker(entry);
             if (!brokerId.equals(NULL_BROKER_ID)) {
 //                entry._key = dataSnapshot.getKey();
-                updateBroker(getBrokerIdByBroker(entry), entry);
+                updateBrokerNoDbUpdate(getBrokerIdByBroker(entry), entry);
             }
         }
 
@@ -98,6 +100,13 @@ public class BrokerContent {
     }
 
     public static void updateBroker(String id, Broker b) {
+        BrokerItem broker = getBroker(id);
+        b._key = broker.broker._key;
+        broker.broker = b;
+        mTopRef.child(broker.broker._key).setValue(b);
+    }
+
+    private static void updateBrokerNoDbUpdate(String id, Broker b) {
         BrokerItem broker = getBroker(id);
         broker.broker = b;
     }

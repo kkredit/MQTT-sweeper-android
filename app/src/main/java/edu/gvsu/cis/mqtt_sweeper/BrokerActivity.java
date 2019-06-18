@@ -22,17 +22,19 @@ import org.parceler.Parcels;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.Broker;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.Topic;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.TopicContent;
 
 public class BrokerActivity extends AppCompatActivity implements TopicsFragment.OnListFragmentInteractionListener   {
 
-    final int NEW_TOPIC_REQUEST = 1;
     private BrokerContent.BrokerItem m_broker = null;
     MqttAndroidClient client;
 
     private final int SCAN_RESULT = 0;
+    private final int NEW_TOPIC_REQUEST = 1;
+    private final int UPDATE_RESULT = 2;
 
     @BindView(R.id.toolbar) Toolbar m_toolbar;
     @BindView(R.id.brokerName) TextView m_nameField;
@@ -137,20 +139,39 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == NEW_TOPIC_REQUEST) {
-                if (data != null && data.hasExtra("Topic_Item")) {
-                    Parcelable topicData = data.getParcelableExtra("Topic_Item");
-                    Topic topic = Parcels.unwrap(topicData);
-//                    topRef.push().setValue(topic);
-                    Toast.makeText(BrokerActivity.this, "Broker Added", Toast.LENGTH_LONG).show();
-                }
-            } else
-                super.onActivityResult(requestCode, resultCode, data);
+            if (data != null && data.hasExtra("Topic_Item")) {
+                Parcelable topicData = data.getParcelableExtra("Topic_Item");
+                Topic topic = Parcels.unwrap(topicData);
+//              topRef.push().setValue(topic);
+                Toast.makeText(BrokerActivity.this, "Broker Added", Toast.LENGTH_LONG).show();
+            }
         }
+        else if (requestCode == UPDATE_RESULT) {
+            if (data != null && data.hasExtra("Broker")) {
+                Parcelable brokerData = data.getParcelableExtra("Broker");
+                Broker broker = Parcels.unwrap(brokerData);
+
+                BrokerContent.updateBroker(m_broker.id, broker);
+                updateFields();
+                Toast.makeText(BrokerActivity.this, "Broker updated", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 
     @OnClick(R.id.button_delete)
-    void brokerDelete(){
+    void brokerDelete() {
+        client.close();
         BrokerContent.delBroker(m_broker.id);
         finish();
+    }
+
+    @OnClick(R.id.button_edit)
+    void onClickEdit() {
+        Intent intent = new Intent(BrokerActivity.this, AddBrokerActivity.class);
+        intent.putExtra("BrokerId", m_broker.id);
+        startActivityForResult(intent, UPDATE_RESULT);
     }
 
     @Override

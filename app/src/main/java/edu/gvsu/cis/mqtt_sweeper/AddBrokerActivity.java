@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.gvsu.cis.mqtt_sweeper.DataStores.Broker;
+import edu.gvsu.cis.mqtt_sweeper.DataStores.BrokerContent;
 
 public class AddBrokerActivity extends AppCompatActivity {
 
@@ -26,18 +28,38 @@ public class AddBrokerActivity extends AppCompatActivity {
 //    static String USERNAME = "USERNAME";                        Test Credentials
     //   static String PASSWORD = "PASSWORD";
     MqttAndroidClient client;
+    private BrokerContent.BrokerItem m_broker = null;
 
     @BindView(R.id.brokerName) EditText brokerNameField;
     @BindView(R.id.brokerURL) EditText brokerUrl;
     @BindView(R.id.usernameText) EditText usernameText;
     @BindView(R.id.passwdText) EditText passwordText;
     @BindView(R.id.passwdVerify) EditText passwordVerify;
+    @BindView(R.id.connectBtn) Button connectBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_broker);
         ButterKnife.bind(this);
+
+        Intent intent = getIntent();
+        String brokerId = intent.getStringExtra("BrokerId");
+        if (null != brokerId) {
+            m_broker = BrokerContent.getBroker(brokerId);
+            setFields();
+        }
+    }
+
+    private void setFields() {
+        if (null != m_broker) {
+            brokerNameField.setText(m_broker.broker.servername);
+            brokerUrl.setText(m_broker.broker.url);
+            usernameText.setText(m_broker.broker.username);
+            passwordText.setText(m_broker.broker.password);
+            passwordVerify.setText(m_broker.broker.password);
+            connectBtn.setText("Update");
+        }
     }
 
     @OnClick(R.id.connectBtn)
@@ -75,7 +97,6 @@ public class AddBrokerActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     // We are connected
-                    Toast.makeText(AddBrokerActivity.this,"Broker added",Toast.LENGTH_LONG).show();
                     Intent result = new Intent();
                     Broker aBroker = new Broker();
                     aBroker.url = MQTTHOST;

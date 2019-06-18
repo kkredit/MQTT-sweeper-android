@@ -155,6 +155,12 @@ public class BrokerFragment extends Fragment {
 
         @Override
         public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            Broker changedBroker = (Broker) dataSnapshot.getValue(Broker.class);
+            for (Broker b : allBrokers) {
+                if (b._key.equals(changedBroker._key)) {
+                    allBrokers.set(allBrokers.indexOf(b), changedBroker);
+                }
+            }
         }
 
         @Override
