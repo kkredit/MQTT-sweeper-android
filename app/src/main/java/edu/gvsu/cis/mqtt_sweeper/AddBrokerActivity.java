@@ -70,9 +70,8 @@ public class AddBrokerActivity extends AppCompatActivity {
         String PASSWORD = passwordText.getText().toString();
         String passVerify = passwordVerify.getText().toString();
 
-        if (MQTTHOST.length() == 0 || USERNAME.length() == 0
-                || PASSWORD.length() == 0 || passVerify.length() == 0) {
-            Toast.makeText(AddBrokerActivity.this, "All fields required",
+        if (MQTTHOST.length() == 0 || brokerName.length() == 0) {
+            Toast.makeText(AddBrokerActivity.this, "Name and URL fields are required",
                     Toast.LENGTH_LONG).show();
             return;
         }
@@ -86,8 +85,10 @@ public class AddBrokerActivity extends AppCompatActivity {
         client = new MqttAndroidClient(this.getApplicationContext(),MQTTHOST,
                 clientId);
         MqttConnectOptions options = new MqttConnectOptions();
-        options.setUserName(USERNAME);
-        options.setPassword(PASSWORD.toCharArray());
+        if (USERNAME.length() != 0 && PASSWORD.length() != 0) {
+            options.setUserName(USERNAME);
+            options.setPassword(PASSWORD.toCharArray());
+        }
 
         try {
             IMqttToken token = client.connect(options);

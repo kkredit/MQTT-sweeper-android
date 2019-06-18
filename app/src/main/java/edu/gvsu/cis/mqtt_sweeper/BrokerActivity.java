@@ -17,7 +17,12 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.internal.security.SSLSocketFactoryFactory;
 import org.parceler.Parcels;
+
+import java.util.Properties;
+
+import javax.net.ssl.SSLContext;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +35,7 @@ import edu.gvsu.cis.mqtt_sweeper.DataStores.TopicContent;
 public class BrokerActivity extends AppCompatActivity implements TopicsFragment.OnListFragmentInteractionListener   {
 
     private BrokerContent.BrokerItem m_broker = null;
-    MqttAndroidClient client;
+    MqttAndroidClient m_client;
 
     private final int SCAN_RESULT = 0;
     private final int NEW_TOPIC_REQUEST = 1;
@@ -89,45 +94,65 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
 
     @OnClick(R.id.connectBroker)
     public void connectBroker(){
-        String clientId = MqttClient.generateClientId();
-        MqttAndroidClient client =
-                new MqttAndroidClient(this.getApplicationContext(), m_broker.broker.url, clientId);
-        MqttConnectOptions options = new MqttConnectOptions();
-        options.setUserName(m_broker.broker.username);
-        options.setPassword(m_broker.broker.password.toCharArray());
 
-        try {
-            IMqttToken token = client.connect();
-            token.setActionCallback(new IMqttActionListener() {
-                @Override
-                public void onSuccess(IMqttToken asyncActionToken) {
-                    // We are connected
-                    Toast.makeText(BrokerActivity.this,"Connected",Toast.LENGTH_LONG).show();
-                }
+        if (connButton.getText().equals("Connect")) {
+            String clientId = MqttClient.generateClientId();
+            m_client = new MqttAndroidClient(this.getApplicationContext(), m_broker.broker.url, clientId);
+            MqttConnectOptions options = new MqttConnectOptions();
+            if (m_broker.broker.username.length() != 0 && m_broker.broker.password.length() != 0) {
+                options.setUserName(m_broker.broker.username);
+                options.setPassword(m_broker.broker.password.toCharArray());
+            }
 
-                @Override
-                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    // Something went wrong e.g. connection timeout or firewall problems
-                    Toast.makeText(BrokerActivity.this,"Connection failed",Toast.LENGTH_LONG).show();
-                }
-            });
-        } catch (MqttException e) {
-            e.printStackTrace();
-        }
-        if(client.isConnected()){
-            connButton.setText("Disconnect");
+//            if (m_broker.broker.url.startsWith("ssl")) {
+//                SSLContext sc = SSLContext.getInstance("SSL");
+//                sc.init(myKeyManagerFactory.getKeyManagers(), myTrustManagerArray, new java.security.SecureRandom());
+//                HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+//
+//                Properties sslProps = new Properties();
+//                sslProps.put(SSLSocketFactoryFactory.TRUSTSTORE, configuration.getTruststore());
+//                sslProps.put(SSLSocketFactoryFactory.TRUSTSTOREPWD, configuration.getTruststorePassword());
+//                sslProps.put(SSLSocketFactoryFactory.TRUSTSTORETYPE, "JKS");
+//                sslProps.put(SSLSocketFactoryFactory.CLIENTAUTH, false);
+//                options.setSSLProperties(sslProps);
+//            }
+
             try {
-                IMqttToken disconToken = client.disconnect();
+                IMqttToken token = m_client.connect();
+                token.setActionCallback(new IMqttActionListener() {
+                    @Override
+                    public void onSuccess(IMqttToken asyncActionToken) {
+                        // We are connected
+                        Toast.makeText(BrokerActivity.this, "Connected", Toast.LENGTH_LONG).show();
+                        connButton.setText("Disconnect");
+                    }
+
+                    @Override
+                    public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                        // Something went wrong e.g. connection timeout or firewall problems
+                        Toast.makeText(BrokerActivity.this, "Connection failed", Toast.LENGTH_LONG).show();
+                    }
+                });
+            } catch (MqttException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            try {
+                IMqttToken disconToken = m_client.disconnect();
                 disconToken.setActionCallback(new IMqttActionListener() {
                     @Override
                     public void onSuccess(IMqttToken asyncActionToken) {
                         // we are now successfully disconnected
+                        connButton.setText("Connect");
+                        Toast.makeText(BrokerActivity.this, "Disconnected", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onFailure(IMqttToken asyncActionToken,
                                           Throwable exception) {
                         // something went wrong, but probably we are disconnected anyway
+                        Toast.makeText(BrokerActivity.this, "Error disconnecting", Toast.LENGTH_LONG).show();
                     }
                 });
             } catch (MqttException e) {
@@ -162,7 +187,7 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
 
     @OnClick(R.id.button_delete)
     void brokerDelete() {
-        client.close();
+        m_client.close();
         BrokerContent.delBroker(m_broker.id);
         finish();
     }
