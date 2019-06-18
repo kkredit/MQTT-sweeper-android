@@ -55,7 +55,6 @@ public class BrokerActivity extends AppCompatActivity implements TopicsFragment.
     protected void onResume() {
         super.onResume();
         updateFields();
-        connectBroker();
     }
 
     private void retrieveBroker() {
