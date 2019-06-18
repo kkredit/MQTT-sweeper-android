@@ -8,4 +8,5 @@
     <color name="buttonText">#FFFFFF</color>
     <color name="error_soft">#64FF5722</color>
     <color name="success_soft">#64669900</color>
+    <color name="colorPrimary_soft">#64607D8B</color>
 </resources>
